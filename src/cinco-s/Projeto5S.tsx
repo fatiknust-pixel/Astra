@@ -45,7 +45,7 @@ const montarNarracao = (): Record<string, Narr> => {
       const alvo = letras(texto);
       let soma = 0;
       const ini = k;
-      while (k < n.palavras.length && (soma < alvo - 1 || k === ini)) soma += letras(n.palavras[k++].p);
+      while (k < n.palavras.length && (k === ini || (soma < alvo && soma + letras(n.palavras[k].p) <= alvo + 1))) soma += letras(n.palavras[k++].p);
       const ws = n.palavras.slice(ini, Math.max(ini + 1, k));
       frases.push({ texto, i: ws[0]?.i ?? 0, f: ws[ws.length - 1]?.f ?? 0 });
     }
