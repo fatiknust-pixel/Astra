@@ -1,8 +1,4 @@
 {
-  "voz": "pm_alex",
-  "velocidade": 1.05,
-  "pausa": 0.28,
-  "pronuncia": { "5S": "cinco ésse", "5 S": "cinco ésse" },
   "cenas": [
     {
       "id": "abertura",
@@ -32,7 +28,10 @@
         "A gente trocou o carrinho e mudou a posição dele.",
         "Resultado? Máquina livre e caminho aberto!"
       ],
-      "marcas": { "depois": 2, "final": 3 }
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
     },
     {
       "id": "posto4",
@@ -44,7 +43,10 @@
         "Veio carrinho novo, manutenção do box, e cada peça na sua caixa.",
         "Agora bate o olho e já sabe onde está tudo."
       ],
-      "marcas": { "depois": 2, "final": 3 }
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
     },
     {
       "id": "estacao",
@@ -56,7 +58,11 @@
         "Primeiro, limpeza completa, até o teclado.",
         "Depois, só o que é usado ficou, numa mesa nova e organizada."
       ],
-      "marcas": { "durante": 2, "depois": 3, "final": 3 }
+      "marcas": {
+        "durante": 2,
+        "depois": 3,
+        "final": 3
+      }
     },
     {
       "id": "ferramentas",
@@ -68,7 +74,10 @@
         "Agora tem armário fechado: bateria carregando em cima e cada parafusadeira na sua prateleira.",
         "Isso é organização de verdade!"
       ],
-      "marcas": { "depois": 2, "final": 3 }
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
     },
     {
       "id": "armario",
@@ -80,7 +89,10 @@
         "Saiu o velho, entrou um armário metálico novo, firme no chão.",
         "Mais seguro e com cara de padrão."
       ],
-      "marcas": { "depois": 2, "final": 3 }
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
     },
     {
       "id": "pendentes",

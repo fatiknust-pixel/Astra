@@ -30,7 +30,30 @@ type Narr = { duracao: number; frases: Frase[] };
 type Caso = (typeof DADOS.casos)[number] & { durante?: string[]; acao?: string; sensos?: string[]; depois?: string[] };
 type CenaR = (typeof ROTEIRO.cenas)[number] & { caso?: string; marcas?: Record<string, number> };
 
-const NARR = NARRACAO as Record<string, Narr>;
+// A narração vem do scripts/gerar_audio.py (edge-tts): tempo de cada palavra por cena.
+// Aqui as palavras são agrupadas de volta nas frases do roteiro, contando letras e números.
+type Palavra = { p: string; i: number; f: number };
+const letras = (s: string) => s.toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g, "").length;
+const montarNarracao = (): Record<string, Narr> => {
+  const cenas = (NARRACAO as any).cenas as Record<string, { duracao: number; palavras: Palavra[] }>;
+  const out: Record<string, Narr> = {};
+  for (const c of ROTEIRO.cenas) {
+    const n = cenas[c.id];
+    const frases: Frase[] = [];
+    let k = 0;
+    for (const texto of c.frases) {
+      const alvo = letras(texto);
+      let soma = 0;
+      const ini = k;
+      while (k < n.palavras.length && (soma < alvo - 1 || k === ini)) soma += letras(n.palavras[k++].p);
+      const ws = n.palavras.slice(ini, Math.max(ini + 1, k));
+      frases.push({ texto, i: ws[0]?.i ?? 0, f: ws[ws.length - 1]?.f ?? 0 });
+    }
+    out[c.id] = { duracao: n.duracao, frases };
+  }
+  return out;
+};
+const NARR = montarNarracao();
 const foto = (id: string) => arquivo(`5s/fotos/${id}.jpg`);
 const sfx = (n: string) => arquivo(`sfx/${n}.mp3`);
 const quadros = (s: number) => Math.round(s * FPS);

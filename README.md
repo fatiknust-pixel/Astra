@@ -64,18 +64,18 @@ Imagens: Wikimedia Commons; autor e licença de cada uma ficam em `src/gerado/im
 
 ## Projeto 5S — apresentação + vídeo (16:9)
 
-Fotos em `public/5s/fotos/`, casos (antes/depois, problema, ação, sensos) em `conteudo/5s/casos.json`
-e narração do vídeo em `conteudo/5s/video.json`. Os dois entregáveis leem esses arquivos.
+Fotos em `public/5s/fotos/`, casos (antes/depois, problema, ação, sensos) em `conteudo/5s/casos.json`,
+narração em `conteudo/5s/roteiro.json` (texto que a voz fala, gerado pelo `scripts/gerar_audio.py`, também no
+GitHub Actions) e as frases/marcas de animação em `conteudo/5s/video.json` (mesmo texto, separado por frase). Os dois entregáveis leem esses arquivos.
 
 ```bash
 npm run pptx                                  # out/Projeto-5S.pptx (PowerPoint, importável no Canva)
-pip install kokoro-onnx soundfile             # voz offline; modelo em modelos/ (kokoro-v1.0.onnx + voices-v1.0.bin)
-npm run audio:5s                              # narração por cena -> public/5s/audio + src/gerado/5s/narracao.json
+npm run audio:5s                              # narração (edge-tts) -> public/5s/audio + src/gerado/5s/narracao.json
 npm run studio                                # prévia: composição "Projeto5S"
 npm run render:5s                             # out/Projeto-5S.mp4 (1920x1080)
 ```
 
-Para trocar a voz, mude `voz` em `conteudo/5s/video.json` (`pm_alex`, `pf_dora`, `pm_santa`).
+Para trocar a voz, mude `voz.edge` em `conteudo/5s/roteiro.json`. Ao mudar uma fala, mude nos dois arquivos.
 Quando as fotos do "depois" das áreas pendentes chegarem: coloque em `public/5s/fotos/`, preencha
 `depois`, `acao` e `sensos` do caso, mude `status` para `concluido`, acrescente uma cena `"tipo": "caso"`
 em `conteudo/5s/video.json` (e tire a área da cena `pendentes`) e rode de novo.

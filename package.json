@@ -12,7 +12,7 @@
     "sfx": "bash scripts/gerar-sfx.sh",
     "typecheck": "tsc --noEmit",
     "pptx": "node apresentacao/gerar-pptx.cjs",
-    "audio:5s": "python3 scripts/gerar_audio_5s.py",
+    "audio:5s": "python3 scripts/gerar_audio.py --video 5s",
     "render:5s": "remotion render src/index.ts Projeto5S out/Projeto-5S.mp4"
   },
   "dependencies": {
