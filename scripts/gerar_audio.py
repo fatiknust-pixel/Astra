@@ -109,6 +109,8 @@ def gerar(video, a):
         print(f"♪ {video}/{cid} …", flush=True)
         if a.motor == "edge":
             palavras = asyncio.run(via_edge(texto, voz_id, vel, dest))
+            if not palavras:
+                raise RuntimeError(f"edge-tts não devolveu áudio para a voz {voz_id}")
         else:
             palavras = via_kokoro(texto, voz_id, float(vel), dest, a.modelo)
         saida["cenas"][cid] = {"hash": h, "audio": arq, "duracao": round(duracao(dest), 3), "palavras": palavras}

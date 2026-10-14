@@ -6,8 +6,8 @@ import { Tema, TEMAS } from "./temas";
 export const FPS = 30;
 export const LARGURA = 1080;
 export const ALTURA = 1920;
-const FOLGA_INICIO = 4; // frames antes da voz começar (entra a transição)
-const FOLGA_FIM = 0.35; // segundos de respiro no fim de cada cena
+const FOLGA_INICIO = 2; // frames antes da voz começar (entra a transição)
+const FOLGA_FIM = 0.18; // respiro depois da última palavra (o silêncio do fim do áudio é cortado)
 
 export type Palavra = { p: string; ini: number; fim: number }; // frames relativos à cena
 export type Elemento = { tipo: string; em?: string | number; posicao?: string; [k: string]: any };
@@ -63,7 +63,8 @@ export const montarVideo = (id: string, roteiro: any, narracao: any, imagens: Re
   let cursor = 0;
   const cenas: CenaTempo[] = roteiro.cenas.map((c: any, indice: number) => {
     const n = narracao?.cenas?.[c.id];
-    const durSeg = n ? n.duracao + FOLGA_FIM : Math.max(3, c.texto.split(/\s+/).length / 2.8);
+    const fala = n?.palavras?.length ? Math.min(n.duracao, n.palavras[n.palavras.length - 1].f) : n?.duracao;
+    const durSeg = n ? fala + FOLGA_FIM : Math.max(3, c.texto.split(/\s+/).length / 2.8);
     const duracao = Math.ceil(durSeg * FPS) + FOLGA_INICIO;
     const palavras: Palavra[] = (n?.palavras ?? []).map((w: any) => ({
       p: w.p,

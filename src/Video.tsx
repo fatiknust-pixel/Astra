@@ -53,7 +53,7 @@ const Cena: React.FC<{ c: CenaTempo }> = ({ c }) => {
       <AbsoluteFill style={{ transform: `scale(${zoom})` }}>
         <Fundo chave={c.fundo} indice={c.indice} duracao={c.duracao} />
       </AbsoluteFill>
-      {c.audio && <Sequence from={4} layout="none"><Audio src={c.audio} /></Sequence>}
+      {c.audio && <Sequence from={2} layout="none"><Audio src={c.audio} /></Sequence>}
       {c.indice > 0 && <Audio src={arquivo("sfx/whoosh.mp3")} volume={0.5} />}
       {c.elementos.map((e) => (
         <Sequence key={e.indice} from={e.entra} durationInFrames={Math.max(1, e.sai - e.entra)}>
