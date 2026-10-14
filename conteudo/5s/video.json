@@ -1,0 +1,111 @@
+{
+  "voz": "pm_alex",
+  "velocidade": 1.05,
+  "pausa": 0.28,
+  "pronuncia": { "5S": "cinco ésse", "5 S": "cinco ésse" },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "frases": [
+        "E aí, pessoal! Bora conhecer o Projeto 5S da nossa linha de montagem?",
+        "Nove áreas, muita mão na massa e um antes e depois que fala por si."
+      ]
+    },
+    {
+      "id": "sensos",
+      "tipo": "sensos",
+      "frases": [
+        "Primeiro, o básico: o 5S tem cinco sensos.",
+        "Utilização, organização, limpeza, padronização e disciplina.",
+        "Falar é fácil. É na prática que a diferença aparece!"
+      ]
+    },
+    {
+      "id": "posto8",
+      "tipo": "caso",
+      "caso": "posto8",
+      "numero": "um",
+      "frases": [
+        "Caso um: Posto 8, a máquina da suspensão.",
+        "Antes, tinha um carrinho parado bem na frente da máquina, atrapalhando o acesso.",
+        "A gente trocou o carrinho e mudou a posição dele.",
+        "Resultado? Máquina livre e caminho aberto!"
+      ],
+      "marcas": { "depois": 2, "final": 3 }
+    },
+    {
+      "id": "posto4",
+      "tipo": "caso",
+      "caso": "posto4",
+      "frases": [
+        "Caso dois: o carrinho da suspensão, no Posto 4.",
+        "O carrinho antigo tinha caixas vazias e ferramenta solta na bandeja.",
+        "Veio carrinho novo, manutenção do box, e cada peça na sua caixa.",
+        "Agora bate o olho e já sabe onde está tudo."
+      ],
+      "marcas": { "depois": 2, "final": 3 }
+    },
+    {
+      "id": "estacao",
+      "tipo": "caso",
+      "caso": "estacao",
+      "frases": [
+        "Caso três: a estação do computador e da impressora.",
+        "O armário tinha frasco tombado, fita e peça solta pra todo lado.",
+        "Primeiro, limpeza completa, até o teclado.",
+        "Depois, só o que é usado ficou, numa mesa nova e organizada."
+      ],
+      "marcas": { "durante": 2, "depois": 3, "final": 3 }
+    },
+    {
+      "id": "ferramentas",
+      "tipo": "caso",
+      "caso": "ferramentas",
+      "frases": [
+        "Caso quatro: as parafusadeiras e baterias.",
+        "Antes, as ferramentas ficavam num suporte improvisado na coluna.",
+        "Agora tem armário fechado: bateria carregando em cima e cada parafusadeira na sua prateleira.",
+        "Isso é organização de verdade!"
+      ],
+      "marcas": { "depois": 2, "final": 3 }
+    },
+    {
+      "id": "armario",
+      "tipo": "caso",
+      "caso": "armario",
+      "frases": [
+        "Caso cinco: o armário do corredor de estoque.",
+        "Era um armário velho, apoiado num suporte improvisado.",
+        "Saiu o velho, entrou um armário metálico novo, firme no chão.",
+        "Mais seguro e com cara de padrão."
+      ],
+      "marcas": { "depois": 2, "final": 3 }
+    },
+    {
+      "id": "pendentes",
+      "tipo": "pendentes",
+      "frases": [
+        "E não para por aí!",
+        "Mais quatro áreas já foram mapeadas e só estão esperando a foto do depois.",
+        "Bancada, manipulador de carga, base das colunas e a área da máquina dispensadora."
+      ]
+    },
+    {
+      "id": "numeros",
+      "tipo": "numeros",
+      "frases": [
+        "Fechando a conta:",
+        "nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
+      ]
+    },
+    {
+      "id": "encerramento",
+      "tipo": "encerramento",
+      "frases": [
+        "Posto organizado é posto seguro e produtivo.",
+        "Valeu, time! Agora é manter o padrão todo dia."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "projeto": {
+    "titulo": "Projeto 5S",
+    "subtitulo": "Organização e padronização dos postos da linha de montagem",
+    "data": "Outubro de 2026",
+    "equipe": "Adeilson · Fabio Franzoni"
+  },
+  "sensos": [
+    { "jp": "Seiri", "pt": "Utilização", "frase": "Separar o necessário do que não é usado." },
+    { "jp": "Seiton", "pt": "Organização", "frase": "Um lugar para cada coisa, cada coisa no seu lugar." },
+    { "jp": "Seiso", "pt": "Limpeza", "frase": "Posto limpo revela problemas mais cedo." },
+    { "jp": "Seiketsu", "pt": "Padronização", "frase": "Manter o padrão igual em todos os turnos." },
+    { "jp": "Shitsuke", "pt": "Disciplina", "frase": "Fazer do padrão um hábito do time." }
+  ],
+  "casos": [
+    {
+      "id": "posto8",
+      "titulo": "Posto 8 · Máquina da suspensão",
+      "curto": "Posto 8",
+      "problema": "Carrinho parado na frente da máquina da suspensão, obstruindo o acesso.",
+      "acao": "Troca do carrinho e mudança de posição: a máquina ficou livre.",
+      "sensos": ["Seiri", "Seiton"],
+      "status": "concluido",
+      "antes": ["f0030", "f0029"],
+      "depois": ["f0036", "f0035", "f0034"]
+    },
+    {
+      "id": "posto4",
+      "titulo": "Posto 4 · Carrinho da suspensão",
+      "curto": "Posto 4",
+      "problema": "Carrinho antigo, caixas vazias e ferramentas soltas na bandeja.",
+      "acao": "Troca do carrinho e manutenção do box: peças separadas em caixas e ferramentas com posição fixa.",
+      "sensos": ["Seiton", "Seiketsu"],
+      "status": "concluido",
+      "antes": ["f0038", "f0037"],
+      "depois": ["f0031", "f0033", "f0032"]
+    },
+    {
+      "id": "estacao",
+      "titulo": "Estação de computador e impressora",
+      "curto": "Estação",
+      "problema": "Armário com frascos tombados, fitas e peças soltas; bancada e teclado sujos.",
+      "acao": "Retirada do que não era usado, limpeza completa e nova mesa para monitor e impressora.",
+      "sensos": ["Seiri", "Seiso"],
+      "status": "concluido",
+      "antes": ["f0041", "f0042"],
+      "durante": ["f0043"],
+      "depois": ["f0044"]
+    },
+    {
+      "id": "ferramentas",
+      "titulo": "Posto de parafusadeiras e baterias",
+      "curto": "Ferramentas",
+      "problema": "Ferramentas em suporte improvisado na coluna, aberto e sem lugar definido.",
+      "acao": "Armário fechado: baterias carregando em cima e parafusadeiras separadas por prateleira.",
+      "sensos": ["Seiton", "Seiketsu"],
+      "status": "concluido",
+      "antes": ["f0046", "f0045", "f0047"],
+      "depois": ["f0048", "f0049"]
+    },
+    {
+      "id": "armario",
+      "titulo": "Armário do corredor de estoque",
+      "curto": "Armário",
+      "problema": "Armário antigo e desgastado, apoiado em suporte improvisado.",
+      "acao": "Substituição por armário metálico novo, apoiado direto no piso.",
+      "sensos": ["Seiri", "Seiketsu"],
+      "status": "concluido",
+      "antes": ["f0055"],
+      "depois": ["f0056"]
+    },
+    {
+      "id": "dispensadora",
+      "titulo": "Área da máquina dispensadora",
+      "curto": "Dispensadora",
+      "problema": "Melhoria feita; falta registrar a foto do depois.",
+      "status": "pendente",
+      "antes": ["f0057"]
+    },
+    {
+      "id": "bancada",
+      "titulo": "Área da bancada",
+      "curto": "Bancada",
+      "problema": "Carregadores de bateria no chão e cabos soltos.",
+      "status": "pendente",
+      "antes": ["f0061", "f0060", "f0062"]
+    },
+    {
+      "id": "manipulador",
+      "titulo": "Área do manipulador de carga",
+      "curto": "Manipulador",
+      "problema": "Equipamentos e carrinhos a acomodar nas áreas demarcadas.",
+      "status": "pendente",
+      "antes": ["f0065", "f0064", "f0066"]
+    },
+    {
+      "id": "colunas",
+      "titulo": "Base das colunas e máquinas",
+      "curto": "Colunas",
+      "problema": "Sujeira acumulada e mangueiras pelo chão.",
+      "status": "pendente",
+      "antes": ["f0070", "f0068", "f0069"]
+    }
+  ]
+}

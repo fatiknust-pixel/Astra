@@ -1,0 +1,212 @@
+{
+ "abertura": {
+  "duracao": 8.397,
+  "frases": [
+   {
+    "texto": "E aí, pessoal! Bora conhecer o Projeto 5S da nossa linha de montagem?",
+    "i": 0.0,
+    "f": 4.2
+   },
+   {
+    "texto": "Nove áreas, muita mão na massa e um antes e depois que fala por si.",
+    "i": 4.48,
+    "f": 8.117
+   }
+  ]
+ },
+ "sensos": {
+  "duracao": 10.617,
+  "frases": [
+   {
+    "texto": "Primeiro, o básico: o 5S tem cinco sensos.",
+    "i": 0.0,
+    "f": 2.892
+   },
+   {
+    "texto": "Utilização, organização, limpeza, padronização e disciplina.",
+    "i": 3.172,
+    "f": 6.95
+   },
+   {
+    "texto": "Falar é fácil. É na prática que a diferença aparece!",
+    "i": 7.23,
+    "f": 10.337
+   }
+  ]
+ },
+ "posto8": {
+  "duracao": 13.217,
+  "frases": [
+   {
+    "texto": "Caso um: Posto 8, a máquina da suspensão.",
+    "i": 0.0,
+    "f": 2.608
+   },
+   {
+    "texto": "Antes, tinha um carrinho parado bem na frente da máquina, atrapalhando o acesso.",
+    "i": 2.888,
+    "f": 7.203
+   },
+   {
+    "texto": "A gente trocou o carrinho e mudou a posição dele.",
+    "i": 7.483,
+    "f": 10.243
+   },
+   {
+    "texto": "Resultado? Máquina livre e caminho aberto!",
+    "i": 10.523,
+    "f": 12.938
+   }
+  ]
+ },
+ "posto4": {
+  "duracao": 14.407,
+  "frases": [
+   {
+    "texto": "Caso dois: o carrinho da suspensão, no Posto 4.",
+    "i": 0.0,
+    "f": 2.964
+   },
+   {
+    "texto": "O carrinho antigo tinha caixas vazias e ferramenta solta na bandeja.",
+    "i": 3.244,
+    "f": 7.249
+   },
+   {
+    "texto": "Veio carrinho novo, manutenção do box, e cada peça na sua caixa.",
+    "i": 7.529,
+    "f": 11.257
+   },
+   {
+    "texto": "Agora bate o olho e já sabe onde está tudo.",
+    "i": 11.537,
+    "f": 14.127
+   }
+  ]
+ },
+ "estacao": {
+  "duracao": 13.643,
+  "frases": [
+   {
+    "texto": "Caso três: a estação do computador e da impressora.",
+    "i": 0.0,
+    "f": 2.873
+   },
+   {
+    "texto": "O armário tinha frasco tombado, fita e peça solta pra todo lado.",
+    "i": 3.153,
+    "f": 6.843
+   },
+   {
+    "texto": "Primeiro, limpeza completa, até o teclado.",
+    "i": 7.123,
+    "f": 9.711
+   },
+   {
+    "texto": "Depois, só o que é usado ficou, numa mesa nova e organizada.",
+    "i": 9.991,
+    "f": 13.363
+   }
+  ]
+ },
+ "ferramentas": {
+  "duracao": 14.944,
+  "frases": [
+   {
+    "texto": "Caso quatro: as parafusadeiras e baterias.",
+    "i": 0.0,
+    "f": 2.699
+   },
+   {
+    "texto": "Antes, as ferramentas ficavam num suporte improvisado na coluna.",
+    "i": 2.979,
+    "f": 6.694
+   },
+   {
+    "texto": "Agora tem armário fechado: bateria carregando em cima e cada parafusadeira na sua prateleira.",
+    "i": 6.974,
+    "f": 12.378
+   },
+   {
+    "texto": "Isso é organização de verdade!",
+    "i": 12.658,
+    "f": 14.664
+   }
+  ]
+ },
+ "armario": {
+  "duracao": 12.09,
+  "frases": [
+   {
+    "texto": "Caso cinco: o armário do corredor de estoque.",
+    "i": 0.0,
+    "f": 2.503
+   },
+   {
+    "texto": "Era um armário velho, apoiado num suporte improvisado.",
+    "i": 2.783,
+    "f": 5.894
+   },
+   {
+    "texto": "Saiu o velho, entrou um armário metálico novo, firme no chão.",
+    "i": 6.174,
+    "f": 9.514
+   },
+   {
+    "texto": "Mais seguro e com cara de padrão.",
+    "i": 9.794,
+    "f": 11.81
+   }
+  ]
+ },
+ "pendentes": {
+  "duracao": 11.188,
+  "frases": [
+   {
+    "texto": "E não para por aí!",
+    "i": 0.0,
+    "f": 1.187
+   },
+   {
+    "texto": "Mais quatro áreas já foram mapeadas e só estão esperando a foto do depois.",
+    "i": 1.467,
+    "f": 5.838
+   },
+   {
+    "texto": "Bancada, manipulador de carga, base das colunas e a área da máquina dispensadora.",
+    "i": 6.118,
+    "f": 10.908
+   }
+  ]
+ },
+ "numeros": {
+  "duracao": 6.636,
+  "frases": [
+   {
+    "texto": "Fechando a conta:",
+    "i": 0.0,
+    "f": 1.177
+   },
+   {
+    "texto": "nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas.",
+    "i": 1.457,
+    "f": 6.356
+   }
+  ]
+ },
+ "encerramento": {
+  "duracao": 5.991,
+  "frases": [
+   {
+    "texto": "Posto organizado é posto seguro e produtivo.",
+    "i": 0.0,
+    "f": 2.733
+   },
+   {
+    "texto": "Valeu, time! Agora é manter o padrão todo dia.",
+    "i": 3.013,
+    "f": 5.711
+   }
+  ]
+ }
+}
