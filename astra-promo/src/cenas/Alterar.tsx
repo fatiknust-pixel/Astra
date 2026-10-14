@@ -63,13 +63,15 @@ export const Alterar = () => {
         </div>
       </div>
       {/* selo virando */}
-      <div style={{ position: "absolute", left: 900, top: 560, perspective: 1200 }}>
+      <div style={{ position: "absolute", left: 900, top: 560 }}>
         <div style={{ fontFamily: SANS, fontSize: 26, fontWeight: 600, color: COR.suave, letterSpacing: 3, marginBottom: 16, opacity: spring({ frame: f - troca, fps }) }}>SITUAÇÃO DA MÁQUINA 7</div>
-        <div style={{ position: "relative", width: 640, height: 130, transformStyle: "preserve-3d", transform: `rotateX(${vira * 180}deg)`, opacity: spring({ frame: f - troca, fps }) }}>
-          <Selo texto="Não encontrada" cor={COR.vermelho} />
-          <div style={{ position: "absolute", inset: 0, transform: "rotateX(180deg)", backfaceVisibility: "hidden" }}>
+        {/* giro em 2D (escala vertical), que continua certo durante as transições entre cenas */}
+        <div style={{ position: "relative", width: 640, height: 130, opacity: spring({ frame: f - troca, fps }), transform: `scaleY(${Math.abs(Math.cos(vira * Math.PI))})` }}>
+          {vira < 0.5 ? (
+            <Selo texto="Não encontrada" cor={COR.vermelho} />
+          ) : (
             <Selo texto="Encontrada" cor={COR.verde} icone={<svg width={64} height={64} viewBox="0 0 64 64"><path d={CHECK} stroke={COR.verde} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} /></svg>} />
-          </div>
+          )}
         </div>
         <Surge texto="Atualizado em segundos." em={pronto + 16} tamanho={48} peso={600} cor={COR.ciano} style={{ marginTop: 40 }} />
       </div>
@@ -90,7 +92,6 @@ const Selo: React.FC<{ texto: string; cor: string; icone?: React.ReactNode }> = 
     style={{
       position: "absolute",
       inset: 0,
-      backfaceVisibility: "hidden",
       borderRadius: 999,
       border: `4px solid ${cor}`,
       background: `${cor}22`,

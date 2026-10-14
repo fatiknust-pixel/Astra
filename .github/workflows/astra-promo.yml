@@ -88,7 +88,8 @@ jobs:
         if: ${{ github.event_name == 'push' || inputs.renderizar }}
         run: |
           npx remotion browser ensure
-          npx remotion render src/index.ts AstraPromo out/astra-promo.mp4 --concurrency=4
+          npx remotion render src/index.ts AstraPromo out/bruto.mp4 --concurrency=4
+          npm run volume
 
       - uses: actions/upload-artifact@v4
         if: ${{ github.event_name == 'push' || inputs.renderizar }}
