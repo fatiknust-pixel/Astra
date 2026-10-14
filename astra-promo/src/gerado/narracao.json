@@ -4,7 +4,7 @@
  "fps": 30,
  "transicao": 15,
  "bpm": 120,
- "total": 1545,
+ "total": 1335,
  "cenas": {
   "abertura": {
    "hash": "c64a9d9c87a7",
@@ -48,7 +48,7 @@
     }
    ],
    "inicio": 0,
-   "quadros": 135,
+   "quadros": 105,
    "falaEm": 9
   },
   "problema": {
@@ -102,8 +102,8 @@
      "f": 3.3
     }
    ],
-   "inicio": 120,
-   "quadros": 165,
+   "inicio": 90,
+   "quadros": 135,
    "falaEm": 9
   },
   "revelacao": {
@@ -127,8 +127,8 @@
      "f": 1.07
     }
    ],
-   "inicio": 270,
-   "quadros": 120,
+   "inicio": 210,
+   "quadros": 105,
    "falaEm": 9
   },
   "escanear": {
@@ -197,8 +197,8 @@
      "f": 3.515
     }
    ],
-   "inicio": 375,
-   "quadros": 180,
+   "inicio": 300,
+   "quadros": 165,
    "falaEm": 9
   },
   "maquina": {
@@ -257,8 +257,8 @@
      "f": 3.789
     }
    ],
-   "inicio": 540,
-   "quadros": 180,
+   "inicio": 450,
+   "quadros": 165,
    "falaEm": 9
   },
   "alterar": {
@@ -297,8 +297,8 @@
      "f": 3.037
     }
    ],
-   "inicio": 705,
-   "quadros": 180,
+   "inicio": 600,
+   "quadros": 150,
    "falaEm": 9
   },
   "historico": {
@@ -357,8 +357,8 @@
      "f": 2.725
     }
    ],
-   "inicio": 870,
-   "quadros": 150,
+   "inicio": 735,
+   "quadros": 135,
    "falaEm": 9
   },
   "inventario": {
@@ -412,8 +412,8 @@
      "f": 2.857
     }
    ],
-   "inicio": 1005,
-   "quadros": 165,
+   "inicio": 855,
+   "quadros": 150,
    "falaEm": 9
   },
   "plataformas": {
@@ -472,8 +472,8 @@
      "f": 4.09
     }
    ],
-   "inicio": 1155,
-   "quadros": 195,
+   "inicio": 990,
+   "quadros": 180,
    "falaEm": 9
   },
   "final": {
@@ -497,8 +497,8 @@
      "f": 2.654
     }
    ],
-   "inicio": 1335,
-   "quadros": 210,
+   "inicio": 1155,
+   "quadros": 180,
    "falaEm": 9
   }
  }

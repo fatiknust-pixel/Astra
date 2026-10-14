@@ -89,7 +89,9 @@ def linha_do_tempo(roteiro, cenas):
     inicio = 0
     for c in roteiro["cenas"]:
         info = cenas[c["id"]]
-        precisa = (ENTRADA + info["duracao"] + SOBRA + c.get("extra", 0)) * FPS + TRANSICAO
+        # usa o fim da última palavra (o arquivo de áudio costuma ter silêncio no final)
+        fala = info["palavras"][-1]["f"] if info["palavras"] else info["duracao"]
+        precisa = (ENTRADA + fala + SOBRA + c.get("extra", 0)) * FPS + TRANSICAO
         quadros = int(math.ceil(precisa / passo) * passo)
         info.update({"inicio": inicio, "quadros": quadros, "falaEm": round(ENTRADA * FPS)})
         inicio += quadros - TRANSICAO
