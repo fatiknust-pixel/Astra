@@ -1,0 +1,122 @@
+{
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "frases": [
+        "Apresentamos o Projeto 5S da linha de montagem.",
+        "Foram nove áreas trabalhadas com registro de antes e depois de cada melhoria."
+      ]
+    },
+    {
+      "id": "sensos",
+      "tipo": "sensos",
+      "frases": [
+        "A metodologia 5S é baseada em cinco sensos:",
+        "utilização, organização, limpeza, padronização e disciplina.",
+        "Cada melhoria a seguir aplica um ou mais desses sensos."
+      ]
+    },
+    {
+      "id": "posto8",
+      "tipo": "caso",
+      "caso": "posto8",
+      "frases": [
+        "Caso um: Posto 8, máquina da suspensão.",
+        "Um carrinho posicionado em frente à máquina obstruía o acesso.",
+        "O carrinho foi substituído e reposicionado.",
+        "Com isso o acesso à máquina ficou livre."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "posto4",
+      "tipo": "caso",
+      "caso": "posto4",
+      "frases": [
+        "Caso dois: carrinho da suspensão do Posto 4.",
+        "O carrinho antigo tinha caixas vazias e ferramentas soltas na bandeja.",
+        "Foram feitas a troca do carrinho e a manutenção do box com as peças separadas por caixa.",
+        "Agora cada item tem posição definida e fácil identificação."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "estacao",
+      "tipo": "caso",
+      "caso": "estacao",
+      "frases": [
+        "Caso três: estação do computador e da impressora.",
+        "O armário tinha frascos tombados, fitas e peças soltas.",
+        "Primeiro foi feita a limpeza completa da bancada e do teclado.",
+        "Em seguida ficou apenas o necessário em uma mesa nova e organizada."
+      ],
+      "marcas": {
+        "durante": 2,
+        "depois": 3,
+        "final": 3
+      }
+    },
+    {
+      "id": "ferramentas",
+      "tipo": "caso",
+      "caso": "ferramentas",
+      "frases": [
+        "Caso quatro: posto de parafusadeiras e baterias.",
+        "As ferramentas ficavam em um suporte improvisado na coluna.",
+        "Agora ficam em um armário fechado com as baterias carregando em cima e as parafusadeiras separadas por prateleira.",
+        "Cada ferramenta passou a ter um lugar fixo."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "armario",
+      "tipo": "caso",
+      "caso": "armario",
+      "frases": [
+        "Caso cinco: armário do corredor de estoque.",
+        "O armário antigo estava desgastado e apoiado em um suporte improvisado.",
+        "Ele foi substituído por um armário metálico novo apoiado diretamente no piso.",
+        "A área ficou mais segura e dentro do padrão."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "pendentes",
+      "tipo": "pendentes",
+      "frases": [
+        "Outras quatro áreas já foram mapeadas.",
+        "As melhorias aguardam o registro fotográfico do depois.",
+        "São elas: bancada, manipulador de carga, base das colunas e área da máquina dispensadora."
+      ]
+    },
+    {
+      "id": "numeros",
+      "tipo": "numeros",
+      "frases": [
+        "Em resumo:",
+        "nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
+      ]
+    },
+    {
+      "id": "encerramento",
+      "tipo": "encerramento",
+      "frases": [
+        "Posto organizado é posto seguro e produtivo.",
+        "O próximo passo é manter o padrão no dia a dia. Obrigado."
+      ]
+    }
+  ]
+}
