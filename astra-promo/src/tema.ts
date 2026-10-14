@@ -1,5 +1,5 @@
 import { loadFont } from "@remotion/fonts";
-import { staticFile } from "remotion";
+import { staticFile, useVideoConfig } from "remotion";
 
 // Fontes embutidas no projeto (public/fonts): as mesmas do app (IBM Plex), funcionam offline e no render.
 for (const peso of ["400", "500", "600", "700"]) {
@@ -27,3 +27,9 @@ export const COR = {
   vermelho: "#FF5A5F",
   ambar: "#FFB547",
 } as const;
+
+/** Formato do vídeo atual: vertical (9:16) ou horizontal (16:9). */
+export const useFormato = () => {
+  const { width, height } = useVideoConfig();
+  return { v: height > width, W: width, H: height };
+};

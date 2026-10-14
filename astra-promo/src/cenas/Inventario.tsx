@@ -1,7 +1,7 @@
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { evolvePath } from "@remotion/paths";
 import { quando } from "../dados";
-import { COR, MONO, SANS } from "../tema";
+import { COR, MONO, SANS, useFormato } from "../tema";
 import { Rotulo, Surge } from "../componentes/Texto";
 import { Sfx } from "../componentes/Som";
 
@@ -32,34 +32,36 @@ const arco = (cx: number, cy: number, r: number, a0: number, a1: number) => {
 export const Inventario = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const quantas = quando(ID, "quantas", 0, 30) - 8;
-  const copia = quando(ID, "copia", 0, 90);
-  const excel = quando(ID, "Excel", 0, 120);
-  const p = interpolate(f, [quantas, quantas + 36], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
-  const verde = arco(470, 470, 190, 0, 179);
-  const vermelho = arco(470, 470, 190, 181, 359.9);
+  const { v, W, H } = useFormato();
+  const quantas = 4;
+  const copia = quando(ID, "direto", 0, 50) - 6;
+  const excel = quando(ID, "Excel", 0, 70);
+  const D = v ? { cx: 300, cy: 650, r: 150, w: 44 } : { cx: 470, cy: 470, r: 190, w: 52 };
+  const p = interpolate(f, [quantas, quantas + 26], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
+  const verde = arco(D.cx, D.cy, D.r, 0, 179);
+  const vermelho = arco(D.cx, D.cy, D.r, 181, 359.9);
   const ev1 = evolvePath(Math.max(0.0001, Math.min(1, p * 2)), verde);
   const ev2 = evolvePath(Math.max(0.0001, Math.max(0, p * 2 - 1)), vermelho);
   const enc = Math.round(5 * Math.min(1, p * 2));
   const nao = Math.round(5 * Math.max(0, p * 2 - 1));
-  const painel = spring({ frame: f - copia + 14, fps, config: { damping: 18 } });
+  const painel = spring({ frame: f - copia + 12, fps, config: { damping: 18 } });
   const aperta = interpolate(f - copia, [0, 4, 10], [1, 0.92, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const copiado = f >= copia + 6;
   return (
     <AbsoluteFill>
-      <div style={{ position: "absolute", left: 170, top: 130 }}>
-        <Rotulo texto="05 · Inventário" em={4} />
+      <div style={{ position: "absolute", left: v ? 60 : 170, top: v ? 200 : 130 }}>
+        <Rotulo texto="05 · Inventário" em={2} />
       </div>
-      <svg width={1920} height={1080} style={{ position: "absolute" }}>
-        <circle cx={470} cy={470} r={190} stroke="rgba(141,178,245,0.14)" strokeWidth={52} fill="none" />
-        <path d={verde} stroke={COR.verde} strokeWidth={52} fill="none" strokeDasharray={ev1.strokeDasharray} strokeDashoffset={ev1.strokeDashoffset} />
-        <path d={vermelho} stroke={COR.vermelho} strokeWidth={52} fill="none" strokeDasharray={ev2.strokeDasharray} strokeDashoffset={ev2.strokeDashoffset} />
+      <svg width={W} height={H} style={{ position: "absolute" }}>
+        <circle cx={D.cx} cy={D.cy} r={D.r} stroke="rgba(141,178,245,0.14)" strokeWidth={D.w} fill="none" />
+        <path d={verde} stroke={COR.verde} strokeWidth={D.w} fill="none" strokeDasharray={ev1.strokeDasharray} strokeDashoffset={ev1.strokeDashoffset} />
+        <path d={vermelho} stroke={COR.vermelho} strokeWidth={D.w} fill="none" strokeDasharray={ev2.strokeDasharray} strokeDashoffset={ev2.strokeDashoffset} />
       </svg>
-      <div style={{ position: "absolute", left: 470 - 150, top: 470 - 70, width: 300, textAlign: "center", fontFamily: SANS }}>
+      <div style={{ position: "absolute", left: D.cx - 150, top: D.cy - 70, width: 300, textAlign: "center", fontFamily: SANS }}>
         <div style={{ fontFamily: MONO, fontWeight: 600, fontSize: 96, color: COR.branco, lineHeight: 1 }}>{enc}<span style={{ color: COR.suave, fontSize: 56 }}>/10</span></div>
         <div style={{ fontSize: 26, color: COR.suave, marginTop: 8 }}>encontradas</div>
       </div>
-      <div style={{ position: "absolute", left: 230, top: 730, display: "flex", gap: 30, fontFamily: SANS }}>
+      <div style={{ position: "absolute", left: v ? 560 : 230, top: v ? 500 : 730, display: "flex", flexDirection: v ? "column" : "row", gap: v ? 20 : 30, fontFamily: SANS }}>
         {[
           [enc, "encontradas", COR.verde],
           [nao, "não encontradas", COR.vermelho],
@@ -71,9 +73,9 @@ export const Inventario = () => {
         ))}
       </div>
       {/* planilha */}
-      <div style={{ position: "absolute", left: 860, top: 140, width: 1000 }}>
-        <Surge texto="Lista pronta para o Excel." em={copia - 16} tamanho={64} />
-        <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 24 }}>
+      <div style={{ position: "absolute", left: v ? 20 : 860, top: v ? 250 : 140, width: v ? 1040 : 1000 }}>
+        <Surge texto="Lista pronta para o Excel." em={v ? 2 : copia - 12} tamanho={v ? 60 : 64} intervalo={2} style={v ? { marginLeft: 40 } : undefined} />
+        <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: v ? 540 : 24, marginLeft: v ? 40 : 0 }}>
           <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 28, color: "#fff", background: copiado ? COR.verde : COR.azul, padding: "14px 30px", borderRadius: 12, transform: `scale(${aperta})`, boxShadow: `0 10px 30px ${copiado ? COR.verde : COR.azul}55`, opacity: painel }}>
             {copiado ? "✓ Lista copiada" : "Copiar lista"}
           </div>
@@ -92,7 +94,7 @@ export const Inventario = () => {
             ))}
           </div>
           {[COLS, ...MAQ.map((m) => [String(m[0]), m[1], m[2], String(m[3]), m[4], m[5] ? "Encontrada" : "Não encontrada"])].map((linha, r) => {
-            const em = copia + 10 + r * 2;
+            const em = copia + 6 + r;
             const vis = f >= em;
             return (
               <div key={r} style={{ display: "flex", borderBottom: "1px solid #E6EAF0", background: r === 0 ? "#EAF0FA" : "#fff", height: 38, alignItems: "center" }}>
@@ -127,7 +129,7 @@ export const Inventario = () => {
         </div>
       </div>
       {Array.from({ length: 10 }, (_, i) => (
-        <Sfx key={i} nome="tique" em={quantas + i * 3.6} volume={0.22} />
+        <Sfx key={i} nome="tique" em={quantas + i * 2.6} volume={0.22} />
       ))}
       <Sfx nome="clique" em={copia} volume={0.55} />
       <Sfx nome="whoosh" em={copia + 6} volume={0.3} />

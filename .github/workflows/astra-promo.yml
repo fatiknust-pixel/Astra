@@ -30,7 +30,7 @@ concurrency:
 jobs:
   video:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: astra-promo
@@ -88,11 +88,10 @@ jobs:
         if: ${{ github.event_name == 'push' || inputs.renderizar }}
         run: |
           npx remotion browser ensure
-          npx remotion render src/index.ts AstraPromo out/bruto.mp4 --concurrency=4
-          npm run volume
+          bash scripts/renderizar.sh
 
       - uses: actions/upload-artifact@v4
         if: ${{ github.event_name == 'push' || inputs.renderizar }}
         with:
-          name: astra-promo-16x9
-          path: astra-promo/out/astra-promo.mp4
+          name: astra-promo-16x9-e-9x16
+          path: astra-promo/out/astra-promo-*.mp4

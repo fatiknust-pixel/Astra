@@ -2,7 +2,7 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { noise2D } from "@remotion/noise";
 import { evolvePath } from "@remotion/paths";
 import { quando } from "../dados";
-import { COR, MONO, SANS } from "../tema";
+import { COR, MONO, SANS, useFormato } from "../tema";
 import { Sfx } from "../componentes/Som";
 
 const ID = "problema";
@@ -45,16 +45,17 @@ const FERRAMENTA = "M60 70 h170 a22 22 0 0 1 22 22 v36 a22 22 0 0 1 -22 22 h-60 
 export const Problema = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const cade = quando(ID, "cadê", 0, 22);
-  const segunda = quando(ID, "E", 0, 120);
-  const maquina = quando(ID, "máquina", 0, segunda + 20);
+  const { v } = useFormato();
+  const cade = quando(ID, "cadê", 0, 10);
+  const segunda = quando(ID, "E", 0, 60);
+  const maquina = quando(ID, "alguém", 0, segunda + 20) - 6;
   const sai = spring({ frame: f - segunda + 6, fps, config: { damping: 20 } });
   return (
     <AbsoluteFill>
       {/* folhas jogadas e embaralhando */}
-      <div style={{ position: "absolute", left: 420, top: 330, transform: `translateX(${-sai * 900}px) rotate(${-sai * 12}deg)`, opacity: 1 - sai }}>
+      <div style={{ position: "absolute", left: v ? 390 : 420, top: v ? 820 : 330, transform: `translateX(${-sai * 900}px) rotate(${-sai * 12}deg)`, opacity: 1 - sai }}>
         {Array.from({ length: 6 }, (_, i) => {
-          const s = spring({ frame: f - 4 - i * 6, fps, config: { damping: 12, stiffness: 90 } });
+          const s = spring({ frame: f - 2 - i * 3, fps, config: { damping: 12, stiffness: 130 } });
           const jx = noise2D("jx" + i, f * 0.02, 0) * 14;
           const jr = noise2D("jr" + i, 0, f * 0.02) * 4;
           const rot = (i % 2 ? 1 : -1) * (8 + i * 5);
@@ -84,7 +85,7 @@ export const Problema = () => {
             fontSize: 260,
             color: COR.vermelho,
             textShadow: "0 10px 40px rgba(255,90,95,0.6)",
-            transform: `scale(${spring({ frame: f - cade - 8, fps, config: { damping: 9 } })}) rotate(-8deg)`,
+            transform: `scale(${spring({ frame: f - cade - 4, fps, config: { damping: 9 } })}) rotate(-8deg)`,
           }}
         >
           ?
@@ -92,7 +93,7 @@ export const Problema = () => {
       </div>
       {/* máquina desaparecida */}
       {f >= segunda - 6 && (
-        <div style={{ position: "absolute", left: 160, top: 300 }}>
+        <div style={{ position: "absolute", left: v ? 310 : 160, top: v ? 760 : 300 }}>
           {[0, 1, 2].map((k) => {
             const t = ((f - segunda + k * 18) % 54) / 54;
             return (
@@ -120,8 +121,8 @@ export const Problema = () => {
                 strokeWidth={6}
                 strokeLinejoin="round"
                 strokeLinecap="round"
-                strokeDasharray={evolvePath(Math.max(0.0001, interpolate(f, [segunda, segunda + 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), FERRAMENTA).strokeDasharray}
-                strokeDashoffset={evolvePath(Math.max(0.0001, interpolate(f, [segunda, segunda + 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), FERRAMENTA).strokeDashoffset}
+                strokeDasharray={evolvePath(Math.max(0.0001, interpolate(f, [segunda, segunda + 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), FERRAMENTA).strokeDasharray}
+                strokeDashoffset={evolvePath(Math.max(0.0001, interpolate(f, [segunda, segunda + 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), FERRAMENTA).strokeDashoffset}
                 opacity={0.4 + 0.6 * Math.abs(Math.sin(f / 7))}
               />
             </g>
@@ -146,16 +147,16 @@ export const Problema = () => {
           </div>
         </div>
       )}
-      <div style={{ position: "absolute", left: 900, top: 380, width: 960 }}>
+      <div style={{ position: "absolute", left: v ? 80 : 900, top: v ? 300 : 380, width: 960 }}>
         {f < segunda - 4 ? (
           <>
-            <Falha texto="Cadê a tabela" em={cade - 6} tamanho={104} />
-            <Falha texto="de torque?" em={cade + 4} tamanho={104} cor={COR.vermelho} />
+            <Falha texto="Cadê a tabela" em={cade - 6} tamanho={v ? 100 : 104} />
+            <Falha texto="de torque?" em={cade + 4} tamanho={v ? 100 : 104} cor={COR.vermelho} />
           </>
         ) : (
           <>
-            <Falha texto="E a máquina," em={segunda - 4} tamanho={104} />
-            <Falha texto="alguém viu?" em={maquina + 6} tamanho={104} cor={COR.vermelho} />
+            <Falha texto="E a máquina," em={segunda - 4} tamanho={v ? 100 : 104} />
+            <Falha texto="alguém viu?" em={maquina + 6} tamanho={v ? 100 : 104} cor={COR.vermelho} />
           </>
         )}
       </div>

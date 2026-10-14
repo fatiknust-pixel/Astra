@@ -1,7 +1,7 @@
 import { AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { evolvePath } from "@remotion/paths";
 import { quando } from "../dados";
-import { COR, MONO, SANS } from "../tema";
+import { COR, MONO, SANS, useFormato } from "../tema";
 import { Celular, Tela } from "../componentes/Celular";
 import { Rotulo, Surge } from "../componentes/Texto";
 import { Sfx } from "../componentes/Som";
@@ -13,11 +13,12 @@ const CORTE = "M12 14 L64 66";
 export const Plataformas = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const iphone = quando(ID, "iPhone", 0, 20) - 6;
-  const android = quando(ID, "Android", 0, 40) - 6;
-  const pc = quando(ID, "computador", 0, 60) - 6;
-  const internet = quando(ID, "internet", 0, 150);
-  const abertura = quando(ID, "primeira", 0, internet - 30);
+  const { v } = useFormato();
+  const iphone = quando(ID, "iPhone", 0, 8) - 5;
+  const android = quando(ID, "Android", 0, 20) - 5;
+  const pc = quando(ID, "computador", 0, 34) - 5;
+  const internet = quando(ID, "internet", 0, 80);
+  const abertura = quando(ID, "Até", 0, internet - 12) - 4;
   const s1 = spring({ frame: f - iphone, fps, config: { damping: 15 } });
   const s2 = spring({ frame: f - android, fps, config: { damping: 15 } });
   const s3 = spring({ frame: f - pc, fps, config: { damping: 17 } });
@@ -30,12 +31,12 @@ export const Plataformas = () => {
   );
   return (
     <AbsoluteFill>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 70, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: v ? 200 : 70, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Rotulo texto="06 · Em qualquer aparelho" em={2} />
       </div>
       <div style={{ position: "absolute", inset: 0, transform: `scale(${recua}) translateY(${(1 - recua) * 500}px)`, transformOrigin: "50% 100%", opacity: interpolate(off, [0, 1], [1, 0.22]), filter: `blur(${off * 4}px)` }}>
         {/* computador */}
-        <div style={{ position: "absolute", left: 960 - 470, top: 190, width: 940, opacity: s3, transform: `translateY(${(1 - s3) * 120}px)` }}>
+        <div style={{ position: "absolute", left: v ? 70 : 490, top: v ? 380 : 190, width: 940, opacity: s3, transform: `translateY(${(1 - s3) * 120}px)` }}>
           <div style={{ background: "#141A24", borderRadius: "22px 22px 0 0", padding: 16, boxShadow: "0 40px 100px rgba(0,0,0,0.55), inset 0 0 0 2px rgba(255,255,255,0.08)" }}>
             <div style={{ borderRadius: 8, overflow: "hidden", height: 528, background: "#EEF1F4" }}>
               <Img src={staticFile("telas/pc-tabela.png")} style={{ width: "100%", display: "block" }} />
@@ -45,14 +46,14 @@ export const Plataformas = () => {
           {rotulo("COMPUTADOR", s3)}
         </div>
         {/* iPhone */}
-        <div style={{ position: "absolute", left: 250, top: 300, opacity: s1, transform: `translateY(${(1 - s1) * 200}px) rotate(${-6 * s1}deg)` }}>
+        <div style={{ position: "absolute", left: v ? 60 : 250, top: v ? 860 : 300, opacity: s1, transform: `translateY(${(1 - s1) * 200}px) rotate(${-6 * s1}deg)` }}>
           <Celular largura={270} brilho={0.3}>
             <Tela nome="escanear" />
           </Celular>
           {rotulo("IPHONE", s1)}
         </div>
         {/* Android */}
-        <div style={{ position: "absolute", left: 1400, top: 300, opacity: s2, transform: `translateY(${(1 - s2) * 200}px) rotate(${6 * s2}deg)` }}>
+        <div style={{ position: "absolute", left: v ? 750 : 1400, top: v ? 860 : 300, opacity: s2, transform: `translateY(${(1 - s2) * 200}px) rotate(${6 * s2}deg)` }}>
           <Celular largura={270} brilho={0.3}>
             <Tela nome="maquinas" />
           </Celular>
@@ -61,7 +62,7 @@ export const Plataformas = () => {
       </div>
       {/* sem internet */}
       {off > 0.01 && (
-        <div style={{ position: "absolute", left: 0, right: 0, top: 250, display: "flex", flexDirection: "column", alignItems: "center", opacity: off }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: v ? 560 : 250, display: "flex", flexDirection: "column", alignItems: "center", opacity: off }}>
           <svg width={220} height={220} viewBox="0 0 76 76">
             <circle cx={38} cy={38} r={36} fill="rgba(7,22,52,0.9)" stroke={COR.linha} strokeWidth={1.5} />
             {WIFI.map((d, i) => (
@@ -70,7 +71,7 @@ export const Plataformas = () => {
             <circle cx={38} cy={64} r={3.6} fill={COR.branco} />
             <path d={CORTE} stroke={COR.vermelho} strokeWidth={6} strokeLinecap="round" strokeDasharray={corte.strokeDasharray} strokeDashoffset={corte.strokeDashoffset} />
           </svg>
-          <Surge texto="Sem internet? Funciona." em={internet + 2} tamanho={76} style={{ marginTop: 26, textAlign: "center" }} destaque={{ "Funciona": COR.verde }} />
+          <Surge texto="Sem internet? Funciona." em={internet + 2} tamanho={v ? 64 : 76} style={{ marginTop: 26, textAlign: "center" }} destaque={{ "Funciona": COR.verde }} />
           <div style={{ marginTop: 22, fontFamily: SANS, fontWeight: 600, fontSize: 30, color: COR.verde, border: `2px solid ${COR.verde}`, borderRadius: 999, padding: "10px 26px", background: "rgba(47,208,127,0.12)", opacity: selo, transform: `scale(${0.8 + 0.2 * selo})` }}>
             ✓ Depois da primeira abertura
           </div>

@@ -24,8 +24,8 @@ SAIDA = os.path.join(RAIZ, "src", "gerado", "narracao.json")
 
 FPS = 30
 TRANSICAO = 15  # quadros de sobreposição entre cenas (1 batida a 120 BPM)
-ENTRADA = 0.55  # segundos entre o início da cena e o começo da fala
-SOBRA = 0.35    # segundos depois que a fala termina
+ENTRADA = 0.3   # segundos entre o início da cena e o começo da fala
+SOBRA = 0.12    # segundos depois que a fala termina
 
 
 def duracao(arquivo):
@@ -84,8 +84,8 @@ def via_kokoro(texto, voz, velocidade, destino, modelo):
 
 
 def linha_do_tempo(roteiro, cenas):
-    """Duração de cada cena arredondada para 2 batidas, para os cortes caírem no ritmo."""
-    passo = round(FPS * 60 / roteiro.get("bpm", 120)) * 2
+    """Duração de cada cena arredondada para a batida, para os cortes caírem no ritmo."""
+    passo = round(FPS * 60 / roteiro.get("bpm", 120))
     inicio = 0
     for c in roteiro["cenas"]:
         info = cenas[c["id"]]

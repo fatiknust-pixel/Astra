@@ -2,7 +2,7 @@ import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoCon
 import { makePolygon } from "@remotion/shapes";
 import { evolvePath } from "@remotion/paths";
 import { quando } from "../dados";
-import { COR, MONO } from "../tema";
+import { COR, MONO, useFormato } from "../tema";
 import { Surge } from "../componentes/Texto";
 import { Sfx } from "../componentes/Som";
 
@@ -13,13 +13,14 @@ const VALORES = ["7,4", "8,0", "17,6", "5,0", "2,0", "12,0", "0,7", "4,2", "18,0
 export const Abertura = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const ini = 8;
-  const fim = 70;
+  const { v, W, H } = useFormato();
+  const ini = 4;
+  const fim = 38;
   const p = interpolate(f, [ini, fim], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
   const ok = f >= fim;
   const pulso = spring({ frame: f - fim, fps, config: { damping: 10 } });
-  const cx = 560;
-  const cy = 500;
+  const cx = v ? 540 : 560;
+  const cy = v ? 640 : 500;
   const R = 230;
   const arco = `M ${cx + R * Math.cos((135 * Math.PI) / 180)} ${cy + R * Math.sin((135 * Math.PI) / 180)} A ${R} ${R} 0 1 1 ${cx + R * Math.cos((45 * Math.PI) / 180)} ${cy + R * Math.sin((45 * Math.PI) / 180)}`;
   const ev = evolvePath(Math.max(0.0001, p), arco);
@@ -27,7 +28,7 @@ export const Abertura = () => {
   const entrada = spring({ frame: f, fps, config: { damping: 18 } });
   const cada = quando(ID, "cada");
   const conta = quando(ID, "conta");
-  const tiques = Array.from({ length: 12 }, (_, i) => ini + 4 + i * 5);
+  const tiques = Array.from({ length: 10 }, (_, i) => ini + 2 + i * 3);
   return (
     <AbsoluteFill>
       {/* valores de torque subindo ao fundo */}
@@ -36,8 +37,8 @@ export const Abertura = () => {
           key={i}
           style={{
             position: "absolute",
-            left: 80 + ((i * 137) % 1760),
-            top: 1100 - ((f * (1.2 + (i % 3) * 0.5) + i * 160) % 1300),
+            left: 60 + ((i * 137) % (W - 160)),
+            top: H + 20 - ((f * (2 + (i % 3) * 0.8) + i * 160) % (H + 220)),
             fontFamily: MONO,
             fontWeight: 500,
             fontSize: 30 + (i % 4) * 12,
@@ -49,7 +50,7 @@ export const Abertura = () => {
         </div>
       ))}
       <div style={{ position: "absolute", inset: 0, transform: `scale(${0.9 + 0.1 * entrada})`, opacity: entrada }}>
-        <svg width={1920} height={1080} style={{ position: "absolute" }}>
+        <svg width={W} height={H} style={{ position: "absolute" }}>
           <defs>
             <linearGradient id="g-arco" x1="0" x2="1">
               <stop offset="0" stopColor={COR.azul} />
@@ -97,14 +98,14 @@ export const Abertura = () => {
           <div style={{ fontSize: 30, color: ok ? COR.verde : COR.suave, letterSpacing: 6, marginTop: -6 }}>{ok ? "N·m ✓" : "N·m"}</div>
         </div>
       </div>
-      <div style={{ position: "absolute", left: 960, top: 330, width: 900 }}>
-        <Surge texto="Na linha de montagem," em={quando(ID, "Na", 0, 18) - 2} tamanho={60} peso={500} cor={COR.suave} />
-        <Surge texto="cada aperto conta." em={cada - 2} tamanho={132} destaque={{ conta: COR.ciano }} style={{ marginTop: 18 }} />
+      <div style={{ position: "absolute", left: v ? 90 : 960, top: v ? 1010 : 330, width: 900 }}>
+        <Surge texto="Na linha de montagem," em={quando(ID, "Na", 0, 6) - 2} tamanho={v ? 54 : 60} peso={500} cor={COR.suave} intervalo={2} />
+        <Surge texto="cada aperto conta." em={cada - 2} tamanho={v ? 124 : 132} intervalo={2} destaque={{ conta: COR.ciano }} style={{ marginTop: 18 }} />
         <div
           style={{
             marginTop: 34,
             height: 6,
-            width: interpolate(f, [conta, conta + 20], [0, 420], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }),
+            width: interpolate(f, [conta, conta + 12], [0, 420], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }),
             background: `linear-gradient(90deg, ${COR.azul}, ${COR.ciano})`,
             borderRadius: 3,
           }}

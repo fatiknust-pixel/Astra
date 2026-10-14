@@ -179,3 +179,6 @@ export const alturaCelular = (largura: number) => {
   const k = (largura - borda * 2) / LARGURA_APP;
   return (ALTURA_APP + BARRA) * k + borda * 2;
 };
+
+/** Posição padrão do celular nas cenas: à esquerda no 16:9, centralizado embaixo no 9:16. */
+export const posCelular = (v: boolean) => (v ? { x: 340, y: 640, largura: 400 } : { x: 250, y: 78, largura: 400 });

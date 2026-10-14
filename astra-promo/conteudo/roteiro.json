@@ -1,21 +1,21 @@
 {
   "voz": {
     "edge": "pt-BR-AntonioNeural",
-    "velocidade": "+6%",
+    "velocidade": "+14%",
     "kokoro": "pm_alex",
-    "kokoroVelocidade": 1.05
+    "kokoroVelocidade": 1.15
   },
   "bpm": 120,
   "cenas": [
-    { "id": "abertura", "texto": "Na linha de montagem, cada aperto conta.", "extra": 0.6 },
-    { "id": "problema", "texto": "Mas cadê a tabela de torque desse posto? E aquela máquina de aperto: alguém viu onde ela está?", "extra": 0.4 },
-    { "id": "revelacao", "texto": "Conheça o ASTRA.", "extra": 2.2 },
-    { "id": "escanear", "texto": "Aponte a câmera para o QR Code do posto e pronto: a tabela de torque aparece na hora, aperto por aperto.", "extra": 1.0 },
-    { "id": "maquina", "texto": "Cada máquina também tem o seu QR. Número de série, torque, posto e situação no inventário, tudo em um toque.", "extra": 0.8 },
-    { "id": "alterar", "texto": "Precisa atualizar? Com a senha, você altera os dados em segundos.", "extra": 1.0 },
-    { "id": "historico", "texto": "E nada se perde: cada mudança vai para o histórico, com quem fez, o que mudou e quando.", "extra": 1.0 },
-    { "id": "inventario", "texto": "No inventário, você vê quantas máquinas foram encontradas e copia a lista direto para o Excel.", "extra": 1.0 },
-    { "id": "plataformas", "texto": "Funciona no iPhone, no Android e no computador. E, depois da primeira abertura, até sem internet.", "extra": 0.8 },
-    { "id": "final", "texto": "ASTRA. Escaneou, resolveu.", "extra": 3.6 }
+    { "id": "abertura", "texto": "Na linha de montagem, cada aperto conta.", "extra": 0.3 },
+    { "id": "problema", "texto": "Mas cadê a tabela? E a máquina, alguém viu?", "extra": 0.1 },
+    { "id": "revelacao", "texto": "Conheça o ASTRA.", "extra": 1.2 },
+    { "id": "escanear", "texto": "Escaneou o QR do posto: a tabela de torque aparece na hora.", "extra": 0.6 },
+    { "id": "maquina", "texto": "Cada máquina tem seu QR: série, torque, posto e situação.", "extra": 0.5 },
+    { "id": "alterar", "texto": "Precisa mudar? Com senha, em segundos.", "extra": 1.0 },
+    { "id": "historico", "texto": "E tudo fica no histórico: quem, o quê e quando.", "extra": 0.5 },
+    { "id": "inventario", "texto": "Inventário na palma da mão, direto para o Excel.", "extra": 0.8 },
+    { "id": "plataformas", "texto": "No iPhone, no Android e no computador. Até sem internet.", "extra": 0.6 },
+    { "id": "final", "texto": "ASTRA. Escaneou, resolveu.", "extra": 2.2 }
   ]
 }

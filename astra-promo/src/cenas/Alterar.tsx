@@ -1,11 +1,10 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { evolvePath } from "@remotion/paths";
 import { MARCAS, quando } from "../dados";
-import { COR, SANS } from "../tema";
-import { Celular, Destaque, Tela, Toque } from "../componentes/Celular";
+import { COR, SANS, useFormato } from "../tema";
+import { Celular, Destaque, Tela, Toque, posCelular } from "../componentes/Celular";
 import { Ficha, Rotulo, Surge } from "../componentes/Texto";
 import { Sfx } from "../componentes/Som";
-import { CEL } from "./Escanear";
 
 const ID = "alterar";
 const CHECK = "M14 32 l12 12 l24 -26";
@@ -14,13 +13,15 @@ const CHECK = "M14 32 l12 12 l24 -26";
 export const Alterar = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const senha = quando(ID, "senha", 0, 40);
-  const digita = [senha - 8, senha - 3, senha + 2, senha + 7];
-  const entrar = senha + 14;
-  const form = entrar + 6;
-  const troca = form + 22;
-  const salvar = troca + 16;
-  const pronto = salvar + 8;
+  const { v } = useFormato();
+  const CEL = posCelular(v);
+  const senha = quando(ID, "senha", 0, 30);
+  const digita = [senha - 6, senha - 2, senha + 2, senha + 6];
+  const entrar = senha + 10;
+  const form = entrar + 4;
+  const troca = form + 14;
+  const salvar = troca + 10;
+  const pronto = salvar + 6;
   const pw = MARCAS["senha"].el["#pw"][0];
   const ok = MARCAS["senha"].el["[data-act=pwok]"][0];
   const st = MARCAS["formulario"].el["#f-status"][0];
@@ -29,7 +30,7 @@ export const Alterar = () => {
   const formEntra = spring({ frame: f - form, fps, config: { damping: 20, stiffness: 140 } });
   const fim = spring({ frame: f - pronto, fps, config: { damping: 20, stiffness: 140 } });
   const vira = spring({ frame: f - pronto - 4, fps, config: { damping: 12, stiffness: 90 } });
-  const ev = evolvePath(Math.max(0.0001, interpolate(f, [pronto + 12, pronto + 28], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), CHECK);
+  const ev = evolvePath(Math.max(0.0001, interpolate(f, [pronto + 8, pronto + 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), CHECK);
   return (
     <AbsoluteFill>
       <div style={{ position: "absolute", left: CEL.x, top: CEL.y }}>
@@ -55,25 +56,25 @@ export const Alterar = () => {
           </Tela>
         </Celular>
       </div>
-      <div style={{ position: "absolute", left: 900, top: 190, width: 960 }}>
-        <Rotulo texto="03 · Alterar dados" em={4} />
-        <Surge texto="Precisa atualizar?" em={quando(ID, "Precisa", 0, 16) - 2} tamanho={86} style={{ marginTop: 26 }} />
-        <div style={{ marginTop: 34, display: "flex", gap: 18 }}>
+      <div style={{ position: "absolute", left: v ? 70 : 900, top: v ? 200 : 190, width: 960 }}>
+        <Rotulo texto="03 · Alterar dados" em={2} />
+        <Surge texto="Precisa mudar?" em={quando(ID, "Precisa", 0, 8) - 2} tamanho={v ? 64 : 86} intervalo={2} style={{ marginTop: v ? 20 : 26 }} />
+        <div style={{ marginTop: v ? 22 : 34, display: "flex", gap: 18 }}>
           <Ficha texto="Protegido por senha" em={senha - 6} cor={COR.ambar} />
         </div>
       </div>
       {/* selo virando */}
-      <div style={{ position: "absolute", left: 900, top: 560 }}>
-        <div style={{ fontFamily: SANS, fontSize: 26, fontWeight: 600, color: COR.suave, letterSpacing: 3, marginBottom: 16, opacity: spring({ frame: f - troca, fps }) }}>SITUAÇÃO DA MÁQUINA 7</div>
+      <div style={{ position: "absolute", left: v ? 240 : 900, top: v ? 440 : 560 }}>
+        <div style={{ fontFamily: SANS, fontSize: v ? 22 : 26, fontWeight: 600, color: COR.suave, letterSpacing: 3, marginBottom: v ? 10 : 16, opacity: spring({ frame: f - troca, fps }) }}>SITUAÇÃO DA MÁQUINA 7</div>
         {/* giro em 2D (escala vertical), que continua certo durante as transições entre cenas */}
-        <div style={{ position: "relative", width: 640, height: 130, opacity: spring({ frame: f - troca, fps }), transform: `scaleY(${Math.abs(Math.cos(vira * Math.PI))})` }}>
+        <div style={{ position: "relative", width: v ? 600 : 640, height: v ? 110 : 130, opacity: spring({ frame: f - troca, fps }), transform: `scaleY(${Math.abs(Math.cos(vira * Math.PI))})` }}>
           {vira < 0.5 ? (
             <Selo texto="Não encontrada" cor={COR.vermelho} />
           ) : (
             <Selo texto="Encontrada" cor={COR.verde} icone={<svg width={64} height={64} viewBox="0 0 64 64"><path d={CHECK} stroke={COR.verde} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={ev.strokeDasharray} strokeDashoffset={ev.strokeDashoffset} /></svg>} />
           )}
         </div>
-        <Surge texto="Atualizado em segundos." em={pronto + 16} tamanho={48} peso={600} cor={COR.ciano} style={{ marginTop: 40 }} />
+        {!v && <Surge texto="Atualizado em segundos." em={pronto + 10} tamanho={48} peso={600} cor={COR.ciano} style={{ marginTop: 40 }} />}
       </div>
       {digita.map((t, i) => (
         <Sfx key={i} nome="tecla" em={t} volume={0.45} />

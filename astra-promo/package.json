@@ -4,12 +4,13 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts AstraPromo out/bruto.mp4 && npm run volume",
-    "volume": "ffmpeg -y -loglevel error -i out/bruto.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k out/astra-promo.mp4",
+    "render": "bash scripts/renderizar.sh",
     "audio": "python3 scripts/gerar_audio.py",
     "sons": "python3 scripts/gerar_sons.py",
     "telas": "node scripts/capturar_telas.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "render:16x9": "bash scripts/renderizar.sh 16x9",
+    "render:9x16": "bash scripts/renderizar.sh 9x16"
   },
   "dependencies": {
     "@remotion/cli": "4.0.535",

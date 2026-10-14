@@ -1,30 +1,31 @@
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { MARCAS, quando } from "../dados";
-import { COR, MONO, SANS } from "../tema";
-import { Celular, Destaque, Tela, noCelular } from "../componentes/Celular";
+import { COR, MONO, SANS, useFormato } from "../tema";
+import { Celular, Destaque, Tela, noCelular, posCelular } from "../componentes/Celular";
 import { Camera } from "../componentes/Camera";
 import { Ficha, Rotulo, Surge } from "../componentes/Texto";
 import { Sfx } from "../componentes/Som";
 
 const ID = "escanear";
-export const CEL = { x: 250, y: 78, largura: 400 };
 
 // QR do posto -> tabela de torque aparecendo na hora, linha por linha
 export const Escanear = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const pronto = quando(ID, "pronto", 0, 90);
-  const trava = pronto - 14;
-  const aperto = quando(ID, "aperto", 0, pronto + 50);
+  const { v } = useFormato();
+  const CEL = posCelular(v);
+  const pronto = quando(ID, "tabela", 0, 60) - 4;
+  const trava = quando(ID, "QR", 0, pronto - 20) + 4;
+  const aperto = quando(ID, "hora", 0, pronto + 30);
   const entra = spring({ frame: f, fps, config: { damping: 16, stiffness: 80 } });
   const telaSobe = spring({ frame: f - pronto + 2, fps, config: { damping: 18, stiffness: 120 } });
   const linhas = MARCAS["tabela-posto-14"].el[".ptab tbody tr"];
-  const passo = 5;
+  const passo = 3;
   const linhaAtual = Math.floor((f - aperto) / passo);
-  const rot = interpolate(f, [0, 300], [-14, -4]);
+  const rot = v ? interpolate(f, [0, 180], [-8, 8]) : interpolate(f, [0, 180], [-14, -4]);
   // linha 6 (Air Bag) salta para fora do celular
   const l6 = linhas[5];
-  const pulo = spring({ frame: f - aperto - 8 * passo - 6, fps, config: { damping: 14 } });
+  const pulo = spring({ frame: f - aperto - 8 * passo - 2, fps, config: { damping: 14 } });
   const pt = noCelular(CEL.largura, l6[0], l6[1]);
   return (
     <AbsoluteFill>
@@ -43,8 +44,8 @@ export const Escanear = () => {
         <div
           style={{
             position: "absolute",
-            left: interpolate(pulo, [0, 1], [CEL.x + pt.x, 900]),
-            top: interpolate(pulo, [0, 1], [CEL.y + pt.y - 10, 760]),
+            left: interpolate(pulo, [0, 1], [CEL.x + pt.x, v ? 520 : 900]),
+            top: interpolate(pulo, [0, 1], [CEL.y + pt.y - 10, v ? 1340 : 760]),
             width: 520,
             transform: `scale(${0.6 + 0.4 * pulo})`,
             transformOrigin: "0 50%",
@@ -65,14 +66,14 @@ export const Escanear = () => {
           <span style={{ fontFamily: MONO, fontSize: 20, color: "#6B7686" }}>N·m</span>
         </div>
       )}
-      <div style={{ position: "absolute", left: 900, top: 190, width: 1000 }}>
-        <Rotulo texto="01 · Tabelas de torque" em={8} />
-        <Surge texto="Escaneie o QR do posto." em={14} tamanho={74} style={{ marginTop: 26 }} />
-        <Surge texto="A tabela aparece na hora." em={pronto} tamanho={74} cor={COR.ciano} style={{ marginTop: 10 }} />
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 18, marginTop: 50, maxWidth: 820 }}>
+      <div style={{ position: "absolute", left: v ? 70 : 900, top: v ? 200 : 190, width: v ? 960 : 1000 }}>
+        <Rotulo texto="01 · Tabelas de torque" em={2} />
+        <Surge texto="Escaneie o QR do posto." em={4} tamanho={v ? 62 : 74} intervalo={2} style={{ marginTop: 26 }} />
+        <Surge texto="A tabela aparece na hora." em={pronto} tamanho={v ? 62 : 74} intervalo={2} cor={COR.ciano} style={{ marginTop: 10 }} />
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 18, marginTop: v ? 30 : 50, maxWidth: v ? 960 : 820 }}>
           <Ficha texto="TAB:posto-14" em={trava + 2} mono cor={COR.verde} />
-          <Ficha texto="8 apertos" em={pronto + 12} />
-          <Ficha texto="Torque em N·m" em={pronto + 20} />
+          <Ficha texto="8 apertos" em={pronto + 6} />
+          <Ficha texto="Torque em N·m" em={pronto + 10} />
         </div>
       </div>
       <Sfx nome="whoosh" em={0} volume={0.3} />
@@ -81,7 +82,7 @@ export const Escanear = () => {
       {linhas.map((_, i) => (
         <Sfx key={i} nome="tique" em={aperto + i * passo} volume={0.3} />
       ))}
-      <Sfx nome="pop" em={aperto + 8 * passo + 6} volume={0.5} />
+      <Sfx nome="pop" em={aperto + 8 * passo + 2} volume={0.5} />
     </AbsoluteFill>
   );
 };

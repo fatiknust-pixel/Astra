@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { linearTiming, TransitionPresentation, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
@@ -34,18 +34,25 @@ const CENAS: { id: string; C: React.FC; legenda?: boolean }[] = [
 
 // Transição que entra em cada cena (índice = cena que chega)
 const suave = { durationInFrames: NARRACAO.transicao, easing: Easing.inOut(Easing.cubic) };
-const TRANSICOES: (TransitionPresentation<any> | null)[] = [
+const transicoes = (width: number, height: number): (TransitionPresentation<any> | null)[] => [
   null,
-  fade(),
+  slide({ direction: "from-right" }),
   fade(),
   slide({ direction: "from-bottom" }),
   slide({ direction: "from-right" }),
   wipe({ direction: "from-left" }),
   slide({ direction: "from-right" }),
-  iris({ width: 1920, height: 1080 }),
+  iris({ width, height }),
   slide({ direction: "from-bottom" }),
   fade(),
 ];
+
+/** Zoom lento e contínuo dentro de cada cena: a imagem nunca fica parada. */
+const Movimento: React.FC<{ quadros: number; children: React.ReactNode }> = ({ quadros, children }) => {
+  const f = useCurrentFrame();
+  const z = interpolate(f, [0, quadros], [1, 1.045]);
+  return <AbsoluteFill style={{ transform: `scale(${z})` }}>{children}</AbsoluteFill>;
+};
 
 /** Volume da trilha: abaixa enquanto alguém fala (ducking), suavizado. */
 const useVolumeTrilha = () =>
@@ -78,6 +85,8 @@ const useVolumeTrilha = () =>
 
 export const Video = () => {
   const f = useCurrentFrame();
+  const { width, height } = useVideoConfig();
+  const TRANSICOES = useMemo(() => transicoes(width, height), [width, height]);
   const vol = useVolumeTrilha();
   const prob = cena("problema");
   const rev = cena("revelacao");
@@ -94,8 +103,10 @@ export const Video = () => {
           if (t) itens.push(<TransitionSeries.Transition key={"t" + id} presentation={t} timing={linearTiming(suave)} />);
           itens.push(
             <TransitionSeries.Sequence key={id} durationInFrames={c.quadros}>
-              <C />
-              {legenda !== false && <Legenda id={id} base={985} />}
+              <Movimento quadros={c.quadros}>
+                <C />
+              </Movimento>
+              {legenda !== false && <Legenda id={id} />}
               <Sequence from={c.falaEm} layout="none">
                 <Audio src={staticFile(c.audio)} volume={1} />
               </Sequence>

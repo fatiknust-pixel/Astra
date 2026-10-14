@@ -1,10 +1,12 @@
 import { useCurrentFrame } from "remotion";
 import { cena, FPS } from "../dados";
-import { COR, SANS } from "../tema";
+import { COR, SANS, useFormato } from "../tema";
 
 // Legenda da narração, com a palavra falada em destaque. Mostra um trecho curto por vez.
-export const Legenda: React.FC<{ id: string; base?: number }> = ({ id, base = 1000 }) => {
+export const Legenda: React.FC<{ id: string }> = ({ id }) => {
   const f = useCurrentFrame();
+  const { v } = useFormato();
+  const base = v ? 1565 : 985;
   const c = cena(id);
   const t = (f - c.falaEm) / FPS;
   const grupos: { i: number; f: number; ws: typeof c.palavras }[] = [];
@@ -26,14 +28,14 @@ export const Legenda: React.FC<{ id: string; base?: number }> = ({ id, base = 10
         style={{
           fontFamily: SANS,
           fontWeight: 600,
-          fontSize: 34,
+          fontSize: v ? 38 : 34,
           color: COR.suave,
           background: "rgba(3,9,22,0.62)",
           padding: "10px 26px",
           borderRadius: 14,
           backdropFilter: "blur(6px)",
           border: "1px solid rgba(141,178,245,0.18)",
-          maxWidth: 1300,
+          maxWidth: v ? 960 : 1300,
           textAlign: "center",
         }}
       >

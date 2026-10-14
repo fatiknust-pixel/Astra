@@ -1,7 +1,8 @@
-# ASTRA: vídeo de apresentação (16:9)
+# ASTRA: vídeo de apresentação (16:9 e 9:16)
 
 Vídeo-propaganda do aplicativo ASTRA, feito com [Remotion](https://github.com/remotion-dev/remotion) (vídeo escrito em React).
-Tem cerca de 75 segundos, em 1920×1080 a 30 quadros por segundo, com narração, legenda, trilha e efeitos sonoros.
+Tem cerca de 45 segundos, em dois formatos (16:9 em 1920×1080 e 9:16 em 1080×1920), a 30 quadros por segundo,
+com narração, legenda, trilha e efeitos sonoros. Cada cena reorganiza o layout conforme o formato.
 
 Usa **somente dados fictícios** e as telas reais do protótipo, **sem o logo da empresa** (ele é bloqueado na captura).
 
@@ -36,7 +37,7 @@ de todas as cenas e da música se ajusta sozinho.
 
 ## Como gerar
 
-O jeito mais fácil é pelo GitHub: **Actions → Vídeo ASTRA → Run workflow**. O MP4 fica em *Artifacts* da execução.
+O jeito mais fácil é pelo GitHub: **Actions → Vídeo ASTRA → Run workflow**. Os dois MP4 ficam em *Artifacts* da execução.
 Cada alteração em `astra-promo/` também dispara o workflow.
 
 No computador:
@@ -48,7 +49,7 @@ pip install edge-tts numpy scipy
 npm run audio            # narração (voz da Microsoft) e linha do tempo
 npm run sons             # trilha e efeitos no ritmo da narração
 npm run studio           # prévia com linha do tempo
-npm run render           # out/astra-promo.mp4
+npm run render           # out/astra-promo-16x9.mp4 e out/astra-promo-9x16.mp4
 ```
 
 Para refazer as telas do app: rode o ASTRA em `http://localhost:8765` (`python -m http.server 8765` na pasta do app)
