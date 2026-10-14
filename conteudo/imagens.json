@@ -1,12 +1,43 @@
 {
   "_comentario": "Cada chave vira public/imagens/<chave>.jpg. 'wiki' = foto principal do artigo da Wikipédia (pt); 'commons' = busca no Wikimedia Commons; 'arquivo' = nome exato de arquivo no Commons (tem prioridade). Para trocar uma imagem, coloque 'arquivo' ou substitua o .jpg à mão.",
-  "lula": { "wiki": "Luiz Inácio Lula da Silva", "rotulo": "Luiz Inácio Lula da Silva" },
-  "moro": { "wiki": "Sergio Moro", "rotulo": "Sergio Moro" },
-  "fachin": { "wiki": "Edson Fachin", "rotulo": "Edson Fachin" },
-  "hardt": { "wiki": "Gabriela Hardt", "commons": "Gabriela Hardt juíza", "rotulo": "Gabriela Hardt" },
-  "petrobras": { "commons": "Edifício sede Petrobras Rio de Janeiro", "wiki": "Petrobras", "rotulo": "Sede da Petrobras" },
-  "triplex": { "commons": "Condomínio Solaris Guarujá triplex", "wiki": "Caso do triplex do Guarujá", "rotulo": "Edifício Solaris, Guarujá" },
-  "atibaia": { "commons": "Sítio Santa Bárbara Atibaia", "wiki": "Atibaia", "rotulo": "Atibaia (SP)" },
-  "pf-curitiba": { "commons": "Superintendência Polícia Federal Curitiba", "rotulo": "Superintendência da PF em Curitiba" },
-  "stf": { "commons": "Supremo Tribunal Federal edifício sede Brasília", "wiki": "Supremo Tribunal Federal", "rotulo": "Supremo Tribunal Federal" }
+  "lula": {
+    "wiki": "Luiz Inácio Lula da Silva",
+    "rotulo": "Luiz Inácio Lula da Silva"
+  },
+  "moro": {
+    "wiki": "Sergio Moro",
+    "rotulo": "Sergio Moro"
+  },
+  "fachin": {
+    "wiki": "Edson Fachin",
+    "rotulo": "Edson Fachin"
+  },
+  "hardt": {
+    "wiki": "Gabriela Hardt",
+    "rotulo": "Gabriela Hardt"
+  },
+  "petrobras": {
+    "commons": "Edifício sede Petrobras Rio de Janeiro",
+    "wiki": "Petrobras",
+    "rotulo": "Sede da Petrobras"
+  },
+  "triplex": {
+    "commons": "Praia das Pitangueiras Guarujá",
+    "wiki": "Guarujá",
+    "rotulo": "Guarujá (SP), cidade do tríplex"
+  },
+  "atibaia": {
+    "commons": "Sítio Santa Bárbara Atibaia",
+    "wiki": "Atibaia",
+    "rotulo": "Atibaia (SP)"
+  },
+  "pf-curitiba": {
+    "commons": "Superintendência Polícia Federal Curitiba",
+    "rotulo": "Superintendência da PF em Curitiba"
+  },
+  "stf": {
+    "commons": "Supremo Tribunal Federal edifício sede Brasília",
+    "wiki": "Supremo Tribunal Federal",
+    "rotulo": "Supremo Tribunal Federal"
+  }
 }

@@ -31,7 +31,7 @@
       "fontes": ["MPF — Caso Lava Jato", "Agência Brasil"],
       "elementos": [
         { "tipo": "titulo", "texto": "OPERAÇÃO LAVA JATO", "sub": "2014 · Petrobras", "em": 0, "posicao": "topo" },
-        { "tipo": "tag", "texto": "13ª Vara Federal de Curitiba", "icone": "martelo", "em": "Vara", "posicao": "meio" },
+        { "tipo": "tag", "texto": "13ª Vara Federal de Curitiba", "icone": "martelo", "em": "federal", "posicao": "meio" },
         { "tipo": "pessoa", "imagem": "moro", "nome": "Sergio Moro", "cargo": "Juiz federal na época", "em": "Curitiba", "posicao": "alto" }
       ]
     },
