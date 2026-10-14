@@ -1,0 +1,13 @@
+{
+  "_comentario": "Cada chave vira public/bolsonaro/imagens/<chave>.jpg. 'wiki' = foto principal do artigo da Wikipédia (pt); 'commons' = busca no Wikimedia Commons; 'arquivo' = nome exato de arquivo no Commons (tem prioridade).",
+  "bolsonaro": { "wiki": "Jair Bolsonaro", "rotulo": "Jair Bolsonaro" },
+  "moraes": { "wiki": "Alexandre de Moraes", "rotulo": "Alexandre de Moraes" },
+  "fux": { "wiki": "Luiz Fux", "rotulo": "Luiz Fux" },
+  "gonet": { "wiki": "Paulo Gonet", "rotulo": "Paulo Gonet" },
+  "planalto": { "commons": "Palácio do Planalto fachada Brasília", "wiki": "Palácio do Planalto", "rotulo": "Palácio do Planalto" },
+  "urna": { "commons": "Urna eletrônica brasileira", "wiki": "Urna eletrônica brasileira", "rotulo": "Urna eletrônica" },
+  "oito-janeiro": { "commons": "Ataques 8 de janeiro 2023 Congresso Nacional Agência Brasil", "wiki": "Ataques às sedes dos Três Poderes em Brasília", "rotulo": "8 de janeiro de 2023, Brasília" },
+  "stf": { "commons": "Supremo Tribunal Federal edifício sede Brasília", "wiki": "Supremo Tribunal Federal", "rotulo": "Supremo Tribunal Federal" },
+  "pf-brasilia": { "commons": "Sede da Polícia Federal Brasília edifício", "wiki": "Polícia Federal (Brasil)", "rotulo": "Polícia Federal, Brasília" },
+  "papuda": { "commons": "Complexo Penitenciário da Papuda", "wiki": "Complexo Penitenciário da Papuda", "rotulo": "Complexo da Papuda, Brasília" }
+}

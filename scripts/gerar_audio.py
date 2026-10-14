@@ -14,13 +14,11 @@ Uso:
   python3 scripts/gerar_audio.py                  # motor edge
   python3 scripts/gerar_audio.py --motor kokoro --modelo PASTA_COM_MODEL_E_VOICES
   python3 scripts/gerar_audio.py --forcar gancho  # refaz só a cena 'gancho'
+  python3 scripts/gerar_audio.py --video bolsonaro  # só um vídeo (padrão: todos em conteudo/)
 """
 import argparse, asyncio, hashlib, json, os, re, subprocess, sys, tempfile
 
 RAIZ = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-ROTEIRO = os.path.join(RAIZ, "conteudo", "roteiro.json")
-PASTA_AUDIO = os.path.join(RAIZ, "public", "audio")
-SAIDA = os.path.join(RAIZ, "src", "gerado", "narracao.json")
 
 
 def duracao(arquivo):
@@ -82,13 +80,10 @@ def via_kokoro(texto, voz, velocidade, destino, modelo):
     return palavras
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--motor", default=os.environ.get("MOTOR_TTS", "edge"), choices=["edge", "kokoro"])
-    ap.add_argument("--modelo", default=os.environ.get("KOKORO_MODELO", "modelos/kokoro"))
-    ap.add_argument("--forcar", nargs="*", help="ids de cenas para refazer (vazio = todas)")
-    a = ap.parse_args()
-
+def gerar(video, a):
+    ROTEIRO = os.path.join(RAIZ, "conteudo", video, "roteiro.json")
+    PASTA_AUDIO = os.path.join(RAIZ, "public", video, "audio")
+    SAIDA = os.path.join(RAIZ, "src", "gerado", video, "narracao.json")
     roteiro = json.load(open(ROTEIRO, encoding="utf-8"))
     voz = roteiro["voz"]
     os.makedirs(PASTA_AUDIO, exist_ok=True)
@@ -104,14 +99,14 @@ def main():
         cid, texto = cena["id"], cena["texto"]
         h = hashlib.sha1(f"{a.motor}|{voz_id}|{vel}|{texto}".encode()).hexdigest()[:12]
         arq = f"audio/{cid}.mp3"
-        dest = os.path.join(RAIZ, "public", arq)
+        dest = os.path.join(PASTA_AUDIO, f"{cid}.mp3")
         velho = anterior["cenas"].get(cid)
         refazer = a.forcar is not None and (len(a.forcar) == 0 or cid in a.forcar)
         if velho and velho.get("hash") == h and os.path.exists(dest) and not refazer:
             saida["cenas"][cid] = velho
-            print(f"= {cid} (sem mudanças)")
+            print(f"= {video}/{cid} (sem mudanças)")
             continue
-        print(f"♪ {cid} …", flush=True)
+        print(f"♪ {video}/{cid} …", flush=True)
         if a.motor == "edge":
             palavras = asyncio.run(via_edge(texto, voz_id, vel, dest))
         else:
@@ -121,7 +116,19 @@ def main():
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     json.dump(saida, open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     total = sum(c["duracao"] for c in saida["cenas"].values())
-    print(f"Narração pronta: {total:.1f}s em {len(saida['cenas'])} cenas → {os.path.relpath(SAIDA, RAIZ)}")
+    print(f"Narração de '{video}' pronta: {total:.1f}s em {len(saida['cenas'])} cenas")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--motor", default=os.environ.get("MOTOR_TTS", "edge"), choices=["edge", "kokoro"])
+    ap.add_argument("--modelo", default=os.environ.get("KOKORO_MODELO", "modelos/kokoro"))
+    ap.add_argument("--video", action="append", help="id do vídeo (pasta em conteudo/); padrão: todos")
+    ap.add_argument("--forcar", nargs="*", help="ids de cenas para refazer (vazio = todas)")
+    a = ap.parse_args()
+    videos = a.video or sorted(d for d in os.listdir(os.path.join(RAIZ, "conteudo")) if os.path.isfile(os.path.join(RAIZ, "conteudo", d, "roteiro.json")))
+    for v in videos:
+        gerar(v, a)
 
 
 if __name__ == "__main__":

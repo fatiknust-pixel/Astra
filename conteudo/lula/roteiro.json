@@ -1,0 +1,485 @@
+{
+  "titulo": "Lula: inocentado ou condenado?",
+  "voz": {
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+12%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.12
+  },
+  "legenda": {
+    "palavrasPorTela": 3,
+    "corDestaque": "#FFD60A"
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "texto": "O Lula foi inocentado? Não. Foi condenado? Também não. Parece confuso, mas em um minuto você vai entender tudo.",
+      "fundo": "lula",
+      "fontes": [],
+      "elementos": [
+        {
+          "tipo": "pergunta",
+          "texto": "INOCENTADO?",
+          "em": "inocentado",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "NÃO",
+          "cor": "vermelho",
+          "em": "Não",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "pergunta",
+          "texto": "CONDENADO?",
+          "em": "condenado",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "TAMBÉM NÃO",
+          "cor": "vermelho",
+          "em": "Também",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "titulo",
+          "texto": "ENTENDA EM 1 MINUTO",
+          "em": "minuto",
+          "posicao": "topo"
+        }
+      ]
+    },
+    {
+      "id": "lava-jato",
+      "texto": "Tudo começa na Lava Jato, a operação que investigou corrupção na Petrobras. Os processos do Lula ficaram na 13ª Vara Federal de Curitiba, do juiz Sergio Moro.",
+      "fundo": "petrobras",
+      "fontes": [
+        "MPF — Caso Lava Jato",
+        "Agência Brasil"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "OPERAÇÃO LAVA JATO",
+          "sub": "2014 · Petrobras",
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "tag",
+          "texto": "13ª Vara Federal de Curitiba",
+          "icone": "martelo",
+          "em": "federal",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "moro",
+          "nome": "Sergio Moro",
+          "cargo": "Juiz federal na época",
+          "em": "Curitiba",
+          "posicao": "alto"
+        }
+      ]
+    },
+    {
+      "id": "triplex",
+      "texto": "Primeiro caso: o tríplex do Guarujá. A acusação dizia que a construtora OAS reservou e reformou um apartamento para o Lula em troca de vantagens em contratos da Petrobras. Em 2017, Moro o condenou por corrupção passiva e lavagem de dinheiro. Na segunda instância, a pena subiu para 12 anos.",
+      "fundo": "triplex",
+      "fontes": [
+        "Sentença 13ª Vara (jul/2017)",
+        "TRF-4 — Apelação (jan/2018)",
+        "G1"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "CASO 1: TRÍPLEX",
+          "sub": "Guarujá (SP)",
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "icones",
+          "itens": [
+            [
+              "predio",
+              "Apartamento"
+            ],
+            [
+              "seta",
+              ""
+            ],
+            [
+              "contrato",
+              "Contratos Petrobras"
+            ]
+          ],
+          "em": "apartamento",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Corrupção passiva",
+          "icone": "dinheiro",
+          "cor": "vermelho",
+          "em": "corrupção",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Lavagem de dinheiro",
+          "icone": "lavagem",
+          "cor": "vermelho",
+          "em": "lavagem",
+          "posicao": "meio2"
+        },
+        {
+          "tipo": "contador",
+          "de": 9,
+          "ate": 12,
+          "unidade": "anos de pena",
+          "rotulo": "1ª instância → TRF-4",
+          "em": "pena",
+          "posicao": "alto"
+        }
+      ]
+    },
+    {
+      "id": "prisao",
+      "texto": "Em abril de 2018, Lula foi preso e passou 580 dias na Polícia Federal, em Curitiba. Saiu em novembro de 2019, quando o STF decidiu que a prisão só vem depois de esgotados todos os recursos.",
+      "fundo": "pf-curitiba",
+      "fontes": [
+        "STF — ADCs 43, 44 e 54 (nov/2019)",
+        "Agência Brasil"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "PRESO",
+          "sub": "abril de 2018",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "vermelho"
+        },
+        {
+          "tipo": "contador",
+          "de": 0,
+          "ate": 580,
+          "unidade": "dias preso",
+          "em": "580",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "linha",
+          "itens": [
+            [
+              "abr/2018",
+              "Prisão"
+            ],
+            [
+              "nov/2019",
+              "Soltura"
+            ]
+          ],
+          "em": "novembro",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Prisão só após todos os recursos",
+          "icone": "balanca",
+          "cor": "azul",
+          "em": "STF",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "atibaia",
+      "texto": "Segundo caso: o sítio de Atibaia. Segundo a acusação, empreiteiras pagaram reformas num sítio frequentado pelo Lula. Em 2019, a juíza Gabriela Hardt o condenou, e a pena chegou a 17 anos na segunda instância.",
+      "fundo": "atibaia",
+      "fontes": [
+        "Sentença 13ª Vara (fev/2019)",
+        "TRF-4 (nov/2019)",
+        "Folha de S.Paulo"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "CASO 2: SÍTIO",
+          "sub": "Atibaia (SP)",
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "icones",
+          "itens": [
+            [
+              "obra",
+              "Reformas"
+            ],
+            [
+              "seta",
+              ""
+            ],
+            [
+              "casa",
+              "Sítio"
+            ]
+          ],
+          "em": "empreiteiras",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "hardt",
+          "nome": "Gabriela Hardt",
+          "cargo": "Juíza substituta da 13ª Vara",
+          "em": "Gabriela",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "contador",
+          "de": 12,
+          "ate": 17,
+          "unidade": "anos de pena",
+          "rotulo": "1ª instância → TRF-4",
+          "em": "17",
+          "posicao": "meio"
+        }
+      ]
+    },
+    {
+      "id": "incompetencia",
+      "texto": "Mas em 2021 veio a reviravolta. O ministro Edson Fachin, do STF, anulou as condenações por incompetência. Calma, não é xingamento: no Direito, isso significa que o caso foi julgado no lugar errado. Os supostos crimes não tinham relação direta com os desvios da Petrobras, então não podiam ser julgados em Curitiba. O plenário confirmou por 8 votos a 3.",
+      "fundo": "stf",
+      "fontes": [
+        "STF — HC 193.726 (mar/2021)",
+        "STF — Plenário (abr/2021)",
+        "Conjur"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "REVIRAVOLTA",
+          "sub": "março de 2021",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "amarelo"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "fachin",
+          "nome": "Edson Fachin",
+          "cargo": "Ministro do STF",
+          "em": "Edson",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "ANULADAS",
+          "cor": "vermelho",
+          "em": "anulou",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "definicao",
+          "palavra": "INCOMPETÊNCIA",
+          "significado": "Julgado no lugar errado ≠ inocente",
+          "em": "incompetência",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "mapa",
+          "de": "Curitiba",
+          "para": "Brasília",
+          "em": "supostos",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "placar",
+          "sim": 8,
+          "nao": 3,
+          "rotulo": "Plenário do STF",
+          "em": "plenário",
+          "posicao": "meio"
+        }
+      ]
+    },
+    {
+      "id": "suspeicao",
+      "texto": "Depois, o STF também decidiu que Moro foi parcial ao julgar o Lula. Isso derrubou as decisões e as provas usadas por ele, e tudo teve que recomeçar do zero, na Justiça Federal de Brasília.",
+      "fundo": "stf",
+      "fontes": [
+        "STF — HC 164.493 (2ª Turma, mar/2021)",
+        "STF — Plenário 7 a 4 (jun/2021)",
+        "Poder360"
+      ],
+      "elementos": [
+        {
+          "tipo": "pessoa",
+          "imagem": "moro",
+          "nome": "Sergio Moro",
+          "cargo": "Declarado parcial pelo STF",
+          "em": 0,
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "PARCIAL",
+          "cor": "vermelho",
+          "em": "parcial",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Provas e decisões anuladas",
+          "icone": "documento",
+          "cor": "vermelho",
+          "em": "provas",
+          "posicao": "meio2"
+        },
+        {
+          "tipo": "titulo",
+          "texto": "DE VOLTA AO ZERO",
+          "sub": "Justiça Federal do DF",
+          "em": "zero",
+          "posicao": "topo",
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "prescricao",
+      "texto": "E aí entra a idade. Pela lei, quando o réu tem mais de 70 anos, o prazo que o Estado tem pra punir cai pela metade. Isso é a prescrição. Lula já tinha 75 anos, e os fatos eram antigos. O tempo acabou. Em 2021 e 2022, a Justiça de Brasília encerrou os casos sem julgar se ele era culpado ou inocente.",
+      "fundo": "lula",
+      "fontes": [
+        "Código Penal — art. 115",
+        "JF-DF: Atibaia (ago/2021)",
+        "JF-DF: Tríplex (jan/2022)",
+        "Poder360"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "A IDADE",
+          "sub": "Art. 115 do Código Penal",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "amarelo"
+        },
+        {
+          "tipo": "relogio",
+          "rotulo": "Prazo para punir",
+          "em": "prazo",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "definicao",
+          "palavra": "PRESCRIÇÃO",
+          "significado": "O Estado perde o prazo para punir",
+          "em": "prescrição",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "contador",
+          "de": 70,
+          "ate": 75,
+          "unidade": "anos de idade",
+          "rotulo": "Lula em 2021",
+          "em": "75",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "ARQUIVADO",
+          "cor": "cinza",
+          "em": "encerrou",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Mérito nunca julgado",
+          "icone": "balanca",
+          "cor": "amarelo",
+          "em": "culpado",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "resumo",
+      "texto": "Resumindo: ele não foi inocentado, porque ninguém julgou se cometeu ou não os crimes. E também não é condenado, porque as condenações foram anuladas. E pela Constituição, sem condenação definitiva, ninguém é considerado culpado.",
+      "fundo": "lula",
+      "fontes": [
+        "Constituição Federal — art. 5º, LVII"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "RESUMINDO",
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "check",
+          "texto": "Inocentado",
+          "ok": false,
+          "nota": "Mérito não foi julgado",
+          "em": "inocentado",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "check",
+          "texto": "Condenado",
+          "ok": false,
+          "nota": "Condenações anuladas",
+          "em": "condenado",
+          "posicao": "alto2"
+        },
+        {
+          "tipo": "check",
+          "texto": "Presunção de inocência",
+          "ok": true,
+          "nota": "Art. 5º, LVII",
+          "em": "Constituição",
+          "posicao": "meio"
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "texto": "E você, o que acha disso tudo? Comenta aqui embaixo. E me fala: qual assunto você quer que eu explique no próximo vídeo? Segue pra não perder!",
+      "fundo": "",
+      "fontes": [],
+      "elementos": [
+        {
+          "tipo": "enquete",
+          "pergunta": "E você, o que acha?",
+          "opcoes": [
+            "Concordo com o STF",
+            "Discordo do STF"
+          ],
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "comentario",
+          "texto": "Qual tema no próximo vídeo?",
+          "em": "assunto",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "seguir",
+          "texto": "SEGUE PRA NÃO PERDER",
+          "em": "Segue",
+          "posicao": "meio2"
+        }
+      ]
+    }
+  ],
+  "tema": "padrao"
+}

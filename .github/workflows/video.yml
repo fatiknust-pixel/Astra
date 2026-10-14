@@ -11,6 +11,7 @@ on:
       - "preview/**"
       - "scripts/**"
       - "public/sfx/**"
+      - "public/fonts/**"
       - ".github/workflows/video.yml"
   workflow_dispatch:
     inputs:
@@ -18,6 +19,10 @@ on:
         description: "Renderizar o MP4 final"
         type: boolean
         default: true
+      video:
+        description: "Quais vídeos renderizar (ex.: Bolsonaro, Lula ou 'Lula Bolsonaro')"
+        type: string
+        default: "Bolsonaro"
       refazer_audio:
         description: "Regerar toda a narração"
         type: boolean
@@ -94,13 +99,17 @@ jobs:
         if: ${{ inputs.renderizar || contains(github.event.head_commit.message, '[render]') }}
         run: |
           npx remotion browser ensure
-          npx remotion render src/index.ts Video out/video.mp4 --concurrency=4
+          VIDEOS="${{ inputs.video }}"
+          if [ -z "$VIDEOS" ]; then VIDEOS="Lula Bolsonaro"; fi
+          for V in $VIDEOS; do
+            npx remotion render src/index.ts "$V" "out/video-$V.mp4" --concurrency=4
+          done
 
       - uses: actions/upload-artifact@v4
         if: ${{ inputs.renderizar || contains(github.event.head_commit.message, '[render]') }}
         with:
           name: video-tiktok-9x16
-          path: out/video.mp4
+          path: out/*.mp4
 
   # Publica a prévia no GitHub Pages (ative em Settings → Pages → Source: GitHub Actions)
   pages:

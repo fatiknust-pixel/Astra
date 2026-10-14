@@ -1,0 +1,142 @@
+{
+  "titulo": "Bolsonaro: da investigação à prisão",
+  "tema": "brasil",
+  "voz": {
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+12%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.12
+  },
+  "legenda": {
+    "palavrasPorTela": 3,
+    "corDestaque": "#FFDF00"
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "texto": "Bolsonaro foi condenado? Foi. Está preso? Está, mas em casa. Parece confuso, mas em um minuto você entende tudo: a investigação, o julgamento e a prisão.",
+      "fundo": "bolsonaro",
+      "fontes": [],
+      "elementos": [
+        { "tipo": "pergunta", "texto": "CONDENADO?", "em": "condenado", "posicao": "alto" },
+        { "tipo": "carimbo", "texto": "SIM", "cor": "verde", "em": "Foi", "posicao": "alto" },
+        { "tipo": "pergunta", "texto": "PRESO?", "em": "preso", "posicao": "meio" },
+        { "tipo": "carimbo", "texto": "EM CASA", "cor": "amarelo", "em": "casa", "posicao": "meio" },
+        { "tipo": "titulo", "texto": "ENTENDA EM 1 MINUTO", "em": "minuto", "posicao": "topo" }
+      ]
+    },
+    {
+      "id": "investigacao",
+      "texto": "Tudo começa depois da eleição de 2022, que Bolsonaro perdeu para Lula. A Polícia Federal passou a investigar se houve um plano para ele continuar no poder mesmo derrotado. Em fevereiro de 2024, uma operação da PF apreendeu o passaporte dele.",
+      "fundo": "planalto",
+      "fontes": ["TSE — Resultado 2022", "PF — Operação Tempus Veritatis (fev/2024)", "Agência Brasil"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "A INVESTIGAÇÃO", "sub": "Polícia Federal", "em": 0, "posicao": "topo", "cor": "verde" },
+        { "tipo": "placar", "sim": 50.9, "nao": 49.1, "rotulo": "2º turno de 2022 (% dos votos válidos)", "rotuloSim": "Lula", "rotuloNao": "Bolsonaro", "decimais": 1, "cores": ["azul", "azul"], "em": "eleição", "posicao": "alto" },
+        { "tipo": "pessoa", "imagem": "bolsonaro", "nome": "Jair Bolsonaro", "cargo": "Presidente de 2019 a 2022", "em": "Polícia", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Passaporte apreendido", "icone": "documento", "cor": "amarelo", "em": "passaporte", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "plano",
+      "texto": "Segundo a acusação, o plano tinha três partes: espalhar desconfiança sobre as urnas, uma minuta de decreto para anular a eleição, e até um plano chamado Punhal Verde e Amarelo, para matar Lula, Alckmin e o ministro Alexandre de Moraes. Os ataques de 8 de janeiro também entraram no processo.",
+      "fundo": "urna",
+      "fontes": ["PF — Relatório final (nov/2024)", "PGR — Denúncia (fev/2025)"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "O PLANO", "sub": "segundo a acusação", "em": 0, "posicao": "topo", "cor": "amarelo" },
+        { "tipo": "icones", "itens": [["urna", "Ataque às urnas"], ["documento", "Minuta do golpe"], ["alvo", "Punhal Verde e Amarelo"]], "em": "três", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Alvos: Lula, Alckmin e Moraes", "icone": "alvo", "cor": "vermelho", "em": "matar", "posicao": "meio" },
+        { "tipo": "tag", "texto": "8 de janeiro de 2023", "icone": "predio", "cor": "azul", "em": "janeiro", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "denuncia",
+      "texto": "Em novembro de 2024, a Polícia Federal indiciou Bolsonaro e mais 36 pessoas. Em fevereiro de 2025, a Procuradoria-Geral da República levou a denúncia ao Supremo. E em março, por unanimidade, Bolsonaro virou réu.",
+      "fundo": "stf",
+      "fontes": ["PF — Indiciamento (21/11/2024)", "PGR — Denúncia (18/02/2025)", "STF — AP 2668 (26/03/2025)"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "DE INVESTIGADO A RÉU", "em": 0, "posicao": "topo", "cor": "verde" },
+        { "tipo": "contador", "de": 0, "ate": 37, "unidade": "indiciados pela PF", "rotulo": "Bolsonaro + 36", "em": "indiciou", "posicao": "alto" },
+        { "tipo": "pessoa", "imagem": "gonet", "nome": "Paulo Gonet", "cargo": "Procurador-Geral da República", "em": "Procuradoria", "posicao": "alto" },
+        { "tipo": "linha", "itens": [["nov/2024", "PF indicia"], ["fev/2025", "PGR denuncia"], ["mar/2025", "Vira réu"]], "em": "Procuradoria", "posicao": "meio2" },
+        { "tipo": "carimbo", "texto": "RÉU", "cor": "amarelo", "em": "réu", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "julgamento",
+      "texto": "Em setembro de 2025, a Primeira Turma do STF julgou o caso. Placar: quatro a um pela condenação. Só o ministro Luiz Fux votou para absolver. A pena: 27 anos e 3 meses de prisão, por cinco crimes, entre eles golpe de Estado e organização criminosa armada.",
+      "fundo": "stf",
+      "fontes": ["STF — AP 2668, 1ª Turma (11/09/2025)", "Agência Brasil", "CNN Brasil"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "O JULGAMENTO", "sub": "11 de setembro de 2025", "em": 0, "posicao": "topo", "cor": "amarelo" },
+        { "tipo": "pessoa", "imagem": "moraes", "nome": "Alexandre de Moraes", "cargo": "Relator do caso no STF", "em": 0, "posicao": "alto" },
+        { "tipo": "placar", "sim": 4, "nao": 1, "rotulo": "Primeira Turma do STF", "rotuloSim": "Condenar", "rotuloNao": "Absolver", "em": "Placar", "posicao": "alto" },
+        { "tipo": "pessoa", "imagem": "fux", "nome": "Luiz Fux", "cargo": "Único voto pela absolvição", "em": "Fux", "posicao": "alto" },
+        { "tipo": "contador", "de": 0, "ate": 27, "unidade": "anos e 3 meses", "rotulo": "Pena de prisão", "em": "pena", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Golpe de Estado", "icone": "martelo", "cor": "vermelho", "em": "golpe", "posicao": "meio" },
+        { "tipo": "tag", "texto": "Organização criminosa armada", "icone": "alerta", "cor": "vermelho", "em": "organização", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "domiciliar",
+      "texto": "Antes disso, em agosto de 2025, ele já estava em prisão domiciliar, por descumprir medidas impostas pelo STF, como a proibição de usar redes sociais.",
+      "fundo": "bolsonaro",
+      "fontes": ["STF — decisão de 04/08/2025", "Agência Brasil"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "PRISÃO DOMICILIAR", "sub": "agosto de 2025", "em": 0, "posicao": "topo", "cor": "azul" },
+        { "tipo": "icones", "itens": [["celular", "Redes sociais"], ["seta", ""], ["casa", "Prisão em casa"]], "em": "descumprir", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Descumpriu medidas do STF", "icone": "alerta", "cor": "vermelho", "em": "proibição", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "preso",
+      "texto": "Em novembro, a tornozeleira eletrônica dele foi danificada com um ferro de solda. A defesa alegou confusão mental por causa de remédios. Moraes viu risco de fuga e mandou prender. Bolsonaro foi levado para a Polícia Federal, em Brasília. Três dias depois, acabaram os recursos e ele começou a cumprir a pena.",
+      "fundo": "pf-brasilia",
+      "fontes": ["STF — prisão preventiva (22/11/2025)", "STF — início da pena (25/11/2025)", "Agência Brasil"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "PRESO", "sub": "22 de novembro de 2025", "em": 0, "posicao": "topo", "cor": "vermelho" },
+        { "tipo": "tag", "texto": "Tornozeleira danificada", "icone": "tornozeleira", "cor": "vermelho", "em": "tornozeleira", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Defesa: confusão mental", "icone": "balao", "cor": "azul", "em": "defesa", "posicao": "alto2" },
+        { "tipo": "carimbo", "texto": "RISCO DE FUGA", "cor": "vermelho", "em": "risco", "posicao": "meio" },
+        { "tipo": "linha", "itens": [["22/nov", "Preso pela PF"], ["25/nov", "Começa a pena"]], "em": "Polícia", "posicao": "alto" }
+      ]
+    },
+    {
+      "id": "papudinha",
+      "texto": "Em janeiro de 2026, ele foi transferido para a Papudinha, uma sala especial no Complexo da Papuda. Em março, foi internado com pneumonia, e Moraes autorizou a prisão domiciliar humanitária, por motivo de saúde. Em julho, ela foi mantida sem prazo para acabar, com tornozeleira e regras rígidas.",
+      "fundo": "papuda",
+      "fontes": ["STF — transferência (15/01/2026)", "STF — EP 169 (24/03/2026)", "STF — decisão de 03/07/2026"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "PAPUDINHA", "sub": "janeiro de 2026", "em": 0, "posicao": "topo", "cor": "verde" },
+        { "tipo": "tag", "texto": "Internado com pneumonia", "icone": "cruz", "cor": "vermelho", "em": "pneumonia", "posicao": "alto" },
+        { "tipo": "definicao", "palavra": "DOMICILIAR HUMANITÁRIA", "significado": "Cumpre a pena em casa por causa da saúde", "em": "humanitária", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Tornozeleira eletrônica", "icone": "tornozeleira", "cor": "azul", "em": "tornozeleira", "posicao": "meio" },
+        { "tipo": "tag", "texto": "Visitas só com autorização", "icone": "documento", "cor": "amarelo", "em": "regras", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "resumo",
+      "texto": "Resumindo: Bolsonaro foi investigado, virou réu, foi condenado e começou a cumprir a pena. Hoje cumpre em casa, por motivo de saúde, mas continua condenado. Se descumprir as regras, volta para a prisão. A defesa nega os crimes e diz que ele é inocente.",
+      "fundo": "",
+      "fontes": ["STF — Notícias (jul/2026)", "Agência Brasil"],
+      "elementos": [
+        { "tipo": "titulo", "texto": "RESUMINDO", "em": 0, "posicao": "topo", "cor": "verde" },
+        { "tipo": "check", "texto": "Condenado", "ok": true, "nota": "27 anos e 3 meses, sem recursos", "em": "condenado", "posicao": "alto" },
+        { "tipo": "check", "texto": "Cumprindo pena", "ok": true, "nota": "Em casa, por saúde", "em": "casa", "posicao": "alto2" },
+        { "tipo": "check", "texto": "Livre", "ok": false, "nota": "Volta à prisão se descumprir regras", "em": "descumprir", "posicao": "meio" },
+        { "tipo": "tag", "texto": "Defesa nega os crimes", "icone": "balanca", "cor": "azul", "em": "defesa", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "final",
+      "texto": "E você, o que acha dessa decisão? Comenta aqui embaixo. E me fala: qual assunto você quer que eu explique no próximo vídeo? Segue pra não perder!",
+      "fundo": "",
+      "fontes": [],
+      "elementos": [
+        { "tipo": "enquete", "pergunta": "E você, o que acha?", "opcoes": ["Concordo com o STF", "Discordo do STF"], "em": 0, "posicao": "topo" },
+        { "tipo": "comentario", "texto": "Qual tema no próximo vídeo?", "em": "assunto", "posicao": "meio" },
+        { "tipo": "seguir", "texto": "SEGUE PRA NÃO PERDER", "em": "Segue", "posicao": "meio2" }
+      ]
+    }
+  ]
+}

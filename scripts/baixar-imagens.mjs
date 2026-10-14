@@ -1,18 +1,16 @@
 // Baixa as fotos das pessoas e dos locais citados (Wikipédia / Wikimedia Commons),
-// salva em public/imagens/<chave>.jpg e registra autor + licença em src/gerado/imagens.json.
-// Uso: node scripts/baixar-imagens.mjs [--forcar] [chave ...]
+// salva em public/<video>/imagens/<chave>.jpg e registra autor + licença em src/gerado/<video>/imagens.json.
+// Uso: node scripts/baixar-imagens.mjs [--forcar] [--video=<id>] [chave ...]   (padrão: todos os vídeos)
 import fs from "node:fs";
 import path from "node:path";
 
 const RAIZ = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
-const CONFIG = JSON.parse(fs.readFileSync(path.join(RAIZ, "conteudo/imagens.json"), "utf8"));
-const PASTA = path.join(RAIZ, "public/imagens");
-const SAIDA = path.join(RAIZ, "src/gerado/imagens.json");
 const UA = "video-lula-condenacoes/1.0 (https://github.com/fatiknust-pixel/Astra)";
 
 const args = process.argv.slice(2);
 const forcar = args.includes("--forcar");
 const so = args.filter((a) => !a.startsWith("--"));
+const soVideo = args.find((a) => a.startsWith("--video="))?.slice(8);
 
 const api = async (host, params) => {
   const url = `https://${host}/w/api.php?` + new URLSearchParams({ format: "json", formatversion: "2", origin: "*", ...params });
@@ -58,32 +56,39 @@ async function viaCommons(busca) {
   return null;
 }
 
-const existente = fs.existsSync(SAIDA) ? JSON.parse(fs.readFileSync(SAIDA, "utf8")) : {};
-fs.mkdirSync(PASTA, { recursive: true });
-
-for (const [chave, cfg] of Object.entries(CONFIG)) {
-  if (chave.startsWith("_") || (so.length && !so.includes(chave))) continue;
-  const destino = path.join(PASTA, `${chave}.jpg`);
-  if (!forcar && fs.existsSync(destino) && existente[chave]) { console.log(`= ${chave} (já existe)`); continue; }
-
-  let info = null;
-  try {
-    if (cfg.arquivo) info = await infoArquivo(cfg.arquivo);
-    for (const metodo of Object.keys(cfg)) {
-      if (info) break;
-      if (metodo === "wiki") info = await viaWiki(cfg.wiki);
-      if (metodo === "commons") info = await viaCommons(cfg.commons);
+const videos = fs.readdirSync(path.join(RAIZ, "conteudo")).filter((d) => fs.existsSync(path.join(RAIZ, "conteudo", d, "imagens.json")) && (!soVideo || d === soVideo));
+for (const video of videos) {
+  console.log(`— ${video}`);
+  const CONFIG = JSON.parse(fs.readFileSync(path.join(RAIZ, "conteudo", video, "imagens.json"), "utf8"));
+  const PASTA = path.join(RAIZ, "public", video, "imagens");
+  const SAIDA = path.join(RAIZ, "src/gerado", video, "imagens.json");
+  const existente = fs.existsSync(SAIDA) ? JSON.parse(fs.readFileSync(SAIDA, "utf8")) : {};
+  fs.mkdirSync(PASTA, { recursive: true });
+  
+  for (const [chave, cfg] of Object.entries(CONFIG)) {
+    if (chave.startsWith("_") || (so.length && !so.includes(chave))) continue;
+    const destino = path.join(PASTA, `${chave}.jpg`);
+    if (!forcar && fs.existsSync(destino) && existente[chave]) { console.log(`= ${chave} (já existe)`); continue; }
+  
+    let info = null;
+    try {
+      if (cfg.arquivo) info = await infoArquivo(cfg.arquivo);
+      for (const metodo of Object.keys(cfg)) {
+        if (info) break;
+        if (metodo === "wiki") info = await viaWiki(cfg.wiki);
+        if (metodo === "commons") info = await viaCommons(cfg.commons);
+      }
+      if (!info) { console.warn(`! ${chave}: nenhuma imagem encontrada (o vídeo usa um gráfico no lugar)`); continue; }
+      const r = await fetch(info.url, { headers: { "User-Agent": UA } });
+      if (!r.ok) throw new Error(`download ${r.status}`);
+      fs.writeFileSync(destino, Buffer.from(await r.arrayBuffer()));
+      existente[chave] = { arquivo: `imagens/${chave}.jpg`, rotulo: cfg.rotulo, ...info };
+      console.log(`✓ ${chave} ← ${info.titulo} (${info.licenca}, ${info.autor})`);
+    } catch (e) {
+      console.warn(`! ${chave}: ${e.message}`);
     }
-    if (!info) { console.warn(`! ${chave}: nenhuma imagem encontrada (o vídeo usa um gráfico no lugar)`); continue; }
-    const r = await fetch(info.url, { headers: { "User-Agent": UA } });
-    if (!r.ok) throw new Error(`download ${r.status}`);
-    fs.writeFileSync(destino, Buffer.from(await r.arrayBuffer()));
-    existente[chave] = { arquivo: `imagens/${chave}.jpg`, rotulo: cfg.rotulo, ...info };
-    console.log(`✓ ${chave} ← ${info.titulo} (${info.licenca}, ${info.autor})`);
-  } catch (e) {
-    console.warn(`! ${chave}: ${e.message}`);
   }
+  
+  fs.mkdirSync(path.dirname(SAIDA), { recursive: true });
+  fs.writeFileSync(SAIDA, JSON.stringify(existente, null, 2) + "\n");
 }
-
-fs.mkdirSync(path.dirname(SAIDA), { recursive: true });
-fs.writeFileSync(SAIDA, JSON.stringify(existente, null, 2) + "\n");

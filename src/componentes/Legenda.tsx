@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { CENAS, LEGENDA } from "../dados";
+import { useVideo } from "../contexto";
 import { FONTE } from "../tema";
 
 type P = { p: string; ini: number; fim: number };
@@ -24,9 +24,10 @@ const agrupar = (palavras: P[], n: number) => {
 // Legenda palavra por palavra: cada palavra surge quando é falada e a palavra atual fica destacada.
 export const Legenda: React.FC = () => {
   const f = useCurrentFrame();
+  const { cenas, legenda, tema } = useVideo();
   const telas = useMemo(
-    () => CENAS.flatMap((c) => agrupar(c.palavras.map((w) => ({ ...w, ini: w.ini + c.inicio, fim: w.fim + c.inicio })), LEGENDA.palavrasPorTela)),
-    []
+    () => cenas.flatMap((c) => agrupar(c.palavras.map((w) => ({ ...w, ini: w.ini + c.inicio, fim: w.fim + c.inicio })), legenda.palavrasPorTela)),
+    [cenas, legenda]
   );
   const idx = telas.findIndex((t, i) => f >= t[0].ini && f < (telas[i + 1]?.[0].ini ?? t[t.length - 1].fim + 12));
   const tela = telas[idx];
@@ -49,7 +50,7 @@ export const Legenda: React.FC = () => {
                 fontSize: 92,
                 lineHeight: 1.15,
                 textTransform: "uppercase",
-                color: ativa ? LEGENDA.corDestaque : "#fff",
+                color: ativa ? legenda.corDestaque ?? tema.destaque : "#fff",
                 transform: `scale(${escala}) translateY(${(1 - k) * 18}px)`,
                 display: "inline-block",
                 WebkitTextStroke: "10px #000",

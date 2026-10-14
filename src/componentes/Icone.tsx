@@ -17,6 +17,12 @@ const P: Record<string, React.ReactNode> = {
   x: (<path d="M16 16l32 32M48 16 16 48" />),
   pin: (<><path d="M32 58S14 38 14 26a18 18 0 0 1 36 0c0 12-18 32-18 32z" /><circle cx="32" cy="26" r="6" /></>),
   mais: (<path d="M32 14v36M14 32h36" />),
+  urna: (<><rect x="10" y="22" width="44" height="34" rx="4" /><path d="M20 22V10h24v12" /><rect x="18" y="30" width="16" height="10" rx="2" /><path d="M40 32h6M40 38h6M40 44h6M18 48h16" /></>),
+  alvo: (<><circle cx="32" cy="32" r="24" /><circle cx="32" cy="32" r="14" /><circle cx="32" cy="32" r="4" /><path d="M32 2v10M32 52v10M2 32h10M52 32h10" /></>),
+  alerta: (<><path d="M32 6 60 56H4z" /><path d="M32 24v14M32 46v2" /></>),
+  celular: (<><rect x="18" y="4" width="28" height="56" rx="5" /><path d="M28 52h8" /><path d="M24 16h16M24 24h16M24 32h10" /></>),
+  tornozeleira: (<><path d="M14 30c0-10 8-16 18-16s18 6 18 16v6c0 10-8 16-18 16S14 46 14 36z" /><rect x="24" y="24" width="16" height="16" rx="3" /><circle cx="32" cy="32" r="2" /><path d="M4 22l6 4M60 22l-6 4" /></>),
+  cruz: (<><rect x="8" y="8" width="48" height="48" rx="10" /><path d="M32 20v24M20 32h24" /></>),
   balao: (<><path d="M8 12h48v32H28l-12 10V44H8z" /><path d="M18 24h28M18 32h18" /></>),
 };
 

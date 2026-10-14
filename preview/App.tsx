@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Player, PlayerRef } from "@remotion/player";
 import { Video } from "../src/Video";
-import { ALTURA, CENAS, DURACAO_TOTAL, FPS, LARGURA, TITULO } from "../src/dados";
+import { ALTURA, FPS, LARGURA } from "../src/dados";
+import { VIDEOS } from "../src/videos";
 
 const css = `
 :root { --bg:#0B0F1A; --card:#161D33; --txt:#fff; --muted:rgba(255,255,255,.65); --acc:#FFD60A; --accTxt:#FFD60A; color-scheme:dark; }
@@ -14,6 +15,10 @@ body { margin:0; background:var(--bg); color:var(--txt); font-family: system-ui,
 .player { width:min(420px, 100%); align-self:flex-start; border-radius:18px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4); }
 .lado { flex:1; min-width:280px; max-width:560px; }
 h1 { font-size:22px; margin:4px 0 4px; } p.sub { color:var(--muted); margin:0 0 16px; font-size:14px; }
+.abas { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.aba { font:inherit; font-size:13px; font-weight:600; padding:8px 12px; border-radius:999px; border:2px solid var(--muted); background:transparent; color:var(--txt); cursor:pointer; }
+.aba.ativa { background:var(--acc); border-color:var(--acc); color:#111; }
+.aba:focus-visible { outline:3px solid var(--acc); outline-offset:2px; }
 .cena:focus-visible { outline:3px solid var(--acc); outline-offset:2px; }
 .cena { width:100%; text-align:left; background:var(--card); color:var(--txt); border:2px solid transparent; border-radius:12px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font:inherit; }
 .cena.ativa { border-color:var(--acc); }
@@ -23,28 +28,44 @@ h1 { font-size:22px; margin:4px 0 4px; } p.sub { color:var(--muted); margin:0 0 
 
 const fmt = (fr: number) => { const s = Math.floor(fr / FPS); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 
+const inicial = () => {
+  const h = location.hash.slice(1);
+  const ids = Object.keys(VIDEOS);
+  return ids.find((i) => i.toLowerCase() === h.toLowerCase()) ?? ids[ids.length - 1];
+};
+
 const App: React.FC = () => {
   const ref = useRef<PlayerRef>(null);
   const [frame, setFrame] = useState(0);
+  const [id, setId] = useState(inicial);
+  const v = VIDEOS[id];
   useEffect(() => {
     const p = ref.current;
     if (!p) return;
     const h = (e: any) => setFrame(e.detail.frame);
     p.addEventListener("frameupdate", h);
     return () => p.removeEventListener("frameupdate", h);
-  }, []);
+  }, [id]);
   return (
     <>
       <style>{css}</style>
       <div className="wrap">
         <div className="player">
-          <Player ref={ref} component={Video} durationInFrames={DURACAO_TOTAL} fps={FPS} compositionWidth={LARGURA} compositionHeight={ALTURA}
+          <Player key={id} ref={ref} component={Video} inputProps={{ video: id }} durationInFrames={v.duracao} fps={FPS} compositionWidth={LARGURA} compositionHeight={ALTURA}
             controls style={{ width: "100%" }} clickToPlay doubleClickToFullscreen allowFullscreen />
         </div>
         <div className="lado">
-          <h1>{TITULO}</h1>
-          <p className="sub">Prévia ao vivo · 9:16 · {fmt(DURACAO_TOTAL)} · clique numa cena para pular</p>
-          {CENAS.map((c) => (
+          <div className="abas" role="tablist">
+            {Object.entries(VIDEOS).map(([k, x]) => (
+              <button key={k} id={"aba-" + k} role="tab" aria-selected={k === id} className={"aba" + (k === id ? " ativa" : "")}
+                onClick={() => { setId(k); setFrame(0); try { history.replaceState(null, "", "#" + k); } catch {} }}>
+                {x.titulo}
+              </button>
+            ))}
+          </div>
+          <h1>{v.titulo}</h1>
+          <p className="sub">Prévia ao vivo · 9:16 · {fmt(v.duracao)} · clique numa cena para pular</p>
+          {v.cenas.map((c) => (
             <button key={c.id} className={"cena" + (frame >= c.inicio && frame < c.inicio + c.duracao ? " ativa" : "")}
               onClick={() => { ref.current?.seekTo(c.inicio); ref.current?.play(); }}>
               <b>{fmt(c.inicio)} · {c.id}</b>

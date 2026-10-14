@@ -1,7 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig, Easing } from "remotion";
-import { ElementoTempo, arquivo, imagem } from "../dados";
-import { COR, FONTE, POSICAO, cor } from "../tema";
+import { ElementoTempo, arquivo } from "../dados";
+import { corDe, useCor, useVideo } from "../contexto";
+import { FONTE, POSICAO } from "../tema";
 import { Icone } from "./Icone";
 
 const useMola = (atraso = 0, config = { damping: 13, stiffness: 140, mass: 0.8 }) => {
@@ -17,7 +18,7 @@ const sfx = (nome: string, volume = 0.5, atraso = 0) => (
 );
 
 const Caixa: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({ children, style }) => (
-  <div style={{ background: "rgba(11,15,26,0.82)", border: "2px solid rgba(255,255,255,0.14)", borderRadius: 36, boxShadow: "0 30px 80px rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", ...style }}>
+  <div style={{ background: `${useCor().fundo}D6`, border: "2px solid rgba(255,255,255,0.14)", borderRadius: 36, boxShadow: "0 30px 80px rgba(0,0,0,0.55)", backdropFilter: "blur(8px)", ...style }}>
     {children}
   </div>
 );
@@ -25,9 +26,10 @@ const Caixa: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }
 /* ---------- elementos ---------- */
 
 const Titulo: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const m = useMola();
   const m2 = useMola(6);
-  const c = cor(e.cor);
+  const c = corDe(COR, e.cor);
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
       {sfx("whoosh", 0.35)}
@@ -56,10 +58,11 @@ const Pergunta: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Carimbo: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const escala = interpolate(f, [0, 6], [2.6, 1], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
   const tremor = f < 12 ? Math.sin(f * 3) * (12 - f) * 0.8 : 0;
-  const c = cor(e.cor);
+  const c = corDe(COR, e.cor);
   return (
     <div style={{ transform: `translate(${tremor}px, 90px) rotate(-10deg) scale(${escala})`, opacity: interpolate(f, [0, 3], [0, 1]) }}>
       {sfx("carimbo", 0.9)}
@@ -71,8 +74,9 @@ const Carimbo: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Tag: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const m = useMola();
-  const c = cor(e.cor ?? "azul");
+  const c = corDe(COR, e.cor ?? "azul");
   return (
     <div style={{ transform: `translateX(${(1 - m) * 700}px)`, opacity: m }}>
       {sfx("pop", 0.45)}
@@ -87,10 +91,11 @@ const Tag: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Pessoa: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const m2 = useMola(8);
-  const src = imagem(e.imagem);
+  const src = useVideo().imagem(e.imagem);
   const iniciais = (e.nome as string).split(" ").map((p) => p[0]).slice(0, 2).join("");
   const D = 340;
   return (
@@ -98,7 +103,7 @@ const Pessoa: React.FC<{ e: ElementoTempo }> = ({ e }) => {
       {sfx("whoosh", 0.4)}
       <div style={{ position: "relative", width: D + 40, height: D + 40, transform: `scale(${m})` }}>
         <svg width={D + 40} height={D + 40} style={{ position: "absolute", inset: 0, transform: `rotate(${f * 1.5}deg)` }}>
-          <circle cx={(D + 40) / 2} cy={(D + 40) / 2} r={D / 2 + 14} fill="none" stroke={COR.amarelo} strokeWidth={8} strokeDasharray="40 22" />
+          <circle cx={(D + 40) / 2} cy={(D + 40) / 2} r={D / 2 + 14} fill="none" stroke={COR.destaque} strokeWidth={8} strokeDasharray="40 22" />
         </svg>
         <div style={{ position: "absolute", left: 20, top: 20, width: D, height: D, borderRadius: "50%", overflow: "hidden", background: `linear-gradient(135deg, ${COR.azul}, ${COR.roxo})`, display: "grid", placeItems: "center", boxShadow: "0 20px 60px rgba(0,0,0,.6)" }}>
           {src ? (
@@ -122,6 +127,7 @@ const Icones: React.FC<{ e: ElementoTempo }> = ({ e }) => (
   </Caixa>
 );
 const ItemIcone: React.FC<{ i: number; ic: string; rot: string }> = ({ i, ic, rot }) => {
+  const COR = useCor();
   const m = useMola(i * 7);
   const seta = ic === "seta";
   return (
@@ -136,6 +142,7 @@ const ItemIcone: React.FC<{ i: number; ic: string; rot: string }> = ({ i, ic, ro
 };
 
 const Contador: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const dur = 32;
@@ -157,6 +164,7 @@ const Contador: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 const SomFim: React.FC<{ em: number }> = ({ em }) => sfx("ding", 0.35, em);
 
 const Linha: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const itens = e.itens as [string, string][];
   const prog = interpolate(f, [4, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
@@ -183,6 +191,7 @@ const Linha: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Definicao: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const letras = Math.floor(interpolate(f, [8, 8 + String(e.significado).length * 0.9], [0, String(e.significado).length], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
@@ -200,6 +209,7 @@ const Definicao: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Mapa: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const traco = interpolate(f, [10, 40], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -225,9 +235,12 @@ const Mapa: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Placar: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const total = e.sim + e.nao;
+  const dec: number = e.decimais ?? 0;
+  const [cSim, cNao] = (e.cores ?? ["verde", "vermelho"]).map((n: string) => corDe(COR, n));
   const g = (v: number) => interpolate(f, [8, 34], [0, v / total], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   const barra = (rot: string, v: number, c: string) => (
     <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 18 }}>
@@ -235,20 +248,21 @@ const Placar: React.FC<{ e: ElementoTempo }> = ({ e }) => {
       <div style={{ flex: 1, height: 70, background: "rgba(255,255,255,.1)", borderRadius: 14, overflow: "hidden" }}>
         <div style={{ width: `${g(v) * 100}%`, height: "100%", background: c, borderRadius: 14 }} />
       </div>
-      <div style={{ width: 90, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: c, textAlign: "right" }}>{Math.round(g(v) * total)}</div>
+      <div style={{ width: dec ? 170 : 90, fontFamily: FONTE, fontWeight: 900, fontSize: dec ? 58 : 70, color: c, textAlign: "right", whiteSpace: "nowrap" }}>{(g(v) * total).toFixed(dec).replace(".", ",")}{dec ? "%" : ""}</div>
     </div>
   );
   return (
     <Caixa style={{ width: 900, padding: "30px 44px", transform: `scale(${m})` }}>
       {sfx("pop", 0.4)}
       <div style={{ fontFamily: FONTE, fontWeight: 700, fontSize: 32, color: COR.suave }}>{e.rotulo}</div>
-      {barra("Anular", e.sim, COR.verde)}
-      {barra("Manter", e.nao, COR.vermelho)}
+      {barra(e.rotuloSim ?? "Anular", e.sim, cSim)}
+      {barra(e.rotuloNao ?? "Manter", e.nao, cNao)}
     </Caixa>
   );
 };
 
 const Relogio: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const corte = interpolate(f, [18, 40], [1, 0.5], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
@@ -271,6 +285,7 @@ const Relogio: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Check: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const m = useMola();
   const c = e.ok ? COR.verde : COR.vermelho;
   return (
@@ -290,6 +305,7 @@ const Check: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Enquete: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   return (
@@ -312,6 +328,7 @@ const Enquete: React.FC<{ e: ElementoTempo }> = ({ e }) => {
 };
 
 const Comentario: React.FC<{ e: ElementoTempo }> = ({ e }) => {
+  const COR = useCor();
   const f = useCurrentFrame();
   const m = useMola();
   const letras = Math.floor(interpolate(f, [6, 6 + String(e.texto).length * 1.2], [0, String(e.texto).length], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
