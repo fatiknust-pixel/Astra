@@ -2,50 +2,50 @@
   "titulo": "Projeto 5S",
   "voz": {
     "edge": "pt-BR-AntonioNeural",
-    "velocidade": "+0%",
+    "velocidade": "+12%",
     "kokoro": "pm_alex",
     "kokoroVelocidade": 1.0
   },
   "cenas": [
     {
       "id": "abertura",
-      "texto": "E aí, pessoal! Bora conhecer o Projeto 5S da nossa linha de montagem? Nove áreas, muita mão na massa e um antes e depois que fala por si."
+      "texto": "Apresentamos o Projeto 5S da linha de montagem. Foram nove áreas trabalhadas com registro de antes e depois de cada melhoria."
     },
     {
       "id": "sensos",
-      "texto": "Primeiro, o básico: o 5S tem cinco sensos. Utilização, organização, limpeza, padronização e disciplina. Falar é fácil. É na prática que a diferença aparece!"
+      "texto": "A metodologia 5S é baseada em cinco sensos: utilização, organização, limpeza, padronização e disciplina. Cada melhoria a seguir aplica um ou mais desses sensos."
     },
     {
       "id": "posto8",
-      "texto": "Caso um: Posto 8, a máquina da suspensão. Antes, tinha um carrinho parado bem na frente da máquina, atrapalhando o acesso. A gente trocou o carrinho e mudou a posição dele. Resultado? Máquina livre e caminho aberto!"
+      "texto": "Caso um: Posto 8, máquina da suspensão. Um carrinho posicionado em frente à máquina obstruía o acesso. O carrinho foi substituído e reposicionado. Com isso o acesso à máquina ficou livre."
     },
     {
       "id": "posto4",
-      "texto": "Caso dois: o carrinho da suspensão, no Posto 4. O carrinho antigo tinha caixas vazias e ferramenta solta na bandeja. Veio carrinho novo, manutenção do box, e cada peça na sua caixa. Agora bate o olho e já sabe onde está tudo."
+      "texto": "Caso dois: carrinho da suspensão do Posto 4. O carrinho antigo tinha caixas vazias e ferramentas soltas na bandeja. Foram feitas a troca do carrinho e a manutenção do box com as peças separadas por caixa. Agora cada item tem posição definida e fácil identificação."
     },
     {
       "id": "estacao",
-      "texto": "Caso três: a estação do computador e da impressora. O armário tinha frasco tombado, fita e peça solta pra todo lado. Primeiro, limpeza completa, até o teclado. Depois, só o que é usado ficou, numa mesa nova e organizada."
+      "texto": "Caso três: estação do computador e da impressora. O armário tinha frascos tombados, fitas e peças soltas. Primeiro foi feita a limpeza completa da bancada e do teclado. Em seguida ficou apenas o necessário em uma mesa nova e organizada."
     },
     {
       "id": "ferramentas",
-      "texto": "Caso quatro: as parafusadeiras e baterias. Antes, as ferramentas ficavam num suporte improvisado na coluna. Agora tem armário fechado: bateria carregando em cima e cada parafusadeira na sua prateleira. Isso é organização de verdade!"
+      "texto": "Caso quatro: posto de parafusadeiras e baterias. As ferramentas ficavam em um suporte improvisado na coluna. Agora ficam em um armário fechado com as baterias carregando em cima e as parafusadeiras separadas por prateleira. Cada ferramenta passou a ter um lugar fixo."
     },
     {
       "id": "armario",
-      "texto": "Caso cinco: o armário do corredor de estoque. Era um armário velho, apoiado num suporte improvisado. Saiu o velho, entrou um armário metálico novo, firme no chão. Mais seguro e com cara de padrão."
+      "texto": "Caso cinco: armário do corredor de estoque. O armário antigo estava desgastado e apoiado em um suporte improvisado. Ele foi substituído por um armário metálico novo apoiado diretamente no piso. A área ficou mais segura e dentro do padrão."
     },
     {
       "id": "pendentes",
-      "texto": "E não para por aí! Mais quatro áreas já foram mapeadas e só estão esperando a foto do depois. Bancada, manipulador de carga, base das colunas e a área da máquina dispensadora."
+      "texto": "Outras quatro áreas já foram mapeadas. As melhorias aguardam o registro fotográfico do depois. São elas: bancada, manipulador de carga, base das colunas e área da máquina dispensadora."
     },
     {
       "id": "numeros",
-      "texto": "Fechando a conta: nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
+      "texto": "Em resumo: nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
     },
     {
       "id": "encerramento",
-      "texto": "Posto organizado é posto seguro e produtivo. Valeu, time! Agora é manter o padrão todo dia."
+      "texto": "Posto organizado é posto seguro e produtivo. O próximo passo é manter o padrão no dia a dia. Obrigado."
     }
   ]
 }

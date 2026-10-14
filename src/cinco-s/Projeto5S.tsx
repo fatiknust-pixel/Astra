@@ -12,8 +12,8 @@ import NARRACAO from "../gerado/5s/narracao.json";
 export const FPS = 30;
 export const LARG = 1920;
 export const ALT = 1080;
-const ATRASO = 12; // frames entre o começo da cena e a voz (tempo da transição)
-const RESPIRO = 20; // frames depois da última frase
+const ATRASO = 8; // frames entre o começo da cena e a voz (tempo da transição)
+const RESPIRO = 8; // frames depois da última frase
 
 const COR = {
   tinta: "#141C25",
@@ -49,7 +49,8 @@ const montarNarracao = (): Record<string, Narr> => {
       const ws = n.palavras.slice(ini, Math.max(ini + 1, k));
       frases.push({ texto, i: ws[0]?.i ?? 0, f: ws[ws.length - 1]?.f ?? 0 });
     }
-    out[c.id] = { duracao: n.duracao, frases };
+    const fim = n.palavras[n.palavras.length - 1]?.f;
+    out[c.id] = { duracao: fim ? Math.min(n.duracao, fim + 0.3) : n.duracao, frases };
   }
   return out;
 };
@@ -77,10 +78,10 @@ const FaixaZebrada: React.FC<{ topo?: number; baixo?: number; altura?: number; e
 
 const Selo5S: React.FC<{ tam?: number; entra?: number }> = ({ tam = 150, entra = 0 }) => {
   const f = useCurrentFrame();
-  const s = spring({ frame: f - entra, fps: FPS, config: { damping: 9, mass: 0.7 } });
+  const s = spring({ frame: f - entra, fps: FPS, config: { damping: 20 } });
   return (
     <div style={{ width: tam * 1.45, height: tam, borderRadius: tam * 0.14, background: COR.amarelo, display: "flex", alignItems: "center", justifyContent: "center",
-      fontFamily: FONTE, fontWeight: 900, fontSize: tam * 0.62, color: COR.tinta, transform: `scale(${s}) rotate(${(1 - s) * -12}deg)`, boxShadow: "0 18px 40px rgba(0,0,0,.35)" }}>
+      fontFamily: FONTE, fontWeight: 900, fontSize: tam * 0.62, color: COR.tinta, transform: `scale(${0.85 + 0.15 * s})`, opacity: s, boxShadow: "0 18px 40px rgba(0,0,0,.35)" }}>
       5S
     </div>
   );
@@ -149,7 +150,7 @@ const Abertura: React.FC<{ cena: string }> = ({ cena }) => {
           Organização e padronização dos postos da linha de montagem
         </div>
         <div style={{ display: "flex", gap: 18, marginTop: 10 }}>
-          {["9 áreas", "Antes e depois", "Mão na massa"].map((t, i) => (
+          {["9 áreas", "5 melhorias concluídas", "Antes e depois"].map((t, i) => (
             <div key={t} style={{ ...surge(f, f2 + i * 8, 30), fontFamily: FONTE, fontWeight: 800, fontSize: 30, color: COR.tinta, background: COR.amarelo, padding: "10px 24px", borderRadius: 40 }}>{t}</div>
           ))}
         </div>
@@ -167,7 +168,6 @@ const Sensos: React.FC<{ cena: string }> = ({ cena }) => {
   const fr = NARR[cena].frases[1];
   const passo = quadros((fr.f - fr.i) / 5);
   const ini = inicioFrase(cena, 1);
-  const destaque = f >= inicioFrase(cena, 2);
   return (
     <Fundo>
       <div style={{ position: "absolute", left: 120, top: 100, ...surge(f, 4) }}><Kicker texto="METODOLOGIA" /></div>
@@ -175,12 +175,11 @@ const Sensos: React.FC<{ cena: string }> = ({ cena }) => {
       <div style={{ position: "absolute", left: 120, right: 120, top: 330, display: "flex", gap: 28 }}>
         {DADOS.sensos.map((s, i) => {
           const em = ini + i * passo - 4;
-          const sp = spring({ frame: f - em, fps: FPS, config: { damping: 11 } });
+          const sp = spring({ frame: f - em, fps: FPS, config: { damping: 20 } });
           const Ic = ICONES[i];
-          const pulso = destaque ? 1 + 0.03 * Math.sin((f - i * 5) / 5) : 1;
           return (
             <div key={s.jp} style={{ flex: 1, height: 480, borderRadius: 24, background: "#fff", padding: 34, display: "flex", flexDirection: "column", gap: 18,
-              opacity: sp, transform: `translateY(${(1 - sp) * 120}px) scale(${pulso})`, boxShadow: "0 24px 50px rgba(0,0,0,.35)" }}>
+              opacity: sp, transform: `translateY(${(1 - sp) * 120}px)`, boxShadow: "0 24px 50px rgba(0,0,0,.35)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ fontFamily: FONTE, fontWeight: 900, fontSize: 90, color: COR.tinta, lineHeight: 1 }}>{i + 1}</div>
                 <div style={{ width: 84, height: 84, borderRadius: 42, background: COR.amarelo, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -219,9 +218,9 @@ const CasoCena: React.FC<{ cena: CenaR; numero: number }> = ({ cena, numero }) =
   const wDep = wipe(tDep);
   const split = interpolate(f, [tFim, tFim + 20], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const esq = split * (SW / 2 - 10);
-  const tagAntes = spring({ frame: f - 10, fps: FPS, config: { damping: 12 } });
-  const tagDep = spring({ frame: f - tDep - 10, fps: FPS, config: { damping: 12 } });
-  const check = spring({ frame: f - tFim - 16, fps: FPS, config: { damping: 8 } });
+  const tagAntes = spring({ frame: f - 10, fps: FPS, config: { damping: 20 } });
+  const tagDep = spring({ frame: f - tDep - 10, fps: FPS, config: { damping: 20 } });
+  const check = spring({ frame: f - tFim - 16, fps: FPS, config: { damping: 20 } });
   const zoomA = 1.02 + f * 0.0007;
   const zoomD = 1.02 + Math.max(0, f - tDep) * 0.0007;
   return (
@@ -269,7 +268,7 @@ const CasoCena: React.FC<{ cena: CenaR; numero: number }> = ({ cena, numero }) =
         </div>
         <div style={{ display: "flex", gap: 14 }}>
           {(c.sensos ?? []).map((s, i) => {
-            const sp = spring({ frame: f - tFim - 20 - i * 6, fps: FPS, config: { damping: 9 } });
+            const sp = spring({ frame: f - tFim - 20 - i * 6, fps: FPS, config: { damping: 20 } });
             return <div key={s} style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 26, color: COR.tinta, background: COR.amarelo, padding: "8px 22px", borderRadius: 30, transform: `scale(${sp})` }}>{s}</div>;
           })}
         </div>
@@ -292,14 +291,14 @@ const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
   return (
     <Fundo>
       <div style={{ position: "absolute", left: 120, top: 90, ...surge(f, 2) }}><Kicker texto="EM ANDAMENTO" /></div>
-      <div style={{ position: "absolute", left: 120, top: 135, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>Próximas na fila</div>
+      <div style={{ position: "absolute", left: 120, top: 135, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>Áreas em andamento</div>
       <div style={{ position: "absolute", left: 120, right: 120, top: 290, display: "flex", gap: 40 }}>
         {lista.map((c, i) => {
           const em = 8 + i * 7;
-          const sp = spring({ frame: f - em, fps: FPS, config: { damping: 12 } });
-          const rot = [-4, 3, -2, 4][i];
+          const sp = spring({ frame: f - em, fps: FPS, config: { damping: 20 } });
+          const rot = [-1.5, 1, -1, 1.5][i];
           const realce = f >= t2 + i * passo - 4 && f < t2 + (i + 1) * passo;
-          const st = spring({ frame: f - tCarimbo - i * 5, fps: FPS, config: { damping: 10, mass: 0.6 } });
+          const st = spring({ frame: f - tCarimbo - i * 5, fps: FPS, config: { damping: 20 } });
           return (
             <div key={c.id} style={{ flex: 1, background: "#fff", padding: 16, paddingBottom: 22, borderRadius: 10, transform: `translateY(${(1 - sp) * -700}px) rotate(${rot}deg) scale(${realce ? 1.06 : 1})`,
               boxShadow: realce ? `0 0 0 6px ${COR.amarelo}, 0 30px 50px rgba(0,0,0,.5)` : "0 24px 40px rgba(0,0,0,.45)", position: "relative" }}>
@@ -308,7 +307,7 @@ const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
               <div style={{ position: "absolute", left: "50%", top: 170, transform: `translate(-50%, 0) rotate(-12deg) scale(${2.2 - st * 1.2})`, opacity: st,
                 fontFamily: FONTE, fontWeight: 900, fontSize: 30, letterSpacing: 2, color: COR.antes, border: `5px solid ${COR.antes}`, borderRadius: 10, padding: "8px 16px",
                 background: "rgba(255,255,255,.9)", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 10 }}>
-                <FaCamera size={28} /> DEPOIS EM BREVE
+                <FaCamera size={28} /> REGISTRO PENDENTE
               </div>
             </div>
           );
@@ -337,7 +336,7 @@ const Numeros: React.FC<{ cena: string }> = ({ cena }) => {
     <Fundo>
       <FaixaZebrada topo={0} entra={0} />
       <div style={{ position: "absolute", left: 120, top: 120, ...surge(f, 2) }}><Kicker texto="RESULTADO" /></div>
-      <div style={{ position: "absolute", left: 120, top: 165, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>Fechando a conta</div>
+      <div style={{ position: "absolute", left: 120, top: 165, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>Em resumo</div>
       <div style={{ position: "absolute", left: 120, right: 120, top: 330, display: "flex", gap: 40 }}>
         {itens.map((it, i) => {
           const em = ini + i * terco - 6;
@@ -380,7 +379,7 @@ const Encerramento: React.FC<{ cena: string }> = ({ cena }) => {
           Posto organizado é posto <span style={{ color: COR.amarelo }}>seguro</span> e <span style={{ color: COR.amarelo }}>produtivo</span>
         </div>
         <div style={{ ...surge(f, t2), display: "flex", alignItems: "center", gap: 18, fontFamily: FONTE, fontWeight: 800, fontSize: 48, color: COR.tinta, background: COR.amarelo, padding: "14px 36px", borderRadius: 50 }}>
-          <FaCheck size={40} /> Valeu, time!
+          <FaCheck size={40} /> Obrigado
         </div>
         <div style={{ ...surge(f, t2 + 10), fontFamily: FONTE, fontWeight: 600, fontSize: 30, color: COR.cinza }}>{DADOS.projeto.equipe}</div>
       </AbsoluteFill>
