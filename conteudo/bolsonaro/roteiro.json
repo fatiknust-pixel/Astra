@@ -19,7 +19,7 @@
       "fontes": [],
       "elementos": [
         { "tipo": "pergunta", "texto": "CONDENADO?", "em": "condenado", "posicao": "alto" },
-        { "tipo": "carimbo", "texto": "SIM", "cor": "verde", "em": "Foi", "posicao": "alto" },
+        { "tipo": "carimbo", "texto": "SIM", "cor": "verde", "em": 3, "posicao": "alto" },
         { "tipo": "pergunta", "texto": "PRESO?", "em": "preso", "posicao": "meio" },
         { "tipo": "carimbo", "texto": "EM CASA", "cor": "amarelo", "em": "casa", "posicao": "meio" },
         { "tipo": "titulo", "texto": "ENTENDA EM 1 MINUTO", "em": "minuto", "posicao": "topo" }

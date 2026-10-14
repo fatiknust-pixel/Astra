@@ -35,12 +35,12 @@ export const Legenda: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ top: 1250, bottom: "auto", height: 260, alignItems: "center", justifyContent: "center" }}>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0 30px", maxWidth: 940 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0 40px", maxWidth: 940 }}>
         {tela.map((w, i) => {
           if (f < w.ini) return null;
           const ativa = f >= w.ini && (f < w.fim + 2 || i === tela.length - 1 || f < tela[i + 1].ini);
           const k = Math.min(1, (f - w.ini) / 4);
-          const escala = ativa ? 1.06 + (1 - k) * 0.2 : 1;
+          const escala = ativa ? 1.04 + (1 - k) * 0.16 : 1;
           return (
             <span
               key={i}
