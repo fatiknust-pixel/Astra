@@ -1,1 +1,65 @@
-{}
+{
+  "lula": {
+    "arquivo": "imagens/lula.jpg",
+    "rotulo": "Luiz Inácio Lula da Silva",
+    "titulo": "File:Foto oficial de Luiz Inácio Lula da Silva (ombros) denoise.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_%28ombros%29_denoise.jpg/1280px-Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_%28ombros%29_denoise.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_(ombros)_denoise.jpg",
+    "autor": "Ricardo Stuckert/PR",
+    "licenca": "CC BY 2.0"
+  },
+  "moro": {
+    "arquivo": "imagens/moro.jpg",
+    "rotulo": "Sergio Moro",
+    "titulo": "File:Senador da República Sérgio Moro.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Senador_da_Rep%C3%BAblica_S%C3%A9rgio_Moro.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Senador_da_Rep%C3%BAblica_S%C3%A9rgio_Moro.jpg",
+    "autor": "Senado Federal",
+    "licenca": "Public domain"
+  },
+  "fachin": {
+    "arquivo": "imagens/fachin.jpg",
+    "rotulo": "Edson Fachin",
+    "titulo": "File:Edson Fachin (cropped).jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Edson_Fachin_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Edson_Fachin_(cropped).jpg",
+    "autor": "Antonio Cruz/Agência Brasil",
+    "licenca": "CC BY 3.0 br"
+  },
+  "petrobras": {
+    "arquivo": "imagens/petrobras.jpg",
+    "rotulo": "Sede da Petrobras",
+    "titulo": "File:Sede Petrobras en Río de Janeiro.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Sede_Petrobras_en_R%C3%ADo_de_Janeiro.jpg/1280px-Sede_Petrobras_en_R%C3%ADo_de_Janeiro.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Sede_Petrobras_en_R%C3%ADo_de_Janeiro.jpg",
+    "autor": "Wilfredor",
+    "licenca": "CC BY-SA 4.0"
+  },
+  "atibaia": {
+    "arquivo": "imagens/atibaia.jpg",
+    "rotulo": "Atibaia (SP)",
+    "titulo": "File:Pedra Grande Atibaia - noite.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Pedra_Grande_Atibaia_-_noite.jpg/1280px-Pedra_Grande_Atibaia_-_noite.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Pedra_Grande_Atibaia_-_noite.jpg",
+    "autor": "Paulo César Prezoto de Barros",
+    "licenca": "CC BY 2.0"
+  },
+  "pf-curitiba": {
+    "arquivo": "imagens/pf-curitiba.jpg",
+    "rotulo": "Superintendência da PF em Curitiba",
+    "titulo": "File:Superintendência Regional do Departamento de Polícia Federal em Curitiba 2015 (9).JPG",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Superintend%C3%AAncia_Regional_do_Departamento_de_Pol%C3%ADcia_Federal_em_Curitiba_2015_%289%29.JPG/1280px-Superintend%C3%AAncia_Regional_do_Departamento_de_Pol%C3%ADcia_Federal_em_Curitiba_2015_%289%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Superintend%C3%AAncia_Regional_do_Departamento_de_Pol%C3%ADcia_Federal_em_Curitiba_2015_(9).JPG",
+    "autor": "DAR7",
+    "licenca": "CC BY-SA 4.0"
+  },
+  "stf": {
+    "arquivo": "imagens/stf.jpg",
+    "rotulo": "Supremo Tribunal Federal",
+    "titulo": "File:Supremo Tribunal Federal por Henrique Goldenstein (01).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Supremo_Tribunal_Federal_por_Henrique_Goldenstein_%2801%29.jpg/1280px-Supremo_Tribunal_Federal_por_Henrique_Goldenstein_%2801%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Supremo_Tribunal_Federal_por_Henrique_Goldenstein_(01).jpg",
+    "autor": "Falcão Alado",
+    "licenca": "CC BY-SA 4.0"
+  }
+}
