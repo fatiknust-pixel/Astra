@@ -4,7 +4,9 @@ import React from "react";
 import { AbsoluteFill, Audio, Easing, Img, interpolate, Sequence, spring, useCurrentFrame } from "remotion";
 import { FaArrowRight, FaBroom, FaCamera, FaCheck, FaClipboardCheck, FaFilter, FaPeopleGroup, FaTableCellsLarge } from "react-icons/fa6";
 import { arquivo } from "../dados";
-import { FONTE } from "../tema";
+import "../tema"; // carrega as fontes do projeto
+// Fonte própria deste vídeo (o FONTE do tema depende de --fonte, definido só nos vídeos 9:16)
+const FONTE = "Montserrat, 'Arial Black', Arial, sans-serif";
 import DADOS from "../../conteudo/5s/casos.json";
 import ROTEIRO from "../../conteudo/5s/video.json";
 import NARRACAO from "../gerado/5s/narracao.json";
@@ -155,7 +157,7 @@ const Abertura: React.FC<{ cena: string }> = ({ cena }) => {
           ))}
         </div>
       </div>
-      <div style={{ ...surge(f, 40), position: "absolute", left: 140, bottom: 150, fontFamily: FONTE, fontWeight: 600, fontSize: 28, color: COR.cinza }}>
+      <div style={{ ...surge(f, 40), position: "absolute", left: 140, bottom: 205, fontFamily: FONTE, fontWeight: 600, fontSize: 28, color: COR.cinza }}>
         {DADOS.projeto.equipe}  ·  {DADOS.projeto.data}
       </div>
     </Fundo>
