@@ -1,0 +1,65 @@
+{
+  "planalto": {
+    "arquivo": "imagens/planalto.jpg",
+    "rotulo": "Palácio do Planalto",
+    "titulo": "File:Fachada do Palácio do Planalto - 49728086377.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Fachada_do_Pal%C3%A1cio_do_Planalto_-_49728086377.jpg/1280px-Fachada_do_Pal%C3%A1cio_do_Planalto_-_49728086377.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Fachada_do_Pal%C3%A1cio_do_Planalto_-_49728086377.jpg",
+    "autor": "Senado Federal",
+    "licenca": "CC BY 2.0"
+  },
+  "deodoro": {
+    "arquivo": "imagens/deodoro.jpg",
+    "rotulo": "Deodoro da Fonseca",
+    "titulo": "File:Deodoro da Fonseca (1889).jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Deodoro_da_Fonseca_%281889%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Deodoro_da_Fonseca_(1889).jpg",
+    "autor": "Governo do Brasil",
+    "licenca": "Public domain"
+  },
+  "vargas": {
+    "arquivo": "imagens/vargas.jpg",
+    "rotulo": "Getúlio Vargas",
+    "titulo": "File:Getulio Vargas (1930).jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Getulio_Vargas_%281930%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Getulio_Vargas_(1930).jpg",
+    "autor": "Governo do Brasil",
+    "licenca": "Public domain"
+  },
+  "janio": {
+    "arquivo": "imagens/janio.jpg",
+    "rotulo": "Jânio Quadros",
+    "titulo": "File:Jânio Quadros, presidente do Brasil em 1961 (foto oficial).jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/J%C3%A2nio_Quadros%2C_presidente_do_Brasil_em_1961_%28foto_oficial%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:J%C3%A2nio_Quadros,_presidente_do_Brasil_em_1961_(foto_oficial).jpg",
+    "autor": "Governo do Brasil",
+    "licenca": "Public domain"
+  },
+  "jango": {
+    "arquivo": "imagens/jango.jpg",
+    "rotulo": "João Goulart",
+    "titulo": "File:João “Jango” Goulart, Presidente do Brasil, foto oficial, 1961.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Jo%C3%A3o_%E2%80%9CJango%E2%80%9D_Goulart%2C_Presidente_do_Brasil%2C_foto_oficial%2C_1961.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Jo%C3%A3o_%E2%80%9CJango%E2%80%9D_Goulart,_Presidente_do_Brasil,_foto_oficial,_1961.jpg",
+    "autor": "Governo do Brasil",
+    "licenca": "Public domain"
+  },
+  "collor": {
+    "arquivo": "imagens/collor.jpg",
+    "rotulo": "Fernando Collor",
+    "titulo": "File:Foto oficial do presidente Fernando Collor de Melo. (38405801411).jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Foto_oficial_do_presidente_Fernando_Collor_de_Melo._%2838405801411%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Foto_oficial_do_presidente_Fernando_Collor_de_Melo._(38405801411).jpg",
+    "autor": "Ubirajara Dettimar/Presidência da República",
+    "licenca": "CC BY-SA 2.0"
+  },
+  "dilma": {
+    "arquivo": "imagens/dilma.jpg",
+    "rotulo": "Dilma Rousseff",
+    "titulo": "File:Dilma Rousseff - foto oficial 2011-01-09.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Dilma_Rousseff_-_foto_oficial_2011-01-09.jpg/1280px-Dilma_Rousseff_-_foto_oficial_2011-01-09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Dilma_Rousseff_-_foto_oficial_2011-01-09.jpg",
+    "autor": "Roberto Stuckert Filho/Presidência da República",
+    "licenca": "Attribution"
+  }
+}

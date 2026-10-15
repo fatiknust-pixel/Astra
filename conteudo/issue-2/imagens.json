@@ -1,0 +1,31 @@
+{
+  "planalto": {
+    "commons": "Palácio do Planalto fachada Brasília",
+    "wiki": "Palácio do Planalto",
+    "rotulo": "Palácio do Planalto"
+  },
+  "deodoro": {
+    "wiki": "Deodoro da Fonseca",
+    "rotulo": "Deodoro da Fonseca"
+  },
+  "vargas": {
+    "wiki": "Getúlio Vargas",
+    "rotulo": "Getúlio Vargas"
+  },
+  "janio": {
+    "wiki": "Jânio Quadros",
+    "rotulo": "Jânio Quadros"
+  },
+  "jango": {
+    "wiki": "João Goulart",
+    "rotulo": "João Goulart"
+  },
+  "collor": {
+    "wiki": "Fernando Collor de Mello",
+    "rotulo": "Fernando Collor"
+  },
+  "dilma": {
+    "wiki": "Dilma Rousseff",
+    "rotulo": "Dilma Rousseff"
+  }
+}

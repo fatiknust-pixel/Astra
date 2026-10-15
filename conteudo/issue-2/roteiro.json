@@ -1,0 +1,389 @@
+{
+  "titulo": "Presidentes que não terminaram o mandato",
+  "tema": "brasil",
+  "voz": {
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+5%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.12
+  },
+  "legenda": {
+    "palavrasPorTela": 3,
+    "corDestaque": "#FFDF00"
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "texto": "Todo presidente do Brasil termina o mandato? Não. Na história da República, vários saíram antes do fim: por renúncia, por golpe, por morte e até por impeachment. Fica comigo que eu te conto os casos mais marcantes.",
+      "fundo": "planalto",
+      "fontes": [],
+      "elementos": [
+        {
+          "tipo": "pergunta",
+          "texto": "TERMINOU?",
+          "em": "termina",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "NEM SEMPRE",
+          "cor": "vermelho",
+          "em": 7,
+          "posicao": "alto"
+        },
+        {
+          "tipo": "icones",
+          "itens": [
+            ["documento", "Renúncia"],
+            ["alerta", "Golpe"],
+            ["martelo", "Impeachment"]
+          ],
+          "em": "renúncia",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "titulo",
+          "texto": "MANDATOS INTERROMPIDOS",
+          "em": 0,
+          "posicao": "topo"
+        }
+      ]
+    },
+    {
+      "id": "deodoro",
+      "texto": "O primeiro foi o marechal Deodoro da Fonseca, o primeiro presidente da República. Em 1891, depois de uma briga feia com o Congresso, ele renunciou, com pouco mais de um ano de governo. Quem assumiu foi o vice, Floriano Peixoto.",
+      "fundo": "deodoro",
+      "fontes": [
+        "Senado Federal — Deodoro da Fonseca",
+        "Diário do Nordeste — Mandatos interrompidos"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "O PRIMEIRO CASO",
+          "sub": "1891",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "verde"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "deodoro",
+          "nome": "Deodoro da Fonseca",
+          "cargo": "1º presidente da República",
+          "em": "marechal",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Crise com o Congresso",
+          "icone": "predio",
+          "cor": "amarelo",
+          "em": "briga",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "RENUNCIOU",
+          "cor": "vermelho",
+          "em": "renunciou",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "vargas",
+      "texto": "Mais de sessenta anos depois, em 1954, foi a vez de Getúlio Vargas. Eleito pelo voto, ele enfrentava uma crise política enorme, com pressão de militares pra que deixasse o cargo. No dia 24 de agosto, Getúlio se matou no Palácio do Catete.",
+      "fundo": "vargas",
+      "fontes": [
+        "CPDOC/FGV — Getúlio Vargas",
+        "Agência Brasil"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "CRISE DE 1954",
+          "sub": "24 de agosto",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "amarelo"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "vargas",
+          "nome": "Getúlio Vargas",
+          "cargo": "Presidente eleito em 1950",
+          "em": "Getúlio",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Pressão de militares",
+          "icone": "alerta",
+          "cor": "vermelho",
+          "em": "pressão",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Morreu no cargo",
+          "icone": "cruz",
+          "cor": "cinza",
+          "em": "matou",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "janio",
+      "texto": "Em 1961, Jânio Quadros ficou só sete meses no poder. No dia 25 de agosto, ele renunciou de surpresa. Segundo historiadores, ele imaginava que os militares e o Congresso o chamariam de volta, com mais poder. Mas o plano não deu certo.",
+      "fundo": "janio",
+      "fontes": [
+        "CPDOC/FGV — Jânio Quadros",
+        "Gazeta do Povo — 50 anos da renúncia de Jânio"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "RENÚNCIA SURPRESA",
+          "sub": "25 de agosto de 1961",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "verde"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "janio",
+          "nome": "Jânio Quadros",
+          "cargo": "Presidente de jan. a ago. de 1961",
+          "em": "Jânio",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "contador",
+          "de": 0,
+          "ate": 7,
+          "unidade": "meses no poder",
+          "em": "sete",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "PLANO FALHOU",
+          "cor": "vermelho",
+          "em": "plano",
+          "posicao": "meio"
+        }
+      ]
+    },
+    {
+      "id": "jango",
+      "texto": "Quem assumiu foi o vice, João Goulart, o Jango. Só que, em março de 1964, ele foi derrubado por um golpe militar. Jango deixou o país, e começou a ditadura, que durou mais de vinte anos.",
+      "fundo": "jango",
+      "fontes": [
+        "CPDOC/FGV — João Goulart",
+        "Toda Matéria — João Goulart"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "GOLPE DE 1964",
+          "sub": "31 de março",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "vermelho"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "jango",
+          "nome": "João Goulart",
+          "cargo": "Presidente de 1961 a 1964",
+          "em": "Goulart",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "carimbo",
+          "texto": "DERRUBADO",
+          "cor": "vermelho",
+          "em": "derrubado",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Ditadura por mais de 20 anos",
+          "icone": "alerta",
+          "cor": "amarelo",
+          "em": "ditadura",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "collor",
+      "texto": "Já em 1992, Fernando Collor, o primeiro presidente eleito pelo voto direto depois da ditadura, enfrentou um processo de impeachment por suspeitas de corrupção. Em dezembro, ele renunciou durante o julgamento no Senado, mas os senadores seguiram e o condenaram, com oito anos sem poder disputar eleições.",
+      "fundo": "collor",
+      "fontes": [
+        "Senado Federal — Impeachment de Collor",
+        "Preparaenem — Impeachment de Fernando Collor"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "IMPEACHMENT DE 1992",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "azul"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "collor",
+          "nome": "Fernando Collor",
+          "cargo": "Presidente de 1990 a 1992",
+          "em": "Collor",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Renunciou durante o julgamento",
+          "icone": "documento",
+          "cor": "amarelo",
+          "em": "renunciou",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "contador",
+          "de": 0,
+          "ate": 8,
+          "unidade": "anos inelegível",
+          "em": "oito",
+          "posicao": "alto"
+        }
+      ]
+    },
+    {
+      "id": "dilma",
+      "texto": "O caso mais recente é o de Dilma Rousseff. Reeleita em 2014, ela sofreu impeachment em agosto de 2016, por 61 votos a 20 no Senado, acusada de crimes de responsabilidade fiscal. Dilma e os aliados dela negam e chamam o processo de golpe. O vice, Michel Temer, assumiu.",
+      "fundo": "dilma",
+      "fontes": [
+        "O Povo — Impeachment de Dilma é aprovado por 61 a 20",
+        "CNN Brasil — Dilma não ficou inelegível",
+        "Câmara dos Deputados"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "IMPEACHMENT DE 2016",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "verde"
+        },
+        {
+          "tipo": "pessoa",
+          "imagem": "dilma",
+          "nome": "Dilma Rousseff",
+          "cargo": "Presidente de 2011 a 2016",
+          "em": "Dilma",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "placar",
+          "sim": 61,
+          "nao": 20,
+          "rotulo": "Votação final no Senado",
+          "rotuloSim": "Afastar",
+          "rotuloNao": "Manter",
+          "em": "votos",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "tag",
+          "texto": "Defesa: foi golpe",
+          "icone": "balao",
+          "cor": "azul",
+          "em": "negam",
+          "posicao": "meio"
+        }
+      ]
+    },
+    {
+      "id": "resumo",
+      "texto": "Resumindo: cada caso teve um motivo diferente. Deodoro e Jânio renunciaram, Getúlio morreu no cargo, Jango foi derrubado por um golpe, e Collor e Dilma passaram por impeachment. A história mostra que terminar o mandato nunca foi garantido.",
+      "fundo": "",
+      "fontes": [
+        "Diário do Nordeste — Mandatos interrompidos",
+        "O Povo — 13 presidentes não exerceram plenamente seus mandatos"
+      ],
+      "elementos": [
+        {
+          "tipo": "titulo",
+          "texto": "RESUMINDO",
+          "em": 0,
+          "posicao": "topo",
+          "cor": "verde"
+        },
+        {
+          "tipo": "check",
+          "texto": "Renúncia",
+          "ok": true,
+          "nota": "Deodoro e Jânio",
+          "em": "renunciaram",
+          "posicao": "alto"
+        },
+        {
+          "tipo": "check",
+          "texto": "Golpe",
+          "ok": true,
+          "nota": "Jango, em 1964",
+          "em": "golpe",
+          "posicao": "alto2"
+        },
+        {
+          "tipo": "check",
+          "texto": "Impeachment",
+          "ok": true,
+          "nota": "Collor e Dilma",
+          "em": "impeachment",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "check",
+          "texto": "Mandato garantido",
+          "ok": false,
+          "nota": "Nunca foi regra",
+          "em": "garantido",
+          "posicao": "meio2"
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "texto": "E aí, o que você acha? Comenta aqui embaixo! E me conta: qual assunto você quer que eu explique no próximo vídeo? Segue pra não perder!",
+      "fundo": "",
+      "fontes": [],
+      "elementos": [
+        {
+          "tipo": "enquete",
+          "pergunta": "Mandato é pra ser cumprido?",
+          "opcoes": [
+            "Sempre",
+            "Depende do caso"
+          ],
+          "em": 0,
+          "posicao": "topo"
+        },
+        {
+          "tipo": "comentario",
+          "texto": "Qual tema no próximo vídeo?",
+          "em": "assunto",
+          "posicao": "meio"
+        },
+        {
+          "tipo": "seguir",
+          "texto": "SEGUE PRA NÃO PERDER",
+          "em": "Segue",
+          "posicao": "meio2"
+        }
+      ]
+    }
+  ]
+}
