@@ -172,8 +172,8 @@ const Sensos: React.FC<{ cena: string }> = ({ cena }) => {
   const ini = inicioFrase(cena, 1);
   return (
     <Fundo>
-      <div style={{ position: "absolute", left: 120, top: 100, ...surge(f, 4) }}><Kicker texto="METODOLOGIA" /></div>
-      <div style={{ position: "absolute", left: 120, top: 145, fontFamily: FONTE, fontWeight: 900, fontSize: 76, color: "#fff", ...surge(f, 8) }}>Os 5 sensos</div>
+      <div style={{ position: "absolute", left: 120, top: 118, ...surge(f, 4) }}><Kicker texto="METODOLOGIA" /></div>
+      <div style={{ position: "absolute", left: 120, top: 160, fontFamily: FONTE, fontWeight: 900, fontSize: 76, color: "#fff", ...surge(f, 8) }}>Os 5 sensos</div>
       <div style={{ position: "absolute", left: 120, right: 120, top: 330, display: "flex", gap: 28 }}>
         {DADOS.sensos.map((s, i) => {
           const em = ini + i * passo - 4;
@@ -295,9 +295,9 @@ const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
   const passo = quadros((NARR[cena].frases[2].f - NARR[cena].frases[2].i) / itens.length);
   return (
     <Fundo>
-      <div style={{ position: "absolute", left: 120, top: 90, ...surge(f, 2) }}><Kicker texto="AGUARDANDO O REGISTRO DO DEPOIS" /></div>
-      <div style={{ position: "absolute", left: 120, top: 135, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>{uma ? lista[0].titulo : "Áreas em andamento"}</div>
-      <div style={{ position: "absolute", left: 120, right: 120, top: 290, display: "flex", gap: 40 }}>
+      <div style={{ position: "absolute", left: 120, top: 112, ...surge(f, 2) }}><Kicker texto="AGUARDANDO O REGISTRO DO DEPOIS" /></div>
+      <div style={{ position: "absolute", left: 120, top: 152, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>{uma ? lista[0].titulo : "Áreas em andamento"}</div>
+      <div style={{ position: "absolute", left: 120, right: 120, top: 300, display: "flex", gap: 40 }}>
         {itens.map((c, i) => {
           const em = 8 + i * 7;
           const sp = spring({ frame: f - em, fps: FPS, config: { damping: 20 } });
@@ -417,7 +417,7 @@ const Marca: React.FC = () => {
         </div>
       )}
       {MARCA.texto && (
-        <div style={{ position: "absolute", left: 46, top: 34, height: 52, opacity: entra, transform: `translateX(${(1 - entra) * -30}px)`,
+        <div style={{ position: "absolute", left: 46, top: 32, height: 62, opacity: entra, transform: `translateX(${(1 - entra) * -30}px)`,
           filter: `drop-shadow(0 0 ${6 + 6 * Math.max(0, Math.sin(f / 45))}px rgba(255,255,255,.25)) drop-shadow(0 3px 10px rgba(0,0,0,.5))` }}>
           <Img src={arquivo(MARCA.texto)} style={{ height: "100%", width: "auto", objectFit: "contain" }} />
         </div>

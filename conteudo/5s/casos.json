@@ -4,7 +4,11 @@
     "subtitulo": "Organização e padronização dos postos da linha de montagem",
     "data": "Outubro de 2026",
     "equipe": "Adeilson Carvalho · Thiago Pereira · Fábio Sarri",
-    "fotos": 38
+    "fotos": 38,
+    "marca": {
+      "logo": "5s/marca/logo.png",
+      "texto": "5s/marca/texto.png"
+    }
   },
   "sensos": [
     {
