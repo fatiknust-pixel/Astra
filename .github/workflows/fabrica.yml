@@ -89,6 +89,11 @@ jobs:
             Comentário com o ajuste pedido (vazio se for vídeo novo):
             ${{ github.event.comment.body }}
 
+            O texto do pedido pode trazer preferências (formato, paleta, fonte, legenda, transição, fundo,
+            música, voz, tom, duração). Siga as que vierem preenchidas. Para as que estiverem como
+            "Automático" ou ausentes, escolha você seguindo a "Regra de variedade" do GUIA: combine com
+            o tema e nunca repita o visual nem o formato do vídeo anterior.
+
             Tarefa:
             - Modo "novo": pesquise o tema na web em fontes confiáveis e crie
               conteudo/${{ env.ID }}/roteiro.json e conteudo/${{ env.ID }}/imagens.json seguindo o GUIA.
@@ -96,6 +101,7 @@ jobs:
               Se o pedido trouxer fatos novos, pesquise e confirme antes.
             - Depois rode `node scripts/registrar-videos.mjs` e `npx tsc --noEmit` e corrija erros.
             - Por fim escreva o arquivo resumo-issue.md (em português, curto) com: título do vídeo,
+              o estilo escolhido (formato, paleta, fonte, legenda, transição, fundo, música, voz),
               uma linha por cena com o texto falado, e a lista de fontes com links.
             Não mexa em nenhum outro arquivo. Não faça commit.
 

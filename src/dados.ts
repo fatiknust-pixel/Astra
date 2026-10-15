@@ -26,8 +26,18 @@ export type CenaTempo = {
 };
 type ImagemInfo = { arquivo: string; rotulo?: string; autor?: string; licenca?: string };
 
+export type Estilo = {
+  fonte: string; // chave de FONTES (tema.ts)
+  legenda: "karaoke" | "palavra" | "caixa" | "discreta";
+  transicao: "faixas" | "zoom" | "deslize" | "flash" | "circulo";
+  fundo: "grade" | "bandeira" | "limpo" | "ondas" | "pontos" | "raios";
+  musica: "tensao" | "leve" | "epica" | "nenhuma";
+  maiusculas: boolean;
+};
+
 export type VideoDados = {
   id: string;
+  estilo: Estilo;
   titulo: string;
   cenas: CenaTempo[];
   duracao: number;
@@ -86,9 +96,20 @@ export const montarVideo = (id: string, roteiro: any, narracao: any, imagens: Re
     cursor += duracao;
     return cena;
   });
-  const tema = TEMAS[roteiro.tema ?? "padrao"] ?? TEMAS.padrao;
+  const e = roteiro.estilo ?? {};
+  const nomeTema = e.paleta ?? roteiro.tema ?? "padrao";
+  const tema = TEMAS[nomeTema] ?? TEMAS.padrao;
+  const estilo: Estilo = {
+    fonte: e.fonte ?? "montserrat",
+    legenda: e.legenda ?? "karaoke",
+    transicao: e.transicao ?? "faixas",
+    fundo: e.fundo ?? (tema.bandeira ? "bandeira" : "grade"),
+    musica: e.musica ?? "tensao",
+    maiusculas: e.maiusculas ?? true,
+  };
   return {
     id,
+    estilo,
     titulo: roteiro.titulo,
     cenas,
     duracao: cursor,

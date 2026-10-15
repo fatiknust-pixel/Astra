@@ -1,12 +1,12 @@
 import React from "react";
-import { AbsoluteFill, Audio, interpolate, Sequence, spring, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Easing, interpolate, Sequence, spring, useCurrentFrame } from "remotion";
 import { CenaTempo, arquivo } from "./dados";
 import { ProvedorVideo, useCor, useVideo } from "./contexto";
 import { VIDEOS } from "./videos";
 import { Elemento } from "./componentes/Elementos";
 import { Fundo } from "./componentes/Fundo";
 import { Legenda } from "./componentes/Legenda";
-import { FONTE } from "./tema";
+import { FONTE, FONTES } from "./tema";
 
 // Fontes confiáveis da cena, no topo da tela
 const Fontes: React.FC<{ fontes: string[] }> = ({ fontes }) => {
@@ -32,7 +32,12 @@ const Fontes: React.FC<{ fontes: string[] }> = ({ fontes }) => {
 const Transicao: React.FC = () => {
   const f = useCurrentFrame();
   const COR = useCor();
+  const { estilo } = useVideo();
   if (f > 12) return null;
+  if (estilo.transicao === "flash") {
+    return <AbsoluteFill style={{ background: "#fff", opacity: interpolate(f, [0, 8], [0.85, 0], { extrapolateRight: "clamp" }), pointerEvents: "none" }} />;
+  }
+  if (estilo.transicao !== "faixas") return null;
   const cores = COR.transicao;
   return (
     <AbsoluteFill style={{ overflow: "hidden", pointerEvents: "none" }}>
@@ -47,9 +52,16 @@ const Transicao: React.FC = () => {
 const Cena: React.FC<{ c: CenaTempo }> = ({ c }) => {
   const f = useCurrentFrame();
   const credito = useVideo().creditoImagem(c.fundo);
-  const zoom = interpolate(f, [0, 10], [1.08, 1], { extrapolateRight: "clamp" });
+  const { estilo } = useVideo();
+  const k = interpolate(f, [0, 10], [0, 1], { extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const primeira = c.indice === 0;
+  const entrada: React.CSSProperties = primeira ? {} :
+    estilo.transicao === "zoom" ? { transform: `scale(${1.35 - 0.35 * k})`, filter: `blur(${(1 - k) * 14}px)` } :
+    estilo.transicao === "deslize" ? { transform: `translateX(${(1 - k) * 1080}px)` } :
+    estilo.transicao === "circulo" ? { clipPath: `circle(${k * 120}% at 50% 50%)` } : {};
+  const zoom = estilo.transicao === "faixas" || estilo.transicao === "flash" ? interpolate(f, [0, 10], [1.08, 1], { extrapolateRight: "clamp" }) : 1;
   return (
-    <AbsoluteFill>
+    <AbsoluteFill style={entrada}>
       <AbsoluteFill style={{ transform: `scale(${zoom})` }}>
         <Fundo chave={c.fundo} indice={c.indice} duracao={c.duracao} />
       </AbsoluteFill>
@@ -94,8 +106,10 @@ export const Video: React.FC<{ video: string }> = ({ video }) => {
   const v = VIDEOS[video];
   return (
     <ProvedorVideo video={v}>
-      <AbsoluteFill style={{ background: v.tema.fundo }}>
-        <Audio src={arquivo("sfx/trilha.mp3")} volume={0.1} loop />
+      <AbsoluteFill style={{ background: v.tema.fundo, ["--fonte" as any]: `'${FONTES[v.estilo.fonte]?.familia ?? "Montserrat"}'` }}>
+        {v.estilo.musica !== "nenhuma" && (
+          <Audio src={arquivo(v.estilo.musica === "tensao" ? "sfx/trilha.mp3" : `sfx/trilha-${v.estilo.musica}.mp3`)} volume={0.1} loop />
+        )}
         {v.cenas.map((c) => (
           <Sequence key={c.id} from={c.inicio} durationInFrames={c.duracao} name={c.id}>
             <Cena c={c} />

@@ -19,4 +19,10 @@ $F -f lavfi -i "sine=f=1320:d=0.6" -f lavfi -i "sine=f=1980:d=0.6" \
 # trilha: pad em lá menor com pulsação leve (loop de 16 s)
 $F -f lavfi -i "sine=f=110:d=16" -f lavfi -i "sine=f=130.81:d=16" -f lavfi -i "sine=f=164.81:d=16" -f lavfi -i "sine=f=55:d=16" \
   -filter_complex "[0][1][2][3]amix=inputs=4,tremolo=f=1.6667:d=0.55,lowpass=f=900,afade=t=in:d=0.5,afade=t=out:st=15.5:d=0.5,volume=0.8" trilha.mp3
+# trilha leve: acorde maior, pulsação mais rápida
+$F -f lavfi -i "sine=f=261.63:d=16" -f lavfi -i "sine=f=329.63:d=16" -f lavfi -i "sine=f=392:d=16" -f lavfi -i "sine=f=130.81:d=16" \
+  -filter_complex "[0][1][2][3]amix=inputs=4,tremolo=f=4:d=0.45,lowpass=f=1400,afade=t=in:d=0.5,afade=t=out:st=15.5:d=0.5,volume=0.7" trilha-leve.mp3
+# trilha épica: grave em ré menor com batida lenta
+$F -f lavfi -i "sine=f=73.42:d=16" -f lavfi -i "sine=f=146.83:d=16" -f lavfi -i "sine=f=174.61:d=16" -f lavfi -i "sine=f=220:d=16" \
+  -filter_complex "[0][1][2][3]amix=inputs=4,tremolo=f=1.25:d=0.8,lowpass=f=700,afade=t=in:d=0.5,afade=t=out:st=15.5:d=0.5,volume=0.9" trilha-epica.mp3
 ls -la

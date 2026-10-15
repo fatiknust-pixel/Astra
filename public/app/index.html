@@ -52,6 +52,9 @@
   a { color: var(--amarelo); }
   [hidden] { display: none !important; }
   .topo-acoes { display: flex; gap: 8px; }
+  details.opcoes { border: 1px solid var(--borda); border-radius: 12px; padding: 10px 12px; }
+  details.opcoes summary { cursor: pointer; font-weight: 700; color: var(--amarelo); }
+  .grade-opcoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
 </style>
 </head>
 <body>
@@ -81,12 +84,11 @@
         <button class="mic" id="mic" title="Falar" aria-label="Falar o tema" hidden>🎤</button>
       </div>
     </div>
-    <div class="linha">
-      <div class="campo"><label for="cores">Cores</label>
-        <select id="cores"><option value="tema bandeira">Bandeira</option><option value="tema padrao (escuro)">Escuro</option></select></div>
-      <div class="campo"><label for="duracao">Duração</label>
-        <select id="duracao"><option>1 minuto</option><option selected>2 minutos</option><option>3 minutos</option></select></div>
-    </div>
+    <details class="opcoes">
+      <summary>Personalizar (tudo em Automático por padrão)</summary>
+      <div class="grade-opcoes" id="opcoes"></div>
+      <button class="secundario" id="sortear" type="button">🎲 Deixar tudo em Automático</button>
+    </details>
     <div class="campo"><label for="extra">Detalhes (opcional)</label>
       <input id="extra" placeholder="Ex.: tom neutro, foco em datas e números"></div>
     <button class="principal" id="gerar">Gerar vídeo</button>
@@ -117,6 +119,27 @@
 const $ = (id) => document.getElementById(id);
 const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
 const ler = (k, p = "") => { try { return localStorage.getItem(k) ?? p; } catch { return p; } };
+
+// Opções do vídeo: "Automático" deixa a IA escolher, variando em relação aos vídeos anteriores
+const OPCOES = [
+  ["Formato", ["Explicativo", "Lista/Top N", "Linha do tempo", "Mito ou verdade", "Comparação", "Curiosidade rápida"]],
+  ["Duração", ["1 minuto", "2 minutos", "3 minutos"]],
+  ["Tom", ["Neutro", "Descontraído", "Sério", "Dramático", "Bem-humorado"]],
+  ["Paleta", ["brasil", "padrao", "jornal", "neon", "pordosol", "grafite"]],
+  ["Fonte", ["montserrat", "poppins", "oswald", "raleway", "playfair", "robotoslab"]],
+  ["Legenda", ["karaoke", "palavra", "caixa", "discreta"]],
+  ["Transição", ["faixas", "zoom", "deslize", "flash", "circulo"]],
+  ["Fundo", ["grade", "bandeira", "limpo", "ondas", "pontos", "raios"]],
+  ["Música", ["tensao", "leve", "epica", "nenhuma"]],
+  ["Voz", ["Masculina (Antonio)", "Feminina (Francisca)", "Feminina (Thalita)"]],
+];
+const idOpcao = (n) => "op-" + n.normalize("NFD").replace(/[^a-zA-Z]/g, "").toLowerCase();
+for (const [nome, valores] of OPCOES) {
+  const d = document.createElement("div"); d.className = "campo";
+  d.innerHTML = `<label for="${idOpcao(nome)}">${nome}</label><select id="${idOpcao(nome)}"><option>Automático</option>${valores.map((v) => `<option>${v}</option>`).join("")}</select>`;
+  document.getElementById("opcoes").appendChild(d);
+}
+document.getElementById("sortear").onclick = () => OPCOES.forEach(([n]) => (document.getElementById(idOpcao(n)).value = "Automático"));
 
 let cfg = { token: ler("token"), repo: ler("repo", "fatiknust-pixel/Astra") };
 let atual = null, timer = null;
@@ -197,7 +220,7 @@ $("gerar").onclick = async () => {
   if (!tema) { $("msg-novo").textContent = "Escreva ou fale o tema do vídeo."; return; }
   $("gerar").disabled = true; $("msg-novo").textContent = "Enviando…";
   try {
-    const corpo = [$("cores").value, `uns ${$("duracao").value}`, $("extra").value.trim()].filter(Boolean).join(", ");
+    const corpo = OPCOES.map(([n]) => `- ${n}: ${$(idOpcao(n)).value}`).join("\n") + ($("extra").value.trim() ? `\n\nDetalhes: ${$("extra").value.trim()}` : "");
     const issue = await gh("/issues", { method: "POST", body: JSON.stringify({ title: `Vídeo: ${tema}`, body: corpo }) });
     $("tema").value = ""; $("extra").value = ""; $("msg-novo").textContent = "Pedido enviado! O vídeo fica pronto em uns 10 a 15 minutos.";
     abrir(issue);

@@ -21,7 +21,7 @@ Exemplos completos e aprovados: `conteudo/bolsonaro/` e `conteudo/lula/`. Copie 
 ```json
 {
   "titulo": "Título curto",
-  "tema": "brasil",            // "brasil" (verde/amarelo/azul) ou "padrao" (escuro/amarelo)
+  "estilo": { "paleta": "brasil", "fonte": "montserrat", "legenda": "karaoke", "transicao": "faixas", "fundo": "bandeira", "musica": "tensao", "maiusculas": true },
   "voz": { "edge": "pt-BR-AntonioNeural", "velocidade": "+5%", "kokoro": "pm_alex", "kokoroVelocidade": 1.12 },
   "legenda": { "palavrasPorTela": 3, "corDestaque": "#FFDF00" },
   "cenas": [
@@ -31,6 +31,40 @@ Exemplos completos e aprovados: `conteudo/bolsonaro/` e `conteudo/lula/`. Copie 
 ```
 - `id` de cena: minúsculas, sem acento, sem espaço.
 - `fundo`: chave de `imagens.json` (ou `""` para fundo animado).
+
+## Estilo visual (variar sempre!)
+Todo roteiro novo tem um objeto `estilo` (substitui o antigo campo `tema`):
+```json
+"estilo": { "paleta": "neon", "fonte": "oswald", "legenda": "caixa", "transicao": "deslize",
+            "fundo": "ondas", "musica": "leve", "maiusculas": true }
+```
+| campo | opções |
+|---|---|
+| `paleta` | `brasil` (verde/amarelo/azul), `padrao` (escuro + amarelo), `jornal` (azul-marinho + vermelho), `neon` (preto + ciano/rosa), `pordosol` (roxo + laranja), `grafite` (cinza + laranja) |
+| `fonte` | `montserrat`, `poppins`, `oswald` (condensada, notícia), `raleway`, `playfair` (serifada, documentário), `robotoslab` (serifada forte) |
+| `legenda` | `karaoke` (3 palavras, a falada colorida), `palavra` (uma palavra gigante por vez), `caixa` (palavra falada dentro de uma caixa colorida), `discreta` (frase pequena, estilo documentário) |
+| `transicao` | `faixas`, `zoom` (zoom com desfoque), `deslize` (cena entra pela lateral), `flash` (clarão branco), `circulo` (abre em círculo) |
+| `fundo` | `grade`, `bandeira`, `limpo`, `ondas`, `pontos`, `raios` |
+| `musica` | `tensao`, `leve`, `epica`, `nenhuma` |
+| `maiusculas` | `true` / `false` (legenda) |
+
+Voz (`voz.edge`): `pt-BR-AntonioNeural` (masculina), `pt-BR-FranciscaNeural` ou `pt-BR-ThalitaNeural` (femininas).
+
+**Regra de variedade:** quando o pedido disser "Automático" (ou não disser nada) num campo, escolha o que combina
+com o tema, mas **leia o `estilo` e a voz dos 3 vídeos mais recentes** (pastas `conteudo/issue-*`, maior número = mais
+recente; e `conteudo/bolsonaro`, `conteudo/lula`) e **não repita a mesma paleta, legenda, transição nem fundo** do
+vídeo anterior. Combine para formar uma identidade coerente (ex.: notícia → `jornal` + `oswald` + `caixa` + `flash`;
+história → `pordosol` + `playfair` + `discreta` + `zoom` + `epica`; curiosidade leve → `neon` + `poppins` + `palavra` +
+`deslize` + `leve`).
+
+## Formatos de roteiro (variar também)
+- **Explicativo** (padrão dos vídeos de presidentes): gancho → contexto → fatos em ordem → resumo → final.
+- **Lista/Top N**: "5 coisas que…", uma cena por item, `contador` ou `titulo` com o número.
+- **Linha do tempo**: cenas por data, `linha` e `titulo` com o ano em destaque.
+- **Mito ou verdade**: cada cena começa com a afirmação e um `carimbo` MITO/VERDADE.
+- **Comparação**: A × B, `placar` e `check` lado a lado.
+- **Curiosidade rápida**: 40–60 s, 5–6 cenas, ritmo acelerado.
+Se o pedido não indicar o formato, escolha o mais adequado e evite repetir o formato do vídeo anterior.
 
 ## Elementos animados
 Cada elemento tem `tipo`, `posicao` e `em` (quando aparece).
