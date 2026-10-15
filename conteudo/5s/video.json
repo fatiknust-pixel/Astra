@@ -5,7 +5,7 @@
       "tipo": "abertura",
       "frases": [
         "Apresentamos o Projeto 5S da linha de montagem.",
-        "Foram nove áreas trabalhadas com registro de antes e depois de cada melhoria."
+        "Foram onze áreas trabalhadas com registro de antes e depois de cada melhoria."
       ]
     },
     {
@@ -94,12 +94,87 @@
       }
     },
     {
+      "id": "dispensadora",
+      "tipo": "caso",
+      "caso": "dispensadora",
+      "frases": [
+        "Caso seis: área da máquina dispensadora.",
+        "Uma caixa ficava apoiada sobre a área de segurança da máquina.",
+        "A caixa foi retirada da área de segurança.",
+        "Agora a área está livre e dentro do padrão."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "poste",
+      "tipo": "caso",
+      "caso": "poste",
+      "frases": [
+        "Caso sete: base das colunas.",
+        "Um poste antigo junto à coluna ocupava espaço no posto.",
+        "O poste foi retirado.",
+        "Com isso o espaço ficou liberado."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "espaco-carrinho",
+      "tipo": "caso",
+      "caso": "espaco-carrinho",
+      "frases": [
+        "Caso oito: espaço ao lado da coluna.",
+        "A área era ocupada por um poste e uma caixa.",
+        "Com a retirada do poste, o local virou o espaço do carrinho de ferramentas.",
+        "Cada coisa passou a ter o seu lugar."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "maquinas",
+      "tipo": "caso",
+      "caso": "maquinas",
+      "frases": [
+        "Caso nove: máquinas do carrinho cirurgião.",
+        "As máquinas ficavam acumuladas e misturadas no carrinho.",
+        "Agora estão separadas por posto em um armário com prateleiras.",
+        "Fica fácil encontrar e conferir cada máquina."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
+      "id": "manipulador",
+      "tipo": "caso",
+      "caso": "manipulador",
+      "frases": [
+        "Caso dez: área do manipulador de carga.",
+        "Dispositivos antigos obstruíam a passagem.",
+        "Os dispositivos foram retirados.",
+        "Agora há muito mais espaço para transitar e manobrar os carrinhos."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
+    },
+    {
       "id": "pendentes",
       "tipo": "pendentes",
       "frases": [
-        "Outras quatro áreas já foram mapeadas.",
-        "As melhorias aguardam o registro fotográfico do depois.",
-        "São elas: bancada, manipulador de carga, base das colunas e área da máquina dispensadora."
+        "Ainda falta uma área.",
+        "A bancada aguarda o registro fotográfico do depois.",
+        "Ali ficavam carregadores de bateria e cabos soltos no chão."
       ]
     },
     {
@@ -107,7 +182,7 @@
       "tipo": "numeros",
       "frases": [
         "Em resumo:",
-        "nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
+        "onze áreas trabalhadas, dez melhorias concluídas e trinta e oito fotos registradas."
       ]
     },
     {

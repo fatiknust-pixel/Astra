@@ -150,7 +150,7 @@ const Abertura: React.FC<{ cena: string }> = ({ cena }) => {
           Organização e padronização dos postos da linha de montagem
         </div>
         <div style={{ display: "flex", gap: 18, marginTop: 10 }}>
-          {["9 áreas", "5 melhorias concluídas", "Antes e depois"].map((t, i) => (
+          {[`${DADOS.casos.length} áreas`, `${DADOS.casos.filter((c) => c.status === "concluido").length} melhorias concluídas`, "Antes e depois"].map((t, i) => (
             <div key={t} style={{ ...surge(f, f2 + i * 8, 30), fontFamily: FONTE, fontWeight: 800, fontSize: 30, color: COR.tinta, background: COR.amarelo, padding: "10px 24px", borderRadius: 40 }}>{t}</div>
           ))}
         </div>
@@ -256,7 +256,7 @@ const CasoCena: React.FC<{ cena: CenaR; numero: number }> = ({ cena, numero }) =
 
       {/* painel de texto */}
       <div style={{ position: "absolute", left: 1310, top: SY, width: 530, display: "flex", flexDirection: "column", gap: 26 }}>
-        <div style={surge(f, 4)}><Kicker texto={`CASO 0${numero}`} /></div>
+        <div style={surge(f, 4)}><Kicker texto={`CASO ${String(numero).padStart(2, "0")}`} /></div>
         <div style={{ ...surge(f, 8), fontFamily: FONTE, fontWeight: 900, fontSize: 52, lineHeight: 1.08, color: "#fff", whiteSpace: "pre-line" }}>{c.titulo.replace(" · ", "\n")}</div>
         <div style={{ ...surge(f, inicioFrase(cena.id, 1)), background: "rgba(255,255,255,.06)", borderRadius: 18, padding: "20px 24px", display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 22, letterSpacing: 4, color: "#F07A45" }}>PROBLEMA</div>
@@ -283,17 +283,20 @@ const CasoCena: React.FC<{ cena: CenaR; numero: number }> = ({ cena, numero }) =
 const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
   const f = useCurrentFrame();
   const lista = DADOS.casos.filter((c) => c.status === "pendente");
+  // Uma área só: mostra as fotos dela; várias: uma foto por área
+  const uma = lista.length === 1;
+  const itens = uma
+    ? lista[0].antes.map((a) => ({ id: a, foto: a, titulo: null as string | null }))
+    : lista.map((c) => ({ id: c.id, foto: c.antes[0], titulo: c.titulo as string | null }));
   const tCarimbo = inicioFrase(cena, 1) + 10;
-  const ordem = ["bancada", "manipulador", "colunas", "dispensadora"];
-  lista.sort((a, b) => ordem.indexOf(a.id) - ordem.indexOf(b.id));
   const t2 = inicioFrase(cena, 2);
-  const passo = quadros((NARR[cena].frases[2].f - NARR[cena].frases[2].i) / 4);
+  const passo = quadros((NARR[cena].frases[2].f - NARR[cena].frases[2].i) / itens.length);
   return (
     <Fundo>
-      <div style={{ position: "absolute", left: 120, top: 90, ...surge(f, 2) }}><Kicker texto="EM ANDAMENTO" /></div>
-      <div style={{ position: "absolute", left: 120, top: 135, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>Áreas em andamento</div>
+      <div style={{ position: "absolute", left: 120, top: 90, ...surge(f, 2) }}><Kicker texto="AGUARDANDO O REGISTRO DO DEPOIS" /></div>
+      <div style={{ position: "absolute", left: 120, top: 135, fontFamily: FONTE, fontWeight: 900, fontSize: 70, color: "#fff", ...surge(f, 6) }}>{uma ? lista[0].titulo : "Áreas em andamento"}</div>
       <div style={{ position: "absolute", left: 120, right: 120, top: 290, display: "flex", gap: 40 }}>
-        {lista.map((c, i) => {
+        {itens.map((c, i) => {
           const em = 8 + i * 7;
           const sp = spring({ frame: f - em, fps: FPS, config: { damping: 20 } });
           const rot = [-1.5, 1, -1, 1.5][i];
@@ -302,8 +305,8 @@ const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
           return (
             <div key={c.id} style={{ flex: 1, background: "#fff", padding: 16, paddingBottom: 22, borderRadius: 10, transform: `translateY(${(1 - sp) * -700}px) rotate(${rot}deg) scale(${realce ? 1.06 : 1})`,
               boxShadow: realce ? `0 0 0 6px ${COR.amarelo}, 0 30px 50px rgba(0,0,0,.5)` : "0 24px 40px rgba(0,0,0,.45)", position: "relative" }}>
-              <Img src={foto(c.antes[0])} style={{ width: "100%", height: 400, objectFit: "cover", borderRadius: 4 }} />
-              <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 28, color: COR.tinta, marginTop: 16, lineHeight: 1.15, minHeight: 66 }}>{c.titulo}</div>
+              <Img src={foto(c.foto)} style={{ width: "100%", height: uma ? 440 : 400, objectFit: "cover", borderRadius: 4 }} />
+              {c.titulo && <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 28, color: COR.tinta, marginTop: 16, lineHeight: 1.15, minHeight: 66 }}>{c.titulo}</div>}
               <div style={{ position: "absolute", left: "50%", top: 170, transform: `translate(-50%, 0) rotate(-12deg) scale(${2.2 - st * 1.2})`, opacity: st,
                 fontFamily: FONTE, fontWeight: 900, fontSize: 30, letterSpacing: 2, color: COR.antes, border: `5px solid ${COR.antes}`, borderRadius: 10, padding: "8px 16px",
                 background: "rgba(255,255,255,.9)", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 10 }}>
@@ -313,7 +316,10 @@ const Pendentes: React.FC<{ cena: string }> = ({ cena }) => {
           );
         })}
       </div>
-      {lista.map((_, i) => (
+      {uma && (
+        <div style={{ position: "absolute", left: 120, right: 120, top: 830, ...surge(f, inicioFrase(cena, 2)), fontFamily: FONTE, fontWeight: 600, fontSize: 34, color: "#E3E8ED" }}>{lista[0].problema}</div>
+      )}
+      {itens.map((_, i) => (
         <Sequence key={i} from={tCarimbo + i * 5} durationInFrames={30}><Audio src={sfx("carimbo")} volume={0.3} /></Sequence>
       ))}
     </Fundo>
@@ -329,7 +335,7 @@ const Numeros: React.FC<{ cena: string }> = ({ cena }) => {
   const itens = [
     { n: DADOS.casos.length, t: "áreas trabalhadas", cor: "#fff" },
     { n: feitos, t: "melhorias concluídas", cor: COR.amarelo },
-    { n: 31, t: "fotos registradas", cor: "#fff" },
+    { n: DADOS.projeto.fotos, t: "fotos registradas", cor: "#fff" },
   ];
   const barra = interpolate(f, [ini + terco, ini + terco + 30], [0, feitos / DADOS.casos.length], { ...clamp, easing: Easing.out(Easing.cubic) });
   return (
@@ -387,6 +393,37 @@ const Encerramento: React.FC<{ cena: string }> = ({ cena }) => {
   );
 };
 
+
+// Emblema (canto inferior direito, com brilho que passa de tempos em tempos) e texto (canto superior
+// esquerdo). PNGs sem fundo em public/5s/marca/; os caminhos ficam em casos.json -> projeto.marca.
+const MARCA = (DADOS.projeto as { marca?: { logo?: string; texto?: string } }).marca ?? {};
+const Marca: React.FC = () => {
+  const f = useCurrentFrame();
+  const entra = interpolate(f, [10, 40], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const ciclo = f % 210; // brilho a cada 7 s
+  const brilho = interpolate(ciclo, [0, 40], [-60, 160], clamp);
+  const respira = 1 + 0.015 * Math.sin(f / 30);
+  const tam = 116;
+  return (
+    <>
+      {MARCA.logo && (
+        <div style={{ position: "absolute", right: 46, bottom: 40, width: tam, height: tam, opacity: entra * 0.95, transform: `scale(${respira})`,
+          filter: "drop-shadow(0 4px 14px rgba(0,0,0,.45))" }}>
+          <Img src={arquivo(MARCA.logo)} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+          <div style={{ position: "absolute", inset: 0, WebkitMaskImage: `url(${arquivo(MARCA.logo)})`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
+            background: `linear-gradient(115deg, transparent ${brilho - 30}%, rgba(255,255,255,.85) ${brilho}%, transparent ${brilho + 30}%)` }} />
+        </div>
+      )}
+      {MARCA.texto && (
+        <div style={{ position: "absolute", left: 46, top: 34, height: 52, opacity: entra, transform: `translateX(${(1 - entra) * -30}px)`,
+          filter: `drop-shadow(0 0 ${6 + 6 * Math.max(0, Math.sin(f / 45))}px rgba(255,255,255,.25)) drop-shadow(0 3px 10px rgba(0,0,0,.5))` }}>
+          <Img src={arquivo(MARCA.texto)} style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+        </div>
+      )}
+    </>
+  );
+};
+
 // Faixa zebrada que varre a tela na troca de cena
 const Transicao: React.FC = () => {
   const f = useCurrentFrame();
@@ -422,6 +459,7 @@ export const Projeto5S: React.FC = () => {
           </Sequence>
         );
       })}
+      <Marca />
       {INICIOS.slice(1).map((ini, i) => (
         <Sequence key={"t" + i} from={ini - 9} durationInFrames={19} name="transição">
           <Transicao />

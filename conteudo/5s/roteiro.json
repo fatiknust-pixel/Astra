@@ -9,7 +9,7 @@
   "cenas": [
     {
       "id": "abertura",
-      "texto": "Apresentamos o Projeto 5S da linha de montagem. Foram nove áreas trabalhadas com registro de antes e depois de cada melhoria."
+      "texto": "Apresentamos o Projeto 5S da linha de montagem. Foram onze áreas trabalhadas com registro de antes e depois de cada melhoria."
     },
     {
       "id": "sensos",
@@ -36,12 +36,32 @@
       "texto": "Caso cinco: armário do corredor de estoque. O armário antigo estava desgastado e apoiado em um suporte improvisado. Ele foi substituído por um armário metálico novo apoiado diretamente no piso. A área ficou mais segura e dentro do padrão."
     },
     {
+      "id": "dispensadora",
+      "texto": "Caso seis: área da máquina dispensadora. Uma caixa ficava apoiada sobre a área de segurança da máquina. A caixa foi retirada da área de segurança. Agora a área está livre e dentro do padrão."
+    },
+    {
+      "id": "poste",
+      "texto": "Caso sete: base das colunas. Um poste antigo junto à coluna ocupava espaço no posto. O poste foi retirado. Com isso o espaço ficou liberado."
+    },
+    {
+      "id": "espaco-carrinho",
+      "texto": "Caso oito: espaço ao lado da coluna. A área era ocupada por um poste e uma caixa. Com a retirada do poste, o local virou o espaço do carrinho de ferramentas. Cada coisa passou a ter o seu lugar."
+    },
+    {
+      "id": "maquinas",
+      "texto": "Caso nove: máquinas do carrinho cirurgião. As máquinas ficavam acumuladas e misturadas no carrinho. Agora estão separadas por posto em um armário com prateleiras. Fica fácil encontrar e conferir cada máquina."
+    },
+    {
+      "id": "manipulador",
+      "texto": "Caso dez: área do manipulador de carga. Dispositivos antigos obstruíam a passagem. Os dispositivos foram retirados. Agora há muito mais espaço para transitar e manobrar os carrinhos."
+    },
+    {
       "id": "pendentes",
-      "texto": "Outras quatro áreas já foram mapeadas. As melhorias aguardam o registro fotográfico do depois. São elas: bancada, manipulador de carga, base das colunas e área da máquina dispensadora."
+      "texto": "Ainda falta uma área. A bancada aguarda o registro fotográfico do depois. Ali ficavam carregadores de bateria e cabos soltos no chão."
     },
     {
       "id": "numeros",
-      "texto": "Em resumo: nove áreas trabalhadas, cinco melhorias concluídas e trinta e uma fotos registradas."
+      "texto": "Em resumo: onze áreas trabalhadas, dez melhorias concluídas e trinta e oito fotos registradas."
     },
     {
       "id": "encerramento",
