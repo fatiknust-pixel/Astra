@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#011733">
+<title>Fábrica de Vídeos</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icone-192.png">
+<style>
+  :root {
+    --fundo: #011733; --cartao: #0B2A52; --borda: #1E4475; --texto: #fff; --suave: #A9BCD6;
+    --verde: #00A859; --amarelo: #FFDF00; --azul: #2F6FE4; --vermelho: #FF5A4F;
+    --fonte: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--fonte); font-size: 16px; }
+  .app { max-width: 560px; margin: 0 auto; padding: max(16px, env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 16px; }
+  header { display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: 22px; margin: 0; flex: 1; letter-spacing: -0.01em; }
+  .faixa { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--verde), var(--amarelo), var(--azul)); }
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  label { font-size: 13px; font-weight: 600; color: var(--suave); text-transform: uppercase; letter-spacing: .06em; }
+  input, textarea, select { width: 100%; font: inherit; color: var(--texto); background: #021F44; border: 1px solid var(--borda); border-radius: 12px; padding: 12px; }
+  textarea { min-height: 72px; resize: vertical; }
+  input:focus, textarea:focus, select:focus, button:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 1px; }
+  .linha { display: flex; gap: 10px; }
+  .linha > * { flex: 1; min-width: 0; }
+  .campo { display: flex; flex-direction: column; gap: 6px; }
+  .com-mic { position: relative; }
+  .com-mic textarea { padding-right: 56px; }
+  .mic { position: absolute; right: 8px; top: 8px; width: 40px; height: 40px; border-radius: 99px; border: 0; background: var(--azul); color: #fff; font-size: 18px; cursor: pointer; }
+  .mic.gravando { background: var(--vermelho); animation: pulso 1s infinite; }
+  @keyframes pulso { 50% { transform: scale(1.1); } }
+  button.principal { font: inherit; font-weight: 800; font-size: 18px; border: 0; border-radius: 14px; padding: 14px; background: var(--amarelo); color: #111; cursor: pointer; }
+  button.secundario { font: inherit; font-weight: 600; border: 1px solid var(--borda); border-radius: 12px; padding: 10px 14px; background: transparent; color: var(--texto); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  .lista { display: flex; flex-direction: column; gap: 10px; }
+  .item { display: flex; align-items: center; gap: 12px; background: var(--cartao); border: 1px solid var(--borda); border-radius: 14px; padding: 12px 14px; cursor: pointer; text-align: left; color: var(--texto); font: inherit; width: 100%; }
+  .item .t { flex: 1; min-width: 0; font-weight: 600; overflow-wrap: anywhere; }
+  .pill { font-size: 12px; font-weight: 700; border-radius: 99px; padding: 4px 10px; white-space: nowrap; }
+  .pronto { background: var(--verde); color: #fff; }
+  .produzindo { background: var(--azul); color: #fff; }
+  .erro { background: var(--vermelho); color: #fff; }
+  .msg { font-size: 14px; color: var(--suave); }
+  .aviso { background: #3A2A00; border: 1px solid #7A5A00; color: #FFE58A; border-radius: 12px; padding: 10px 12px; font-size: 14px; }
+  video { width: 100%; max-height: 70vh; border-radius: 14px; background: #000; }
+  .resumo { white-space: pre-wrap; font-size: 14px; line-height: 1.5; color: var(--suave); max-height: 320px; overflow: auto; background: #021F44; border-radius: 12px; padding: 12px; overflow-wrap: anywhere; }
+  a { color: var(--amarelo); }
+  [hidden] { display: none !important; }
+  .topo-acoes { display: flex; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Fábrica de Vídeos</h1>
+    <button class="secundario" id="btn-config" aria-label="Configurações">⚙️</button>
+  </header>
+  <div class="faixa"></div>
+
+  <!-- Configuração (token) -->
+  <section class="cartao" id="tela-config" hidden>
+    <strong>Conectar ao GitHub</strong>
+    <p class="msg">Cole um token do GitHub com acesso ao repositório <b>Astra</b> (permissão <b>Issues: leitura e escrita</b>). Ele fica salvo só neste aparelho.</p>
+    <div class="campo"><label for="token">Token</label><input id="token" type="password" autocomplete="off" placeholder="github_pat_..."></div>
+    <div class="campo"><label for="repo">Repositório</label><input id="repo" value="fatiknust-pixel/Astra"></div>
+    <button class="principal" id="salvar-config">Salvar</button>
+    <p class="msg">Criar token: github.com → Settings → Developer settings → Fine-grained tokens → Generate new token → Only select repositories: Astra → Permissions: Issues (Read and write).</p>
+  </section>
+
+  <!-- Novo vídeo -->
+  <section class="cartao" id="tela-novo">
+    <div class="campo">
+      <label for="tema">Sobre o que é o vídeo?</label>
+      <div class="com-mic">
+        <textarea id="tema" placeholder="Ex.: Presidentes que não terminaram o mandato"></textarea>
+        <button class="mic" id="mic" title="Falar" aria-label="Falar o tema" hidden>🎤</button>
+      </div>
+    </div>
+    <div class="linha">
+      <div class="campo"><label for="cores">Cores</label>
+        <select id="cores"><option value="tema bandeira">Bandeira</option><option value="tema padrao (escuro)">Escuro</option></select></div>
+      <div class="campo"><label for="duracao">Duração</label>
+        <select id="duracao"><option>1 minuto</option><option selected>2 minutos</option><option>3 minutos</option></select></div>
+    </div>
+    <div class="campo"><label for="extra">Detalhes (opcional)</label>
+      <input id="extra" placeholder="Ex.: tom neutro, foco em datas e números"></div>
+    <button class="principal" id="gerar">Gerar vídeo</button>
+    <p class="msg" id="msg-novo" role="status"></p>
+  </section>
+
+  <!-- Lista -->
+  <section class="lista" id="tela-lista" aria-live="polite"></section>
+
+  <!-- Detalhe -->
+  <section class="cartao" id="tela-detalhe" hidden>
+    <div class="topo-acoes"><button class="secundario" id="voltar">← Voltar</button><button class="secundario" id="atualizar">Atualizar</button></div>
+    <strong id="det-titulo"></strong>
+    <span id="det-status"></span>
+    <video id="det-video" controls playsinline hidden></video>
+    <a id="det-baixar" class="secundario" hidden target="_blank" rel="noopener">⬇️ Baixar MP4</a>
+    <div class="resumo" id="det-resumo" hidden></div>
+    <div class="campo">
+      <label for="ajuste">Pedir ajuste</label>
+      <textarea id="ajuste" placeholder="Ex.: troca o gancho por uma pergunta mais forte; encurta a cena 3"></textarea>
+    </div>
+    <button class="principal" id="enviar-ajuste">Enviar ajuste</button>
+    <p class="msg" id="msg-det" role="status"></p>
+  </section>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+const ler = (k, p = "") => { try { return localStorage.getItem(k) ?? p; } catch { return p; } };
+
+let cfg = { token: ler("token"), repo: ler("repo", "fatiknust-pixel/Astra") };
+let atual = null, timer = null;
+
+async function gh(caminho, opcoes = {}) {
+  const r = await fetch(`https://api.github.com/repos/${cfg.repo}${caminho}`, {
+    ...opcoes,
+    headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${cfg.token}`, ...(opcoes.body ? { "Content-Type": "application/json" } : {}) },
+  });
+  if (!r.ok) throw new Error(r.status === 401 ? "Token inválido ou expirado." : r.status === 403 || r.status === 404 ? "O token não tem acesso a Issues desse repositório." : `GitHub respondeu ${r.status}`);
+  return r.json();
+}
+
+// Lê o estado do vídeo pelos comentários do robô no Issue
+function estado(comentarios) {
+  const robo = comentarios.filter((c) => c.body.startsWith("🤖"));
+  const ultimo = robo[robo.length - 1];
+  const depois = ultimo ? comentarios.slice(comentarios.indexOf(ultimo) + 1).some((c) => !c.body.startsWith("🤖")) : false;
+  if (!ultimo || depois) return { tipo: "produzindo", texto: "Em produção" };
+  if (ultimo.body.includes("✅")) {
+    const mp4 = (ultimo.body.match(/https:\/\/github\.com\/[^\s)]+\.mp4/) || [])[0];
+    const resumo = ultimo.body.replace(/^.*\n/, "").replace(/_Para ajustar.*$/s, "").trim();
+    return { tipo: "pronto", texto: "Pronto", mp4, resumo };
+  }
+  if (ultimo.body.includes("❌")) return { tipo: "erro", texto: "Deu erro", link: (ultimo.body.match(/https:\/\/\S+/) || [])[0] };
+  return { tipo: "produzindo", texto: "Em produção" };
+}
+
+async function carregarLista() {
+  const lista = $("tela-lista");
+  if (!cfg.token) { lista.innerHTML = ""; return; }
+  try {
+    const issues = (await gh("/issues?state=all&per_page=30")).filter((i) => !i.pull_request && /^v[ií]deo/i.test(i.title));
+    if (!issues.length) { lista.innerHTML = '<p class="msg">Nenhum vídeo ainda. Digite um tema acima e toque em Gerar.</p>'; return; }
+    lista.innerHTML = "";
+    let algumProduzindo = false;
+    for (const i of issues) {
+      const b = document.createElement("button");
+      b.className = "item";
+      b.innerHTML = `<span class="t"></span><span class="pill produzindo">…</span>`;
+      b.querySelector(".t").textContent = i.title.replace(/^v[ií]deo:\s*/i, "");
+      b.onclick = () => abrir(i);
+      lista.appendChild(b);
+      gh(`/issues/${i.number}/comments?per_page=100`).then((cs) => {
+        const e = estado(cs);
+        const p = b.querySelector(".pill");
+        p.className = `pill ${e.tipo}`; p.textContent = e.texto;
+        if (e.tipo === "produzindo") agendar();
+      }).catch(() => {});
+    }
+  } catch (e) { lista.innerHTML = `<p class="aviso"></p>`; lista.firstChild.textContent = e.message; }
+}
+
+function agendar() { clearTimeout(timer); timer = setTimeout(() => (atual ? abrir(atual) : carregarLista()), 30000); }
+
+async function abrir(issue) {
+  atual = issue;
+  $("tela-novo").hidden = true; $("tela-lista").hidden = true; $("tela-detalhe").hidden = false;
+  $("det-titulo").textContent = issue.title.replace(/^v[ií]deo:\s*/i, "");
+  $("msg-det").textContent = "";
+  try {
+    const e = estado(await gh(`/issues/${issue.number}/comments?per_page=100`));
+    $("det-status").innerHTML = `<span class="pill ${e.tipo}">${e.texto}</span>` + (e.tipo === "produzindo" ? ' <span class="msg">leva uns 10 a 15 minutos; esta tela se atualiza sozinha</span>' : "");
+    const v = $("det-video");
+    v.hidden = !e.mp4; if (e.mp4 && v.src !== e.mp4) v.src = e.mp4;
+    $("det-baixar").hidden = !e.mp4; if (e.mp4) $("det-baixar").href = e.mp4;
+    $("det-resumo").hidden = !e.resumo; $("det-resumo").textContent = e.resumo || "";
+    if (e.tipo === "erro") { $("msg-det").innerHTML = 'Algo deu errado. <a target="_blank" rel="noopener">Ver detalhes</a>'; $("msg-det").querySelector("a").href = e.link; }
+    if (e.tipo === "produzindo") agendar();
+  } catch (err) { $("msg-det").textContent = err.message; }
+}
+
+function voltar() { atual = null; $("tela-detalhe").hidden = true; $("tela-novo").hidden = false; $("tela-lista").hidden = false; carregarLista(); }
+
+$("gerar").onclick = async () => {
+  const tema = $("tema").value.trim();
+  if (!cfg.token) { $("tela-config").hidden = false; return; }
+  if (!tema) { $("msg-novo").textContent = "Escreva ou fale o tema do vídeo."; return; }
+  $("gerar").disabled = true; $("msg-novo").textContent = "Enviando…";
+  try {
+    const corpo = [$("cores").value, `uns ${$("duracao").value}`, $("extra").value.trim()].filter(Boolean).join(", ");
+    const issue = await gh("/issues", { method: "POST", body: JSON.stringify({ title: `Vídeo: ${tema}`, body: corpo }) });
+    $("tema").value = ""; $("extra").value = ""; $("msg-novo").textContent = "Pedido enviado! O vídeo fica pronto em uns 10 a 15 minutos.";
+    abrir(issue);
+  } catch (e) { $("msg-novo").textContent = e.message; }
+  $("gerar").disabled = false;
+};
+
+$("enviar-ajuste").onclick = async () => {
+  const t = $("ajuste").value.trim();
+  if (!t || !atual) return;
+  $("enviar-ajuste").disabled = true;
+  try {
+    await gh(`/issues/${atual.number}/comments`, { method: "POST", body: JSON.stringify({ body: t }) });
+    $("ajuste").value = ""; $("msg-det").textContent = "Ajuste enviado. A nova versão chega em uns 10 minutos.";
+    abrir(atual);
+  } catch (e) { $("msg-det").textContent = e.message; }
+  $("enviar-ajuste").disabled = false;
+};
+
+$("voltar").onclick = voltar;
+$("atualizar").onclick = () => abrir(atual);
+$("btn-config").onclick = () => { $("tela-config").hidden = !$("tela-config").hidden; $("token").value = cfg.token; $("repo").value = cfg.repo; };
+$("salvar-config").onclick = () => {
+  cfg = { token: $("token").value.trim(), repo: $("repo").value.trim() };
+  guardar("token", cfg.token); guardar("repo", cfg.repo);
+  $("tela-config").hidden = true; carregarLista();
+};
+
+// Ditado por voz (Chrome/Android e Safari recentes)
+const Reconhecer = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (Reconhecer) {
+  const mic = $("mic"); mic.hidden = false;
+  let rec = null;
+  mic.onclick = () => {
+    if (rec) { rec.stop(); return; }
+    rec = new Reconhecer(); rec.lang = "pt-BR"; rec.interimResults = true;
+    const antes = $("tema").value;
+    rec.onresult = (ev) => { $("tema").value = (antes ? antes + " " : "") + Array.from(ev.results).map((r) => r[0].transcript).join(""); };
+    rec.onend = () => { rec = null; mic.classList.remove("gravando"); };
+    rec.onerror = () => { $("msg-novo").textContent = "Não consegui usar o microfone. Digite o tema."; };
+    mic.classList.add("gravando"); rec.start();
+  };
+}
+
+if (!cfg.token) $("tela-config").hidden = false;
+carregarLista();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>

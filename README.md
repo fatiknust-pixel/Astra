@@ -90,3 +90,10 @@ em `conteudo/5s/video.json` (e tire a área da cena `pendentes`) e rode de novo.
 
 Precisa de um destes segredos em *Settings → Secrets and variables → Actions*:
 `CLAUDE_CODE_OAUTH_TOKEN` (assinatura do Claude, gerado com `claude setup-token`) ou `ANTHROPIC_API_KEY` (API paga por uso).
+
+### App no celular
+
+`public/app/` é um app instalável (PWA) publicado no GitHub Pages em
+`https://fatiknust-pixel.github.io/Astra/app/`. Nele você digita ou fala o tema, toca em **Gerar vídeo**,
+acompanha o andamento, assiste/baixa o MP4 e pede ajustes, sem abrir o GitHub.
+Precisa de um token fine-grained do GitHub com acesso ao repositório e permissão *Issues: Read and write*.

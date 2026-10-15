@@ -12,6 +12,7 @@ on:
       - "scripts/**"
       - "public/sfx/**"
       - "public/fonts/**"
+      - "public/app/**"
       - ".github/workflows/video.yml"
   workflow_dispatch:
     inputs:
