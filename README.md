@@ -79,3 +79,14 @@ Para trocar a voz, mude `voz.edge` em `conteudo/5s/roteiro.json`. Ao mudar uma f
 Quando as fotos do "depois" das áreas pendentes chegarem: coloque em `public/5s/fotos/`, preencha
 `depois`, `acao` e `sensos` do caso, mude `status` para `concluido`, acrescente uma cena `"tipo": "caso"`
 em `conteudo/5s/video.json` (e tire a área da cena `pendentes`) e rode de novo.
+
+## Fábrica de vídeos pelo celular (Issue → MP4)
+
+1. No app do GitHub, abra um **Issue** com título começando por `Vídeo:` (ex.: `Vídeo: Quanto custa um deputado`)
+   e escreva no texto o que quer (tema de cores, duração, enfoque).
+2. O workflow `fabrica.yml` chama o Claude para pesquisar e escrever o roteiro (seguindo `conteudo/GUIA.md`),
+   gera voz, imagens e o MP4, e responde no Issue com o link para baixar.
+3. Para ajustar, comente no Issue. Só o dono do repositório consegue acionar.
+
+Precisa de um destes segredos em *Settings → Secrets and variables → Actions*:
+`CLAUDE_CODE_OAUTH_TOKEN` (assinatura do Claude, gerado com `claude setup-token`) ou `ANTHROPIC_API_KEY` (API paga por uso).

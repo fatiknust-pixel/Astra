@@ -1,13 +1,14 @@
-// Lista de vídeos do projeto. Para criar outro: copie conteudo/<id>/, gere áudio/imagens e registre aqui.
+// ARQUIVO GERADO por scripts/registrar-videos.mjs — não edite à mão.
+// Cada pasta conteudo/<id>/ com roteiro.json e imagens.json vira uma composição do Remotion.
 import { montarVideo, VideoDados } from "./dados";
-import lulaRoteiro from "../conteudo/lula/roteiro.json";
-import lulaNarracao from "./gerado/lula/narracao.json";
-import lulaImagens from "./gerado/lula/imagens.json";
-import bolsoRoteiro from "../conteudo/bolsonaro/roteiro.json";
-import bolsoNarracao from "./gerado/bolsonaro/narracao.json";
-import bolsoImagens from "./gerado/bolsonaro/imagens.json";
+import r0 from "../conteudo/bolsonaro/roteiro.json";
+import n0 from "./gerado/bolsonaro/narracao.json";
+import m0 from "./gerado/bolsonaro/imagens.json";
+import r1 from "../conteudo/lula/roteiro.json";
+import n1 from "./gerado/lula/narracao.json";
+import m1 from "./gerado/lula/imagens.json";
 
 export const VIDEOS: Record<string, VideoDados> = {
-  Lula: montarVideo("lula", lulaRoteiro, lulaNarracao, lulaImagens as any),
-  Bolsonaro: montarVideo("bolsonaro", bolsoRoteiro, bolsoNarracao, bolsoImagens as any),
+  "Bolsonaro": montarVideo("bolsonaro", r0, n0, m0 as any),
+  "Lula": montarVideo("lula", r1, n1, m1 as any),
 };

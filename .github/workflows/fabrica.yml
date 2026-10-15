@@ -1,0 +1,143 @@
+name: Fábrica de vídeos (Issue → MP4)
+
+# Como usar (pelo app do GitHub no celular):
+# - Abra um Issue com o título começando por "Vídeo:" e descreva o tema no texto.
+#   Ex.: título "Vídeo: Quanto custa um deputado"  texto "tema bandeira, uns 2 minutos"
+# - Para ajustar, comente no mesmo Issue: "troca o gancho", "encurta a cena 3"...
+# O Claude escreve/ajusta o roteiro, a automação gera voz, imagens e o MP4,
+# e responde no Issue com o link do vídeo.
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: fabrica-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  video:
+    # só o dono do repositório aciona, e só em Issues "Vídeo: ..."
+    if: >-
+      github.event.sender.login == github.repository_owner &&
+      !github.event.issue.pull_request &&
+      (startsWith(github.event.issue.title, 'Vídeo') || startsWith(github.event.issue.title, 'Video')) &&
+      (github.event_name == 'issues' || !startsWith(github.event.comment.body, '🤖'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+      ID: issue-${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Avisar no Issue
+        run: gh issue comment "$ISSUE" --body "🤖 Recebido! Escrevendo o roteiro e montando o vídeo. Leva uns 10 a 15 minutos."
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          npm ci
+          pip install edge-tts==7.3.1
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+
+      - name: Modo (novo vídeo ou ajuste)
+        id: modo
+        run: |
+          if [ -f "conteudo/$ID/roteiro.json" ]; then echo "modo=ajuste" >> "$GITHUB_OUTPUT"; else echo "modo=novo" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Claude escreve o roteiro
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          claude_args: >-
+            --model sonnet
+            --max-turns 60
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(node scripts/registrar-videos.mjs),Bash(npx tsc --noEmit)"
+          prompt: |
+            Você escreve roteiros de vídeos curtos (TikTok/Reels 9:16) para este repositório.
+            Leia primeiro conteudo/GUIA.md e use conteudo/bolsonaro/ como exemplo de formato e qualidade.
+
+            Modo: ${{ steps.modo.outputs.modo }}
+            Pasta do vídeo: conteudo/${{ env.ID }}/
+
+            Pedido original (Issue #${{ github.event.issue.number }}):
+            Título: ${{ github.event.issue.title }}
+            Texto: ${{ github.event.issue.body }}
+
+            Comentário com o ajuste pedido (vazio se for vídeo novo):
+            ${{ github.event.comment.body }}
+
+            Tarefa:
+            - Modo "novo": pesquise o tema na web em fontes confiáveis e crie
+              conteudo/${{ env.ID }}/roteiro.json e conteudo/${{ env.ID }}/imagens.json seguindo o GUIA.
+            - Modo "ajuste": aplique só o que o comentário pede no roteiro existente, sem mexer no resto.
+              Se o pedido trouxer fatos novos, pesquise e confirme antes.
+            - Depois rode `node scripts/registrar-videos.mjs` e `npx tsc --noEmit` e corrija erros.
+            - Por fim escreva o arquivo resumo-issue.md (em português, curto) com: título do vídeo,
+              uma linha por cena com o texto falado, e a lista de fontes com links.
+            Não mexa em nenhum outro arquivo. Não faça commit.
+
+      - name: Registrar vídeo e conferir
+        run: |
+          node scripts/registrar-videos.mjs
+          npx tsc --noEmit
+
+      - name: Narração (voz neural)
+        run: python3 scripts/gerar_audio.py --motor edge --video "$ID"
+
+      - name: Imagens (Wikimedia Commons)
+        run: node scripts/baixar-imagens.mjs --video="$ID"
+
+      - name: Salvar no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add conteudo src public
+          if ! git diff --cached --quiet; then
+            git commit -m "Vídeo #$ISSUE: ${{ steps.modo.outputs.modo }}"
+            git pull --rebase origin "${{ github.event.repository.default_branch }}"
+            git push origin "HEAD:${{ github.event.repository.default_branch }}"
+          fi
+
+      - name: Renderizar MP4
+        run: |
+          npx remotion browser ensure
+          npx remotion render src/index.ts "$ID" "out/$ID.mp4" --concurrency=4
+
+      - name: Publicar e responder no Issue
+        run: |
+          TAG="$ID-v${{ github.run_number }}"
+          gh release create "$TAG" "out/$ID.mp4" --title "Vídeo #$ISSUE (versão ${{ github.run_number }})" --notes "Gerado a partir do Issue #$ISSUE."
+          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/$ID.mp4"
+          {
+            echo "🤖 ✅ Vídeo pronto: **[baixar MP4]($URL)**"
+            echo
+            [ -f resumo-issue.md ] && cat resumo-issue.md
+            echo
+            echo "_Para ajustar, comente aqui o que mudar (ex.: \"troca o gancho\", \"encurta a cena 3\")._"
+          } > comentario.md
+          gh issue comment "$ISSUE" --body-file comentario.md
+
+      - name: Avisar erro
+        if: failure()
+        run: gh issue comment "$ISSUE" --body "🤖 ❌ Deu erro ao montar o vídeo. Detalhes: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
