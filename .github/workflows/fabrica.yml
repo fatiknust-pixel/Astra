@@ -41,7 +41,8 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Avisar no Issue
-        run: gh issue comment "$ISSUE" --body "🤖 Recebido! Escrevendo o roteiro e montando o vídeo. Leva uns 10 a 15 minutos."
+        run: |
+          gh issue comment "$ISSUE" --body "🤖 Recebido! Escrevendo o roteiro e montando o vídeo. Leva uns 10 a 15 minutos."
 
       - uses: actions/setup-node@v4
         with:
@@ -140,4 +141,5 @@ jobs:
 
       - name: Avisar erro
         if: failure()
-        run: gh issue comment "$ISSUE" --body "🤖 ❌ Deu erro ao montar o vídeo. Detalhes: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+          gh issue comment "$ISSUE" --body "🤖 ❌ Deu erro ao montar o vídeo. Detalhes: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
