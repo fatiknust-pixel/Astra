@@ -1,0 +1,170 @@
+{
+  "titulo": "Top 10 filmes que você nunca assistiu mas deveria",
+  "estilo": { "paleta": "neon", "fonte": "poppins", "legenda": "palavra", "transicao": "deslize", "fundo": "ondas", "musica": "leve", "maiusculas": true },
+  "voz": { "edge": "pt-BR-FranciscaNeural", "velocidade": "+5%", "kokoro": "pf_dora", "kokoroVelocidade": 1.1 },
+  "legenda": { "palavrasPorTela": 1, "corDestaque": "#FF2BD6" },
+  "cenas": [
+    {
+      "id": "gancho",
+      "texto": "Você já viu mil vezes os mesmos filmes de sempre, né? Mas existem dez filmes incríveis que quase ninguém assistiu. Fica comigo até o número um, que muita gente considera o melhor de todos!",
+      "fundo": "",
+      "fontes": [],
+      "elementos": [
+        { "tipo": "pergunta", "texto": "JÁ VIU?", "em": "viu", "posicao": "alto" },
+        { "tipo": "carimbo", "texto": "QUASE NINGUÉM", "cor": "vermelho", "em": "quase", "posicao": "alto" },
+        { "tipo": "titulo", "texto": "TOP 10 FILMES", "sub": "que você deveria ver", "cor": "azul", "em": "dez", "posicao": "topo" }
+      ]
+    },
+    {
+      "id": "dez-nove",
+      "texto": "Número dez: Perfect Blue, animação japonesa de 1997, sobre uma cantora que vira atriz e é perseguida por um fã. O diretor Aronofsky refez a cena da banheira em Réquiem para um Sonho. Número nove: Memórias de um Assassino, de 2003, do Bong Joon-ho, inspirado em crimes reais na Coreia do Sul.",
+      "fundo": "",
+      "fontes": [
+        "Animation Obsessive — The real history of Perfect Blue",
+        "Looper — The Untold Truth of Perfect Blue",
+        "Korea Times (set/2019) — suspeito dos crimes de Hwaseong",
+        "Far Out Magazine — Memories of Murder"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 10", "sub": "Perfect Blue (1997)", "cor": "azul", "em": "dez", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Cena da banheira refeita", "icone": "alerta", "cor": "amarelo", "em": "banheira", "posicao": "alto" },
+        { "tipo": "titulo", "texto": "Nº 9", "sub": "Memórias de um Assassino (2003)", "cor": "vermelho", "em": "nove", "posicao": "meio" },
+        { "tipo": "tag", "texto": "Baseado em crimes reais", "icone": "pin", "cor": "vermelho", "em": "reais", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "oito-sete",
+      "texto": "Número oito: O Pagador de Promessas, de 1962, o único filme brasileiro que ganhou a Palma de Ouro em Cannes. Número sete: Central do Brasil, de 1998, do Walter Salles. Ganhou o Urso de Ouro em Berlim, e a Fernanda Montenegro foi indicada ao Oscar de melhor atriz.",
+      "fundo": "",
+      "fontes": [
+        "Jornal de Brasília — 60 anos da Palma de Ouro",
+        "InfoEscola — O Pagador de Promessas",
+        "Forbes Brasil — filmes nacionais mais premiados",
+        "Nitrate Online — Central do Brasil"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 8", "sub": "O Pagador de Promessas (1962)", "cor": "verde", "em": "oito", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Palma de Ouro em Cannes", "icone": "check", "cor": "amarelo", "em": "Palma", "posicao": "alto" },
+        { "tipo": "titulo", "texto": "Nº 7", "sub": "Central do Brasil (1998)", "cor": "verde", "em": "sete", "posicao": "meio" },
+        { "tipo": "tag", "texto": "Urso de Ouro em Berlim", "icone": "check", "cor": "amarelo", "em": "Urso", "posicao": "meio2" },
+        { "tipo": "tag", "texto": "Fernanda Montenegro no Oscar", "icone": "mais", "cor": "azul", "em": "Fernanda", "posicao": "meio2" }
+      ]
+    },
+    {
+      "id": "seis",
+      "texto": "Número seis: Paris, Texas, de 1984, do alemão Wim Wenders. Um homem que sumiu por anos reaparece no deserto sem falar. O filme ganhou a Palma de Ouro em Cannes e tem uma trilha de violão slide, do Ry Cooder, que gruda na cabeça.",
+      "fundo": "",
+      "fontes": [
+        "Film4 — Paris, Texas",
+        "Berlinale — arquivo Paris, Texas",
+        "The Conversation — Paris, Texas at 40"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 6", "sub": "Paris, Texas (1984)", "cor": "azul", "em": "seis", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Palma de Ouro em Cannes", "icone": "check", "cor": "amarelo", "em": "Palma", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Trilha de Ry Cooder", "icone": "balao", "cor": "amarelo", "em": "trilha", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "cinco",
+      "texto": "Número cinco: Cinema Paradiso, do italiano Giuseppe Tornatore. É a história de um garoto apaixonado por cinema numa cidadezinha da Itália. Ganhou o Oscar de filme estrangeiro, e a música é do Ennio Morricone. Prepara o lencinho!",
+      "fundo": "",
+      "fontes": [
+        "Wikipédia — Cinema Paradiso",
+        "Encyclopedia.com — Cinema Paradiso",
+        "AFI Fest — Cinema Paradiso"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 5", "sub": "Cinema Paradiso", "cor": "vermelho", "em": "cinco", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Oscar de filme estrangeiro", "icone": "check", "cor": "amarelo", "em": "Oscar", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Música de Ennio Morricone", "icone": "balao", "cor": "azul", "em": "Morricone", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "quatro",
+      "texto": "Número quatro: A Vida dos Outros, de 2006, a estreia do diretor Florian Henckel von Donnersmarck. Na Alemanha Oriental, um agente da Stasi, a polícia secreta, grampeia um escritor e vai mudando de lado. Ganhou o Oscar de filme estrangeiro.",
+      "fundo": "",
+      "fontes": [
+        "Wikipédia — The Lives of Others",
+        "Encyclopedia.com — The Lives of Others",
+        "GHDI — An Oscar for The Lives of Others"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 4", "sub": "A Vida dos Outros (2006)", "cor": "azul", "em": "quatro", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Agente da Stasi", "icone": "alvo", "cor": "vermelho", "em": "Stasi", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Oscar de filme estrangeiro", "icone": "check", "cor": "amarelo", "em": "Oscar", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "tres",
+      "texto": "Número três: O Sétimo Selo, de 1957, do sueco Ingmar Bergman. Um cavaleiro volta das Cruzadas e desafia a própria Morte pra uma partida de xadrez. Essa imagem ficou famosa no mundo todo, e o filme levou o prêmio especial do júri em Cannes.",
+      "fundo": "",
+      "fontes": [
+        "Swedish Film Institute — The Seventh Seal",
+        "EBSCO Research Starters — The Seventh Seal"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 3", "sub": "O Sétimo Selo (1957)", "cor": "vermelho", "em": "três", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Xadrez com a Morte", "icone": "alerta", "cor": "cinza", "em": "xadrez", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Prêmio do júri em Cannes", "icone": "check", "cor": "amarelo", "em": "Cannes", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "dois",
+      "texto": "Número dois: Ikiru, de 1952, do japonês Akira Kurosawa. Um burocrata descobre que tem câncer e decide fazer algo que realmente importe antes de morrer. O roteiro foi inspirado num livro do Tolstói, e a pergunta é simples: você tá vivendo ou só passando o tempo?",
+      "fundo": "",
+      "fontes": [
+        "Wikipédia — Ikiru",
+        "IMDb — Ikiru (prêmios)",
+        "Film Forum — Ikiru"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 2", "sub": "Ikiru (1952)", "cor": "verde", "em": "dois", "posicao": "topo" },
+        { "tipo": "tag", "texto": "Inspirado em Tolstói", "icone": "documento", "cor": "amarelo", "em": "Tolstói", "posicao": "alto" },
+        { "tipo": "pergunta", "texto": "VIVENDO?", "em": "vivendo", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "um",
+      "texto": "E o número um: Era Uma Vez em Tóquio, de 1953, do Yasujiro Ozu. Um casal de idosos visita os filhos na cidade grande e ninguém tem tempo pra eles. Em 2012, 358 diretores votaram, e ele ficou em primeiro lugar como o melhor filme de todos os tempos.",
+      "fundo": "",
+      "fontes": [
+        "BFI — Sight & Sound, votação dos diretores 2012",
+        "Criterion — Sight & Sound Poll 2012: Tokyo Story",
+        "Open Culture — 358 filmmakers"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "Nº 1", "sub": "Era Uma Vez em Tóquio (1953)", "cor": "amarelo", "em": "um", "posicao": "topo" },
+        { "tipo": "contador", "de": 0, "ate": 358, "unidade": "diretores", "rotulo": "votaram em 2012", "em": "358", "posicao": "alto" },
+        { "tipo": "tag", "texto": "Melhor filme, segundo diretores", "icone": "check", "cor": "amarelo", "em": "primeiro", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "resumo",
+      "texto": "Resumindo: dez filmes de países e épocas diferentes, vários premiados em Cannes, Berlim e no Oscar. Tem animação, suspense, drama e até um filme brasileiro com Palma de Ouro. Se você não viu nenhum deles, já tem programação pra um mês inteiro.",
+      "fundo": "",
+      "fontes": [
+        "BFI — Sight & Sound 2012",
+        "Jornal de Brasília — 60 anos da Palma de Ouro",
+        "Wikipédia"
+      ],
+      "elementos": [
+        { "tipo": "titulo", "texto": "RESUMINDO", "cor": "azul", "em": 0, "posicao": "topo" },
+        { "tipo": "check", "texto": "Premiados", "ok": true, "nota": "Cannes, Berlim e Oscar", "em": "premiados", "posicao": "alto" },
+        { "tipo": "check", "texto": "De vários países", "ok": true, "nota": "Japão, Brasil, Itália, Alemanha…", "em": "países", "posicao": "alto2" },
+        { "tipo": "check", "texto": "Filmes que todo mundo viu", "ok": false, "nota": "Quase ninguém assistiu", "em": "nenhum", "posicao": "meio" }
+      ]
+    },
+    {
+      "id": "final",
+      "texto": "E aí, qual desses você já viu? Comenta aqui embaixo! E me conta: que lista você quer no próximo vídeo? Segue pra não perder!",
+      "fundo": "",
+      "fontes": [],
+      "elementos": [
+        { "tipo": "enquete", "pergunta": "Quantos desses você já viu?", "opcoes": ["Nenhum", "Pelo menos um"], "em": 0, "posicao": "topo" },
+        { "tipo": "comentario", "texto": "Qual lista no próximo vídeo?", "em": "lista", "posicao": "meio" },
+        { "tipo": "seguir", "texto": "SEGUE PRA NÃO PERDER", "em": "Segue", "posicao": "meio2" }
+      ]
+    }
+  ]
+}
