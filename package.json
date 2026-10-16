@@ -13,7 +13,13 @@
     "typecheck": "tsc --noEmit",
     "pptx": "node apresentacao/gerar-pptx.cjs",
     "audio:5s": "python3 scripts/gerar_audio.py --video 5s",
-    "render:5s": "remotion render src/index.ts Projeto5S out/Projeto-5S.mp4"
+    "render:5s": "remotion render src/index.ts Projeto5S out/Projeto-5S.mp4",
+    "registrar": "node scripts/registrar-videos.mjs",
+    "prestudio": "node scripts/registrar-videos.mjs",
+    "prepreview": "node scripts/registrar-videos.mjs",
+    "prebuild:preview": "node scripts/registrar-videos.mjs",
+    "prerender": "node scripts/registrar-videos.mjs",
+    "pretypecheck": "node scripts/registrar-videos.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.535",

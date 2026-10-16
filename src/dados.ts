@@ -33,6 +33,7 @@ export type Estilo = {
   fundo: "grade" | "bandeira" | "limpo" | "ondas" | "pontos" | "raios";
   musica: "tensao" | "leve" | "epica" | "nenhuma";
   maiusculas: boolean;
+  dinamica: "padrao" | "energetica" | "cinema" | "jornal" | "glitch" | "colagem" | "minimal";
 };
 
 export type VideoDados = {
@@ -106,6 +107,7 @@ export const montarVideo = (id: string, roteiro: any, narracao: any, imagens: Re
     fundo: e.fundo ?? (tema.bandeira ? "bandeira" : "grade"),
     musica: e.musica ?? "tensao",
     maiusculas: e.maiusculas ?? true,
+    dinamica: e.dinamica ?? "padrao",
   };
   return {
     id,

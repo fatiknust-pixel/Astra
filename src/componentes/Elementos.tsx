@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Img, interpolate, Sequence, spring, useCurrentFram
 import { ElementoTempo, arquivo } from "../dados";
 import { corDe, useCor, useVideo } from "../contexto";
 import { FONTE, POSICAO } from "../tema";
+import { ajusteElemento } from "./Dinamica";
 import { Icone } from "./Icone";
 
 const useMola = (atraso = 0, config = { damping: 13, stiffness: 140, mass: 0.8 }) => {
@@ -367,9 +368,10 @@ export const Elemento: React.FC<{ e: ElementoTempo }> = ({ e }) => {
   const dur = e.sai - e.entra;
   const C = MAPA[e.tipo];
   if (!C) return null;
+  const { estilo } = useVideo();
   const saida = interpolate(f, [dur - 7, dur], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
-    <AbsoluteFill style={{ top: POSICAO[e.posicao ?? "alto"] ?? POSICAO.alto, bottom: "auto", alignItems: "center", opacity: saida, transform: `translateY(${(1 - saida) * -40}px) scale(${0.9 + 0.1 * saida})` }}>
+    <AbsoluteFill style={{ top: POSICAO[e.posicao ?? "alto"] ?? POSICAO.alto, bottom: "auto", alignItems: "center", opacity: saida, transform: `translateY(${(1 - saida) * -40}px) scale(${0.9 + 0.1 * saida})`, ...ajusteElemento(estilo.dinamica, e.indice) }}>
       <C e={e} />
     </AbsoluteFill>
   );

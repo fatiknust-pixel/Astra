@@ -78,9 +78,9 @@
   <!-- Novo vídeo -->
   <section class="cartao" id="tela-novo">
     <div class="campo">
-      <label for="tema">Sobre o que é o vídeo?</label>
+      <label for="tema">Sobre o que é o vídeo? (até 5 temas, um por linha)</label>
       <div class="com-mic">
-        <textarea id="tema" placeholder="Ex.: Presidentes que não terminaram o mandato"></textarea>
+        <textarea id="tema" placeholder="Ex.:&#10;Presidentes que não terminaram o mandato&#10;O Brasil comprou o Acre&#10;Quanto custa um deputado" rows="4"></textarea>
         <button class="mic" id="mic" title="Falar" aria-label="Falar o tema" hidden>🎤</button>
       </div>
     </div>
@@ -91,7 +91,7 @@
     </details>
     <div class="campo"><label for="extra">Detalhes (opcional)</label>
       <input id="extra" placeholder="Ex.: tom neutro, foco em datas e números"></div>
-    <button class="principal" id="gerar">Gerar vídeo</button>
+    <button class="principal" id="gerar">Gerar vídeo(s)</button>
     <p class="msg" id="msg-novo" role="status"></p>
   </section>
 
@@ -122,6 +122,7 @@ const ler = (k, p = "") => { try { return localStorage.getItem(k) ?? p; } catch 
 
 // Opções do vídeo: "Automático" deixa a IA escolher, variando em relação aos vídeos anteriores
 const OPCOES = [
+  ["Dinâmica", ["energetica", "cinema", "jornal", "glitch", "colagem", "minimal", "padrao"]],
   ["Formato", ["Explicativo", "Lista/Top N", "Linha do tempo", "Mito ou verdade", "Comparação", "Curiosidade rápida"]],
   ["Duração", ["1 minuto", "2 minutos", "3 minutos"]],
   ["Tom", ["Neutro", "Descontraído", "Sério", "Dramático", "Bem-humorado"]],
@@ -214,16 +215,40 @@ async function abrir(issue) {
 
 function voltar() { atual = null; $("tela-detalhe").hidden = true; $("tela-novo").hidden = false; $("tela-lista").hidden = false; carregarLista(); }
 
+// Sorteia sem repetir: cada vídeo do lote ganha uma dinâmica (e legenda/transição) diferente
+const embaralhar = (a) => a.map((v) => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+const valoresDe = (nome) => OPCOES.find(([n]) => n === nome)[1];
+
 $("gerar").onclick = async () => {
-  const tema = $("tema").value.trim();
+  const temas = $("tema").value.split("\n").map((t) => t.trim()).filter(Boolean);
   if (!cfg.token) { $("tela-config").hidden = false; return; }
-  if (!tema) { $("msg-novo").textContent = "Escreva ou fale o tema do vídeo."; return; }
-  $("gerar").disabled = true; $("msg-novo").textContent = "Enviando…";
+  if (!temas.length) { $("msg-novo").textContent = "Escreva ou fale o tema do vídeo."; return; }
+  if (temas.length > 5) { $("msg-novo").textContent = "No máximo 5 vídeos por vez (um tema por linha)."; return; }
+  $("gerar").disabled = true;
+  const sorteio = {};
+  if (temas.length > 1) {
+    for (const nome of ["Dinâmica", "Legenda", "Transição", "Formato"]) {
+      if ($(idOpcao(nome)).value === "Automático") sorteio[nome] = embaralhar(valoresDe(nome).filter((v) => v !== "padrao"));
+    }
+  }
   try {
-    const corpo = OPCOES.map(([n]) => `- ${n}: ${$(idOpcao(n)).value}`).join("\n") + ($("extra").value.trim() ? `\n\nDetalhes: ${$("extra").value.trim()}` : "");
-    const issue = await gh("/issues", { method: "POST", body: JSON.stringify({ title: `Vídeo: ${tema}`, body: corpo }) });
-    $("tema").value = ""; $("extra").value = ""; $("msg-novo").textContent = "Pedido enviado! O vídeo fica pronto em uns 10 a 15 minutos.";
-    abrir(issue);
+    let ultimo = null;
+    for (let i = 0; i < temas.length; i++) {
+      $("msg-novo").textContent = `Enviando ${i + 1} de ${temas.length}…`;
+      const linhas = OPCOES.map(([n]) => {
+        const v = $(idOpcao(n)).value;
+        if (v === "Automático" && sorteio[n]) return `- ${n}: ${sorteio[n][i % sorteio[n].length]} (sorteado para variar o lote)`;
+        return `- ${n}: ${v}`;
+      });
+      if (temas.length > 1) linhas.push(`- Lote: vídeo ${i + 1} de ${temas.length}; os outros: ${temas.filter((_, j) => j !== i).join(" | ")}`);
+      const corpo = linhas.join("\n") + ($("extra").value.trim() ? `\n\nDetalhes: ${$("extra").value.trim()}` : "");
+      ultimo = await gh("/issues", { method: "POST", body: JSON.stringify({ title: `Vídeo: ${temas[i]}`, body: corpo }) });
+    }
+    $("tema").value = ""; $("extra").value = "";
+    $("msg-novo").textContent = temas.length > 1
+      ? `${temas.length} pedidos enviados! Eles são produzidos ao mesmo tempo e ficam prontos em uns 10 a 20 minutos.`
+      : "Pedido enviado! O vídeo fica pronto em uns 10 a 15 minutos.";
+    if (temas.length === 1) abrir(ultimo); else carregarLista();
   } catch (e) { $("msg-novo").textContent = e.message; }
   $("gerar").disabled = false;
 };

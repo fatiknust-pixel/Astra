@@ -92,7 +92,9 @@ jobs:
             O texto do pedido pode trazer preferências (formato, paleta, fonte, legenda, transição, fundo,
             música, voz, tom, duração). Siga as que vierem preenchidas. Para as que estiverem como
             "Automático" ou ausentes, escolha você seguindo a "Regra de variedade" do GUIA: combine com
-            o tema e nunca repita o visual nem o formato do vídeo anterior.
+            o tema e nunca repita o visual nem o formato do vídeo anterior. Se o pedido trouxer uma
+            "Dinâmica" já definida (o app sorteia dinâmicas diferentes quando pedimos vários vídeos de uma
+            vez), use exatamente essa e combine o resto do estilo com ela.
 
             Tarefa:
             - Modo "novo": pesquise o tema na web em fontes confiáveis e crie
@@ -120,11 +122,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add conteudo src public
+          git add "conteudo/$ID" "src/gerado/$ID" "public/$ID"
           if ! git diff --cached --quiet; then
             git commit -m "Vídeo #$ISSUE: ${{ steps.modo.outputs.modo }}"
-            git pull --rebase origin "${{ github.event.repository.default_branch }}"
-            git push origin "HEAD:${{ github.event.repository.default_branch }}"
+            # vários vídeos podem terminar ao mesmo tempo: tenta de novo se outro chegou antes
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin "${{ github.event.repository.default_branch }}" && \
+                git push origin "HEAD:${{ github.event.repository.default_branch }}" && break
+              sleep $((i * 7))
+            done
           fi
 
       - name: Renderizar MP4

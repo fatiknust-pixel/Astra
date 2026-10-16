@@ -90,7 +90,9 @@ jobs:
           fi
 
       - name: Checar tipos
-        run: npx tsc --noEmit
+        run: |
+          node scripts/registrar-videos.mjs
+          npx tsc --noEmit
 
       - name: Construir prévia interativa
         run: npm run build:preview
