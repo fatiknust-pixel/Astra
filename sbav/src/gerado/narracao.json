@@ -2,9 +2,9 @@
  "motor": "voicestudio",
  "voz": "voicestudio:male, young adult, moderate pitch",
  "fps": 30,
- "transicao": 20,
+ "transicao": 15,
  "bpm": 90,
- "total": 3460,
+ "total": 2953,
  "cenas": {
   "abertura": {
    "hash": "f6b300091208",
@@ -148,8 +148,8 @@
     }
    ],
    "inicio": 0,
-   "quadros": 340,
-   "falaEm": 14
+   "quadros": 293,
+   "falaEm": 3
   },
   "problema": {
    "hash": "ff59d4fae73c",
@@ -247,9 +247,9 @@
      "f": 6.38
     }
    ],
-   "inicio": 320,
-   "quadros": 260,
-   "falaEm": 14
+   "inicio": 278,
+   "quadros": 216,
+   "falaEm": 3
   },
   "proposta": {
    "hash": "96a5edc82ccb",
@@ -397,9 +397,9 @@
      "f": 8.44
     }
    ],
-   "inicio": 560,
-   "quadros": 320,
-   "falaEm": 14
+   "inicio": 479,
+   "quadros": 278,
+   "falaEm": 3
   },
   "arquitetura": {
    "hash": "8dff74b3b0f3",
@@ -592,9 +592,9 @@
      "f": 12.26
     }
    ],
-   "inicio": 860,
-   "quadros": 440,
-   "falaEm": 14
+   "inicio": 742,
+   "quadros": 395,
+   "falaEm": 3
   },
   "estados": {
    "hash": "1885f5d8a551",
@@ -732,9 +732,9 @@
      "f": 7.54
     }
    ],
-   "inicio": 1280,
-   "quadros": 300,
-   "falaEm": 14
+   "inicio": 1122,
+   "quadros": 257,
+   "falaEm": 3
   },
   "seguranca": {
    "hash": "6bcce3b1c0eb",
@@ -832,9 +832,9 @@
      "f": 6.4
     }
    ],
-   "inicio": 1560,
-   "quadros": 260,
-   "falaEm": 14
+   "inicio": 1364,
+   "quadros": 222,
+   "falaEm": 3
   },
   "desafio": {
    "hash": "b1e13c747e5b",
@@ -972,9 +972,9 @@
      "f": 8.18
     }
    ],
-   "inicio": 1800,
-   "quadros": 320,
-   "falaEm": 14
+   "inicio": 1571,
+   "quadros": 276,
+   "falaEm": 3
   },
   "prototipo": {
    "hash": "10813db7ce2c",
@@ -1107,9 +1107,9 @@
      "f": 7.32
     }
    ],
-   "inicio": 2100,
-   "quadros": 300,
-   "falaEm": 14
+   "inicio": 1832,
+   "quadros": 246,
+   "falaEm": 3
   },
   "testes": {
    "hash": "6117ddfd76d1",
@@ -1237,9 +1237,9 @@
      "f": 8.48
     }
    ],
-   "inicio": 2380,
-   "quadros": 340,
-   "falaEm": 14
+   "inicio": 2063,
+   "quadros": 285,
+   "falaEm": 3
   },
   "conclusao": {
    "hash": "31c78d4491e6",
@@ -1352,9 +1352,9 @@
      "f": 8.1
     }
    ],
-   "inicio": 2700,
-   "quadros": 320,
-   "falaEm": 14
+   "inicio": 2333,
+   "quadros": 270,
+   "falaEm": 3
   },
   "futuro": {
    "hash": "56ab892f74ab",
@@ -1447,9 +1447,9 @@
      "f": 5.86
     }
    ],
-   "inicio": 3000,
-   "quadros": 260,
-   "falaEm": 14
+   "inicio": 2588,
+   "quadros": 203,
+   "falaEm": 3
   },
   "final": {
    "hash": "2723ad23ced8",
@@ -1502,9 +1502,9 @@
      "f": 2.18
     }
    ],
-   "inicio": 3240,
-   "quadros": 220,
-   "falaEm": 14
+   "inicio": 2776,
+   "quadros": 177,
+   "falaEm": 3
   }
  }
 }

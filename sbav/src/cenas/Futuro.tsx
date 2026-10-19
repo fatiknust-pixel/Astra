@@ -12,7 +12,7 @@ export const Futuro = () => {
     { em: quando(ID, "placa", 0, 30) - 4, t: "Placa definitiva", d: "PCB com regulador 12 V → 5 V e fusível" },
     { em: quando(ID, "validação", 0, 50) - 4, t: "Validação no carro", d: "instalação no VW Gol 1994 da Fatec" },
     { em: quando(ID, "celular", 0, 70) - 4, t: "Liberação pelo celular", d: "Bluetooth/Wi-Fi do próprio Pico W" },
-    { em: quando(ID, "celular", 0, 70) + 16, t: "Integração com a central", d: "comunicação direta pela rede CAN" },
+    { em: quando(ID, "celular", 0, 70) + 6, t: "Integração com a central", d: "comunicação direta pela rede CAN" },
   ];
   const fimLinha = interpolate(f, [etapas[0].em - 6, etapas[3].em + 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (

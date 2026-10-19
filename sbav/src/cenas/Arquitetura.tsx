@@ -62,7 +62,7 @@ export const Arquitetura = () => {
       <div style={{ position: "absolute", left: v ? 70 : 110, top: v ? 1340 : 680, width: v ? 940 : 1700, display: "flex", flexDirection: "column", gap: v ? 16 : 14 }}>
         <Glossario em={ems[1] + 20} termo="UART" explica="comunicação em série: o leitor envia os dados da digital para a placa, fio a fio." />
         <Glossario em={ems[2] + 10} termo="RELÉ" explica="um interruptor acionado eletricamente; a placa liga e desliga sem tocar no circuito do carro." />
-        <Glossario em={ems[3] + 6} termo="LINHA +15" explica="o fio que só recebe energia com a chave ligada; alimenta a injeção, a central e a ignição." />
+        <Glossario em={ems[3] - 4} termo="LINHA +15" explica="o fio que só recebe energia com a chave ligada; alimenta a injeção, a central e a ignição." />
       </div>
       {ems.map((e, k) => (
         <Sfx key={k} nome="tique" em={e + 4} volume={0.12} />

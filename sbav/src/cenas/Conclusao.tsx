@@ -31,7 +31,7 @@ export const Conclusao = () => {
         ))}
       </div>
       <div style={{ position: "absolute", left: v ? 70 : 110, top: v ? 1150 : 760, width: v ? 940 : 1700 }}>
-        <Glossario em={antigos + 24} termo="CONTRIBUIÇÃO" explica="o driver do sensor, reescrito do Arduino para o SDK nativo do Raspberry Pi Pico." />
+        <Glossario em={custo + 24} termo="CONTRIBUIÇÃO" explica="o driver do sensor, reescrito do Arduino para o SDK nativo do Raspberry Pi Pico." />
       </div>
     </AbsoluteFill>
   );
