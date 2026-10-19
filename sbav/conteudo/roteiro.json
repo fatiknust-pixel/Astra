@@ -1,0 +1,32 @@
+{
+  "titulo": "SBAV – Sistema Biométrico de Autenticação Veicular",
+  "autores": ["Fabio Henrique Sarri Franzoni", "Jonathan Zagati de Matos", "Ricardo Felicio Garcia da Fonseca", "Victor Lima dos Santos"],
+  "instituicao": "Fatec Santo André",
+  "curso": "Tecnologia em Eletrônica Automotiva",
+  "voz": {
+    "voicestudio": {
+      "instrucao": "male, young adult, moderate pitch",
+      "velocidade": 1.0,
+      "passos": 64
+    },
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+0%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.0
+  },
+  "bpm": 90,
+  "cenas": [
+    { "id": "abertura", "titulo": "Apresentação", "texto": "Este é o SBAV, um sistema que usa a impressão digital para ligar o carro. Trabalho de conclusão de curso em Eletrônica Automotiva, na Fatec Santo André.", "extra": 0.6 },
+    { "id": "problema", "titulo": "O problema", "texto": "Hoje, muitos carros ainda são furtados com chaves copiadas ou com aparelhos que abrem as portas à distância.", "extra": 0.4 },
+    { "id": "proposta", "titulo": "A proposta", "texto": "A ideia é simples: o motor só liga depois que o sistema reconhece a digital de alguém cadastrado. Se a digital não for reconhecida, o carro não pega.", "extra": 0.6 },
+    { "id": "arquitetura", "titulo": "Como funciona", "texto": "O sistema tem quatro partes. O leitor capta a digital. Uma pequena placa, o Raspberry Pi Pico, compara com as digitais salvas. Se for válida, um relé, que funciona como um interruptor, libera a energia da ignição.", "extra": 0.8 },
+    { "id": "estados", "titulo": "Passo a passo", "texto": "Na prática, o sistema fica esperando o dedo, lê a digital e decide: libera a partida com a luz verde, ou bloqueia com a luz vermelha.", "extra": 0.8 },
+    { "id": "seguranca", "titulo": "Segurança", "texto": "E, por segurança, se faltar energia no sistema, o carro continua travado. Ele nunca fica liberado por acidente.", "extra": 0.6 },
+    { "id": "desafio", "titulo": "O desafio", "texto": "O maior desafio foi o programa do leitor, que tinha sido feito para outra placa, o Arduino. A equipe reescreveu esse código para funcionar no Pico.", "extra": 0.6 },
+    { "id": "prototipo", "titulo": "O protótipo", "texto": "Este é o protótipo: a placa com os componentes fica numa gaveta no painel, com o leitor de digital, uma pequena tela e um botão.", "extra": 1.2 },
+    { "id": "testes", "titulo": "Testes", "texto": "Nos testes, todas as digitais cadastradas liberaram a partida, e nenhuma digital estranha foi aceita. A resposta leva menos de um segundo e meio.", "extra": 0.8 },
+    { "id": "conclusao", "titulo": "Conclusão", "texto": "O resultado mostra que é possível ter segurança biométrica com peças acessíveis e de baixo custo, principalmente em carros mais antigos.", "extra": 0.6 },
+    { "id": "futuro", "titulo": "Próximos passos", "texto": "Os próximos passos são uma placa definitiva, a validação no carro e a liberação também pelo celular.", "extra": 0.8 },
+    { "id": "final", "titulo": "Créditos", "texto": "SBAV. A sua digital é a chave do carro.", "extra": 3.6 }
+  ]
+}

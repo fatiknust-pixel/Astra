@@ -1,0 +1,112 @@
+name: Apresentação SBAV (narração, trilha e render)
+
+# Gera a narração com o VoiceStudio (github.com/debpalash/VoiceStudio, motor OmniVoice) ou com a voz
+# da Microsoft (edge-tts), refaz a trilha no ritmo da nova narração, salva os áudios no repositório e
+# renderiza os MP4 (ficam em "Artifacts" da execução).
+on:
+  push:
+    paths:
+      - "sbav/conteudo/**"
+      - "sbav/src/**"
+      - "sbav/scripts/**"
+      - ".github/workflows/sbav.yml"
+  workflow_dispatch:
+    inputs:
+      renderizar:
+        description: "Renderizar o MP4 final"
+        type: boolean
+        default: true
+      refazer_audio:
+        description: "Regerar toda a narração"
+        type: boolean
+        default: false
+      motor:
+        description: "Voz da narração"
+        type: choice
+        options: [voicestudio, edge]
+        default: voicestudio
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sbav-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: sbav
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: sbav/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: |
+          npm ci
+          pip install edge-tts==7.3.1 numpy scipy
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+
+      # VoiceStudio: só o pacote do motor (omnivoice/), nas versões fixadas no uv.lock dele, em CPU
+      - name: VoiceStudio (OmniVoice)
+        if: ${{ (inputs.motor || 'voicestudio') == 'voicestudio' }}
+        run: |
+          git clone --filter=blob:none https://github.com/debpalash/VoiceStudio "$RUNNER_TEMP/VoiceStudio"
+          git -C "$RUNNER_TEMP/VoiceStudio" checkout -q d819ff54d93017bf4a5b34b605833162163c9e3c
+          pip install torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers==5.15.1 accelerate==1.14.0 huggingface-hub==1.28.0 pydub==0.25.1 soundfile==0.14.0 faster-whisper==1.2.1
+          echo "PYTHONPATH=$RUNNER_TEMP/VoiceStudio:$PWD/scripts" >> "$GITHUB_ENV"
+
+      - uses: actions/cache@v4
+        if: ${{ (inputs.motor || 'voicestudio') == 'voicestudio' }}
+        with:
+          path: ~/.cache/huggingface
+          key: hf-omnivoice-whisper-small-sbav-v1
+
+      - name: Narração
+        run: |
+          FORCAR=""
+          if [ "${{ inputs.refazer_audio }}" = "true" ]; then FORCAR="--forcar"; fi
+          python3 scripts/gerar_audio.py --motor "${{ inputs.motor || 'voicestudio' }}" $FORCAR
+
+      - name: Trilha e efeitos sonoros
+        run: python3 scripts/gerar_sons.py
+
+      - name: Salvar narração e trilha no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio public/sfx src/gerado voz 2>/dev/null || git add public/audio public/sfx src/gerado
+          if ! git diff --cached --quiet; then
+            git commit -m "SBAV: atualiza narração e trilha"
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Checar tipos
+        run: npx tsc --noEmit
+
+      - name: Renderizar MP4
+        if: ${{ github.event_name == 'push' || inputs.renderizar }}
+        run: |
+          npx remotion browser ensure
+          bash scripts/renderizar.sh
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ github.event_name == 'push' || inputs.renderizar }}
+        with:
+          name: sbav-apresentacao
+          path: sbav/out/sbav-*.mp4
