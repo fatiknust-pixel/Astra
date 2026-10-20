@@ -6,7 +6,7 @@ import { useVideo } from "../contexto";
 export const Fundo: React.FC<{ chave?: string; indice: number; duracao: number }> = ({ chave, indice, duracao }) => {
   const f = useCurrentFrame();
   const { imagem, tema, estilo } = useVideo();
-  const tipo = estilo.fundo;
+  const tipo = estilo.dinamica === "minimal" ? "limpo" : estilo.fundo;
   const src = imagem(chave);
   const t = f / Math.max(1, duracao);
   const dir = indice % 2 === 0 ? 1 : -1;

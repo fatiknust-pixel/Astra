@@ -6,6 +6,7 @@ import { VIDEOS } from "./videos";
 import { Elemento } from "./componentes/Elementos";
 import { Fundo } from "./componentes/Fundo";
 import { Legenda } from "./componentes/Legenda";
+import { Camera, Sobreposicao } from "./componentes/Dinamica";
 import { FONTE, FONTES } from "./tema";
 
 // Fontes confiáveis da cena, no topo da tela
@@ -14,7 +15,7 @@ const Fontes: React.FC<{ fontes: string[] }> = ({ fontes }) => {
   const COR = useCor();
   if (!fontes.length) return null;
   return (
-    <div style={{ position: "absolute", top: 70, left: 40, right: 140, display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+    <div style={{ position: "absolute", top: useVideo().estilo.dinamica === "cinema" ? 128 : 70, left: 40, right: 140, display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
       <div style={{ fontFamily: FONTE, fontWeight: 900, fontSize: 26, color: "#111", background: COR.destaque, padding: "6px 14px", borderRadius: 8, opacity: interpolate(f, [4, 10], [0, 1], { extrapolateRight: "clamp" }) }}>FONTES</div>
       {fontes.map((t, i) => {
         const m = spring({ frame: f - 8 - i * 4, fps: 30, config: { damping: 14 } });
@@ -110,11 +111,14 @@ export const Video: React.FC<{ video: string }> = ({ video }) => {
         {v.estilo.musica !== "nenhuma" && (
           <Audio src={arquivo(v.estilo.musica === "tensao" ? "sfx/trilha.mp3" : `sfx/trilha-${v.estilo.musica}.mp3`)} volume={0.1} loop />
         )}
-        {v.cenas.map((c) => (
-          <Sequence key={c.id} from={c.inicio} durationInFrames={c.duracao} name={c.id}>
-            <Cena c={c} />
-          </Sequence>
-        ))}
+        <Camera>
+          {v.cenas.map((c) => (
+            <Sequence key={c.id} from={c.inicio} durationInFrames={c.duracao} name={c.id}>
+              <Cena c={c} />
+            </Sequence>
+          ))}
+        </Camera>
+        <Sobreposicao />
         <Legenda />
         <Progresso />
       </AbsoluteFill>

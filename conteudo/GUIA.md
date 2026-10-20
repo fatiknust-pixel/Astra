@@ -47,12 +47,27 @@ Todo roteiro novo tem um objeto `estilo` (substitui o antigo campo `tema`):
 | `fundo` | `grade`, `bandeira`, `limpo`, `ondas`, `pontos`, `raios` |
 | `musica` | `tensao`, `leve`, `epica`, `nenhuma` |
 | `maiusculas` | `true` / `false` (legenda) |
+| `dinamica` | ritmo e movimento da edição (veja abaixo) |
+
+### Dinâmica de edição (`estilo.dinamica`)
+É o que mais muda a "cara" do vídeo. Combine o resto do estilo com ela:
+| dinâmica | como fica | combina com |
+|---|---|---|
+| `energetica` | "câmera" dá socos de zoom a cada elemento, treme nos carimbos, flash nas trocas | `palavra` ou `caixa`, `zoom`/`flash`, `leve`, cenas curtas e frases curtas |
+| `cinema` | faixas pretas, grão de filme, vinheta, zoom lento contínuo | `playfair`, `discreta`, `circulo`/`zoom`, `epica`, ritmo calmo |
+| `jornal` | tarja AO VIVO e letreiro correndo com título e fontes, cortes secos | `jornal`, `oswald`, `caixa`, `flash`/`deslize`, tom sério |
+| `glitch` | distorção RGB e linhas de TV nas trocas e nos elementos | `neon`, `poppins`, `palavra`, `deslize`, `tensao` |
+| `colagem` | papel texturizado, elementos tortos, movimento "stop motion" | `pordosol`/`padrao`, `robotoslab`, `karaoke`, `deslize`, `leve` |
+| `minimal` | sem partículas nem texturas, tudo limpo e calmo | `grafite`, `raleway`, `discreta`, `circulo`, `nenhuma`/`leve` |
+| `padrao` | o visual original dos vídeos de presidentes | qualquer |
+Adapte também o roteiro à dinâmica: `energetica` pede frases curtas e muitos elementos; `cinema` pede menos
+elementos, mais `definicao`/`linha` e texto narrativo.
 
 Voz (`voz.edge`): `pt-BR-AntonioNeural` (masculina), `pt-BR-FranciscaNeural` ou `pt-BR-ThalitaNeural` (femininas).
 
 **Regra de variedade:** quando o pedido disser "Automático" (ou não disser nada) num campo, escolha o que combina
 com o tema, mas **leia o `estilo` e a voz dos 3 vídeos mais recentes** (pastas `conteudo/issue-*`, maior número = mais
-recente; e `conteudo/bolsonaro`, `conteudo/lula`) e **não repita a mesma paleta, legenda, transição nem fundo** do
+recente; e `conteudo/bolsonaro`, `conteudo/lula`) e **não repita a mesma dinâmica, paleta, legenda, transição nem fundo** do
 vídeo anterior. Combine para formar uma identidade coerente (ex.: notícia → `jornal` + `oswald` + `caixa` + `flash`;
 história → `pordosol` + `playfair` + `discreta` + `zoom` + `epica`; curiosidade leve → `neon` + `poppins` + `palavra` +
 `deslize` + `leve`).
