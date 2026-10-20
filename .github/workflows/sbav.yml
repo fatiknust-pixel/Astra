@@ -20,6 +20,10 @@ on:
         description: "Regerar toda a narração"
         type: boolean
         default: false
+      cenas:
+        description: "Gerar só estas cenas (ids separados por espaço; vazio = todas)"
+        type: string
+        default: ""
       motor:
         description: "Voz da narração"
         type: choice
@@ -81,7 +85,9 @@ jobs:
         run: |
           FORCAR=""
           if [ "${{ inputs.refazer_audio }}" = "true" ]; then FORCAR="--forcar"; fi
-          python3 scripts/gerar_audio.py --motor "${{ inputs.motor || 'voicestudio' }}" $FORCAR
+          SOMENTE=""
+          if [ -n "${{ inputs.cenas }}" ]; then SOMENTE="--somente ${{ inputs.cenas }}"; fi
+          python3 scripts/gerar_audio.py --motor "${{ inputs.motor || 'voicestudio' }}" $FORCAR $SOMENTE
 
       - name: Trilha e efeitos sonoros
         run: python3 scripts/gerar_sons.py

@@ -115,6 +115,13 @@ def _referencia(config):
     os.makedirs(PASTA_VOZ, exist_ok=True)
     wav = os.path.join(PASTA_VOZ, "referencia.wav")
     txt = os.path.join(PASTA_VOZ, "referencia.txt")
+    if os.path.exists(wav) and not os.path.exists(txt):
+        # amostra gravada por uma pessoa: o Whisper escreve a transcrição do trecho
+        _carregar()
+        ouvidas = _transcrever(wav)
+        with open(txt, "w", encoding="utf-8") as f:
+            f.write(" ".join(w["p"] for w in ouvidas).strip() + "\n")
+        print(f"  transcrição da amostra: {open(txt, encoding='utf-8').read().strip()}", flush=True)
     if not (os.path.exists(wav) and os.path.exists(txt)):
         import json, shutil, torch
         instrucoes = config.get("candidatas") or [config.get("instrucao", "male, young adult, moderate pitch")]

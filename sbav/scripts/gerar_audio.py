@@ -105,6 +105,7 @@ def main():
     ap.add_argument("--motor", default=os.environ.get("MOTOR_TTS", "edge"), choices=["edge", "kokoro", "voicestudio"])
     ap.add_argument("--modelo", default=os.environ.get("KOKORO_MODELO", "modelos/kokoro"))
     ap.add_argument("--forcar", nargs="*", help="ids de cenas para refazer (vazio = todas)")
+    ap.add_argument("--somente", nargs="*", help="gera só estas cenas; as outras ficam como estão (prévia)")
     a = ap.parse_args()
 
     roteiro = json.load(open(ROTEIRO, encoding="utf-8"))
@@ -116,7 +117,9 @@ def main():
         voz_id, vel = voz["edge"], voz.get("velocidade", "+0%")
     elif a.motor == "voicestudio":
         vs = voz["voicestudio"]
-        voz_id, vel = "voicestudio:" + vs.get("instrucao", ""), vs.get("velocidade", 1.0)
+        ref = os.path.join(RAIZ, "voz", "referencia.wav")
+        marca = hashlib.sha1(open(ref, "rb").read()).hexdigest()[:8] if os.path.exists(ref) else vs.get("instrucao", "")
+        voz_id, vel = "voicestudio:" + marca, vs.get("velocidade", 1.0)
     else:
         voz_id, vel = voz["kokoro"], voz.get("kokoroVelocidade", 1.0)
 
@@ -128,7 +131,8 @@ def main():
         dest = os.path.join(RAIZ, "public", arq)
         velho = anterior["cenas"].get(cid)
         refazer = a.forcar is not None and (len(a.forcar) == 0 or cid in a.forcar)
-        if velho and velho.get("hash") == h and os.path.exists(dest) and not refazer:
+        manter = a.somente and cid not in a.somente
+        if velho and os.path.exists(dest) and (manter or (velho.get("hash") == h and not refazer)):
             cenas[cid] = {k: velho[k] for k in ("hash", "audio", "duracao", "palavras")}
             print(f"= {cid} (sem mudanças)")
             continue
