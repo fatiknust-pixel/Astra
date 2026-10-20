@@ -11,7 +11,7 @@
   "voz": {
     "voicestudio": {
       "instrucao": "male, young adult, moderate pitch",
-      "velocidade": 1.0,
+      "velocidade": 1.1,
       "passos": 64
     },
     "edge": "pt-BR-AntonioNeural",
