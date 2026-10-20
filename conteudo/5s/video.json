@@ -169,20 +169,26 @@
       }
     },
     {
-      "id": "pendentes",
-      "tipo": "pendentes",
+      "id": "bancada",
+      "tipo": "caso",
+      "caso": "bancada",
       "frases": [
-        "Ainda falta uma área.",
-        "A bancada aguarda o registro fotográfico do depois.",
-        "Ali ficavam carregadores de bateria e cabos soltos no chão."
-      ]
+        "Caso onze: área da bancada.",
+        "Os carregadores de bateria ficavam no chão, com cabos soltos ao lado da coluna.",
+        "Os carregadores foram retirados do chão.",
+        "Agora a área está livre e a passagem ficou mais segura."
+      ],
+      "marcas": {
+        "depois": 2,
+        "final": 3
+      }
     },
     {
       "id": "numeros",
       "tipo": "numeros",
       "frases": [
         "Em resumo:",
-        "onze áreas trabalhadas, dez melhorias concluídas e trinta e oito fotos registradas."
+        "onze áreas trabalhadas, onze melhorias concluídas e trinta e oito fotos registradas."
       ]
     },
     {

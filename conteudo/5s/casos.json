@@ -233,14 +233,21 @@
     },
     {
       "id": "bancada",
-      "titulo": "Área da bancada",
+      "titulo": "Área da bancada · Carregadores de bateria",
       "curto": "Bancada",
-      "problema": "Carregadores de bateria no chão e cabos soltos.",
-      "status": "pendente",
+      "problema": "Carregadores de bateria no chão e cabos soltos ao lado da coluna.",
+      "acao": "Os carregadores foram retirados do chão e a área ficou livre.",
+      "sensos": [
+        "Seiri",
+        "Seiton"
+      ],
+      "status": "concluido",
       "antes": [
-        "f0061",
-        "f0060",
-        "f0062"
+        "f0062",
+        "f0061"
+      ],
+      "depois": [
+        "f0060"
       ]
     }
   ]
