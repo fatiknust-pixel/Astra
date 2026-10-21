@@ -8,7 +8,7 @@ export const Autoria = () => {
   const { v } = useFormato();
   const M = v ? 70 : 140;
   const nomes = [
-    { n: "Fabio Sarri", em: quando("autoria", "Fabio", 0, 40), grande: true },
+    { n: "Fabio Sarri", em: quando("autoria", "Fabio", 0, 40) },
     { n: "Julia Freire", em: quando("autoria", "Julia", 0, 80) },
     { n: "João Paulo", em: quando("autoria", "João", 0, 110) },
   ];
@@ -21,7 +21,7 @@ export const Autoria = () => {
         </Aparece>
         {nomes.map((x) => (
           <Aparece key={x.n} em={x.em - 6} style={{ marginBottom: v ? 14 : 8 }}>
-            <div style={{ fontFamily: SANS, fontWeight: x.grande ? 700 : 600, fontSize: x.grande ? (v ? 150 : 170) : v ? 100 : 110, lineHeight: 1.05, letterSpacing: -3, color: x.grande ? COR.tinta : COR.suave }}>{x.n}</div>
+            <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: v ? 128 : 136, lineHeight: 1.08, letterSpacing: -3, color: COR.tinta }}>{x.n}</div>
           </Aparece>
         ))}
         <Aparece em={quando("autoria", "inteligência", 0, 170) - 10} style={{ marginTop: v ? 60 : 50 }}>
