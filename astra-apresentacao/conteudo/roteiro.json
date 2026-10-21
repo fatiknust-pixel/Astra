@@ -1,0 +1,26 @@
+{
+  "titulo": "ASTRA",
+  "autores": ["Fabio Sarri", "Julia Freire", "João Paulo"],
+  "voz": {
+    "voicestudio": { "instrucao": "male, young adult, moderate pitch", "velocidade": 1.1, "passos": 64 },
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+0%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.05
+  },
+  "bpm": 90,
+  "sem_batida": true,
+  "cenas": [
+    { "id": "abertura", "titulo": "Apresentação", "texto": "Este é o ASTRA, um aplicativo que desenvolvemos para consultar as tabelas de torque e localizar as máquinas de aperto na linha de montagem.", "extra": 0.2 },
+    { "id": "problema", "titulo": "O problema", "texto": "No dia a dia, as tabelas de torque ficam em papéis espalhados, e saber onde está cada máquina toma tempo.", "extra": 0.3 },
+    { "id": "ideia", "titulo": "A ideia", "texto": "A nossa ideia foi colocar um QR Code em cada posto e em cada máquina. Basta escanear com o celular para ver tudo na hora.", "extra": 0.3 },
+    { "id": "tabela", "titulo": "Tabela do posto", "texto": "Ao escanear o QR do posto, o aplicativo mostra a tabela completa: cada processo e o seu torque, em newton-metro.", "extra": 0.3 },
+    { "id": "maquina", "titulo": "Ficha da máquina", "texto": "Cada máquina tem o seu próprio QR. A ficha mostra o número de série, o torque, o posto onde ela está e a situação: encontrada ou não encontrada.", "extra": 0.3 },
+    { "id": "alterar", "titulo": "Alterar dados", "texto": "Para alterar um dado, é preciso informar a senha, e a mudança é feita em poucos segundos.", "extra": 0.3 },
+    { "id": "historico", "titulo": "Histórico", "texto": "Toda alteração fica registrada no histórico: quem fez, o que mudou e quando.", "extra": 0.3 },
+    { "id": "inventario", "titulo": "Inventário", "texto": "Com isso, o inventário das máquinas fica na palma da mão, e pode ser exportado direto para o Excel.", "extra": 0.3 },
+    { "id": "plataformas", "titulo": "Onde funciona", "texto": "O aplicativo funciona no iPhone, no Android e no computador, e continua funcionando mesmo sem internet.", "extra": 0.3 },
+    { "id": "autoria", "titulo": "Autoria", "texto": "O ASTRA foi criado por mim, Fabio Sarri, junto com a Julia Freire e o João Paulo, com a inteligência artificial como parceira de desenvolvimento.", "extra": 0.4 },
+    { "id": "final", "titulo": "Créditos", "texto": "ASTRA. Escaneou, resolveu.", "extra": 3.0 }
+  ]
+}
