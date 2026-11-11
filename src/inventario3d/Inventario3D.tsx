@@ -63,10 +63,10 @@ const cap = (p: string) => arquivo(`inventario3d/cap/${p}`);
 const sfx = (n: string) => arquivo(`sfx/${n}.mp3`);
 
 // Capturas da versão de computador (px CSS da tela 1280×800): quadros de cada sequência e pontos usados pela câmera
-const N = { voo: 100, zoom: 85, caixa: 50, orbita: 80 };
-const ANDARES = { cx: 640, cy: 400, w: 600, x: 480, y: [["D", 250], ["C", 330], ["B", 410], ["A", 490]] as const };
-const LISTA = { x: 300, y: 75 };
-const PAINEL = { cx: 1000, cy: 330, w: 560, foto: [1100, 150] as const, link: [1000, 228] as const };
+const N = { voo: 100, zoom: 85, caixa: 50 };
+const ANDARES = { cx: 600, cy: 460, w: 900, x: 368, y: [["D", 280], ["C", 412], ["B", 528], ["A", 644]] as const };
+const LISTA = { x: 250, y: 85 };
+const PAINEL = { cx: 1000, cy: 322, w: 960, foto: [1115, 218] as const, link: [1015, 330] as const };
 
 export const CENAS = ROTEIRO.cenas.map((c) => ({ id: c.id, duracao: ATRASO + quadros(NARR[c.id].duracao) + RESPIRO }));
 const INICIOS = CENAS.reduce<number[]>((acc, c, i) => [...acc, i === 0 ? 0 : acc[i - 1] + CENAS[i - 1].duracao], []);
@@ -121,25 +121,6 @@ const Celular: React.FC<{ children: React.ReactNode; zoom?: number; origem?: str
 const Tela: React.FC<{ src: string; opacity?: number }> = ({ src, opacity = 1 }) => (
   <Img src={cap(src)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity }} />
 );
-
-// Sequência capturada do app: um arquivo por quadro (000.jpg, 001.jpg…), parada no último
-const Seq: React.FC<{ pasta: string; n: number; de: number; vel?: number }> = ({ pasta, n, de, vel = 1 }) => {
-  const f = useCurrentFrame();
-  const k = Math.max(0, Math.min(n - 1, Math.floor((f - de) * vel)));
-  return <Tela src={`${pasta}/${String(k).padStart(3, "0")}.jpg`} />;
-};
-
-// Toque na tela (círculo que se expande)
-const Toque: React.FC<{ em: number; x: number; y: number }> = ({ em, x, y }) => {
-  const f = useCurrentFrame();
-  const t = f - em;
-  if (t < 0 || t > 18) return null;
-  const s = interpolate(t, [0, 18], [0.3, 1.4]);
-  return (
-    <div style={{ position: "absolute", left: `${x * 100}%`, top: `${y * 100}%`, width: 90, height: 90, marginLeft: -45, marginTop: -45, borderRadius: 45,
-      border: "5px solid #fff", background: "rgba(255,255,255,.25)", transform: `scale(${s})`, opacity: interpolate(t, [0, 4, 18], [0, 1, 0]) }} />
-  );
-};
 
 // Aviso fixo: só o corredor 1 é real
 const Aviso: React.FC = () => {
@@ -215,16 +196,18 @@ const Problema: React.FC = () => {
   );
 };
 
-// ---------- janela do navegador (versão de computador) com câmera virtual ----------
-// As telas foram capturadas em 1280×800 (px CSS). A câmera mostra um recorte (centro cx, cy e largura w,
-// em px CSS) e anda entre pontos-chave [quadro, cx, cy, w].
+// ---------- janela do navegador (versão de computador) + lupa ----------
+// As telas foram capturadas em 1280×800 (px CSS). A janela mostra a tela inteira, sem cortes; a lupa embaixo
+// amplia um recorte (centro cx, cy e largura w, em px CSS) que anda entre pontos-chave [quadro, cx, cy, w].
 const SCR_L = 1280;
 const SCR_A = 800;
 const JAN_X = 40;
-const JAN_Y = 380;
+const JAN_Y = 350;
 const JAN_L = 1000;
-const JAN_A = 1110;
-const BARRA = 50;
+const BARRA = 46;
+const JAN_A = (JAN_L * SCR_A) / SCR_L;
+const LUPA_Y = JAN_Y + BARRA + JAN_A + 46;
+const LUPA_A = 470;
 type Cam = [number, number, number, number];
 const camera = (f: number, cam: Cam[]) => {
   let [, cx, cy, w] = cam[0];
@@ -238,32 +221,49 @@ const camera = (f: number, cam: Cam[]) => {
     }
     break;
   }
+  w = Math.min(w, SCR_L, (SCR_A * JAN_L) / LUPA_A);
   const s = JAN_L / w;
-  const h = JAN_A / s;
+  const h = LUPA_A / s;
   const x0 = Math.max(0, Math.min(SCR_L - w, cx - w / 2));
-  const y0 = h >= SCR_A ? (SCR_A - h) / 2 : Math.max(0, Math.min(SCR_A - h, cy - h / 2));
-  return { s, x0, y0 };
+  const y0 = Math.max(0, Math.min(SCR_A - h, cy - h / 2));
+  return { s, x0, y0, w, h };
 };
 
-const Janela: React.FC<{ cam: Cam[]; children: React.ReactNode; extra?: (s: number) => React.ReactNode }> = ({ cam, children, extra }) => {
+const Janela: React.FC<{ cam: Cam[]; children: React.ReactNode; extra?: (s: number) => React.ReactNode; lupaDe?: number }> = ({ cam, children, extra, lupaDe = 10 }) => {
   const f = useCurrentFrame();
   const e = spring({ frame: f, fps: FPS, config: { damping: 18 } });
-  const { s, x0, y0 } = camera(f, cam);
+  const l = spring({ frame: f - lupaDe, fps: FPS, config: { damping: 16 } });
+  const { s, x0, y0, w, h } = camera(f, cam);
+  const k = JAN_L / SCR_L; // escala da tela inteira
   return (
-    <div style={{ position: "absolute", left: JAN_X, top: JAN_Y, width: JAN_L, borderRadius: 22, overflow: "hidden", background: "#10151c",
-      boxShadow: "0 0 0 3px #2A3644, 0 40px 90px rgba(0,0,0,.6)", opacity: e, transform: `translateY(${(1 - e) * 60}px)` }}>
-      <div style={{ height: BARRA, background: "#1B2430", display: "flex", alignItems: "center", gap: 10, padding: "0 20px" }}>
-        {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <span key={c} style={{ width: 16, height: 16, borderRadius: 8, background: c }} />)}
-        <div style={{ marginLeft: 18, flex: 1, height: 30, borderRadius: 15, background: "#0F151D", color: COR.cinza, fontFamily: FONTE, fontWeight: 600, fontSize: 18,
-          display: "flex", alignItems: "center", padding: "0 16px" }}>Inventário 3D</div>
+    <>
+      <div style={{ position: "absolute", left: JAN_X, top: JAN_Y, width: JAN_L, borderRadius: 20, overflow: "hidden", background: "#07090D",
+        boxShadow: "0 0 0 3px #2A3644, 0 40px 90px rgba(0,0,0,.6)", opacity: e, transform: `translateY(${(1 - e) * 60}px)` }}>
+        <div style={{ height: BARRA, background: "#1B2430", display: "flex", alignItems: "center", gap: 9, padding: "0 18px" }}>
+          {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <span key={c} style={{ width: 14, height: 14, borderRadius: 7, background: c }} />)}
+          <div style={{ marginLeft: 16, flex: 1, height: 28, borderRadius: 14, background: "#0F151D", color: COR.cinza, fontFamily: FONTE, fontWeight: 600, fontSize: 17,
+            display: "flex", alignItems: "center", padding: "0 14px" }}>Inventário 3D</div>
+        </div>
+        <div style={{ position: "relative", height: JAN_A, overflow: "hidden" }}>
+          <div style={{ position: "absolute", left: 0, top: 0, width: SCR_L, height: SCR_A, transformOrigin: "0 0", transform: `scale(${k})` }}>
+            {children}
+            {extra?.(k)}
+            {/* área ampliada na lupa */}
+            <div style={{ position: "absolute", left: x0, top: y0, width: w, height: h, border: `${3 / k}px solid ${COR.ambar}`, borderRadius: 8 / k, opacity: l,
+              boxShadow: "0 0 0 2000px rgba(0,0,0,.18)" }} />
+          </div>
+        </div>
       </div>
-      <div style={{ position: "relative", height: JAN_A, overflow: "hidden" }}>
+      <div style={{ position: "absolute", left: JAN_X, top: LUPA_Y, width: JAN_L, height: LUPA_A, borderRadius: 20, overflow: "hidden", background: "#07090D",
+        border: `3px solid ${COR.ambar}`, boxShadow: "0 30px 80px rgba(0,0,0,.6)", opacity: l, transform: `translateY(${(1 - l) * 50}px) scale(${0.92 + 0.08 * l})` }}>
         <div style={{ position: "absolute", left: 0, top: 0, width: SCR_L, height: SCR_A, transformOrigin: "0 0", transform: `scale(${s}) translate(${-x0}px, ${-y0}px)` }}>
           {children}
           {extra?.(s)}
         </div>
       </div>
-    </div>
+      {/* ligação entre o recorte e a lupa */}
+      <div style={{ position: "absolute", left: JAN_X + JAN_L / 2 - 2, top: LUPA_Y - 46, width: 4, height: 46, background: COR.ambar, opacity: l }} />
+    </>
   );
 };
 
@@ -327,10 +327,10 @@ const Geral: React.FC = () => {
   return (
     <Fundo>
       <Titulo n={1} kicker="Visão geral" titulo="O almoxarifado inteiro em um mapa 3D" />
-      <Janela cam={[[0, 640, 400, 1280], [30, 640, 400, 1280], [clique - 26, 330, 300, 700], [voo + 8, 330, 300, 700], [voo + 60, 640, 420, 714]]}
+      <Janela cam={[[0, 1090, 300, 560], [clique - 30, 1090, 300, 560], [clique - 8, 300, 60, 600], [voo + 4, 300, 60, 600], [voo + 50, 640, 330, 1100]]}
         extra={(s) => (<>
           <Destaque s={s} x={1035} y={165} w={110} h={290} de={14} ate={clique - 22} rotulo="Corredor 1" />
-          <Ponteiro s={s} rota={[[clique - 26, 520, 300], [clique - 2, 154, 69], [voo + 30, 154, 69]]} cliques={[clique]} />
+          <Ponteiro s={s} rota={[[clique - 26, 600, 330], [clique - 2, 154, 69], [voo + 30, 154, 69]]} cliques={[clique]} />
         </>)}>
         {f < voo ? <TelaPc src="geral.jpg" /> : <SeqPc pasta="voo-corredor1" n={N.voo} de={voo} />}
       </Janela>
@@ -348,8 +348,8 @@ const Busca: React.FC = () => {
   return (
     <Fundo>
       <Titulo n={2} kicker="Busca" titulo="Digite o código, ache o endereço" />
-      <Janela cam={[[0, 640, 420, 714], [ini - 4, 380, 150, 560]]}
-        extra={(s) => <Ponteiro s={s} rota={[[2, 640, 420], [ini - 8, 300, 28]]} cliques={[ini - 6]} />}>
+      <Janela cam={[[0, 350, 100, 700]]}
+        extra={(s) => <Ponteiro s={s} rota={[[2, 640, 420], [ini - 8, 400, 34]]} cliques={[ini - 6]} />}>
         <SeqPc pasta="busca" n={12} de={ini} vel={1 / passo} />
       </Janela>
       {Array.from({ length: 11 }, (_, i) => (
@@ -368,7 +368,7 @@ const Prateleira: React.FC = () => {
   return (
     <Fundo>
       <Titulo n={3} kicker="Prateleira 01 01" titulo="Quatro andares, do A ao D" />
-      <Janela cam={[[0, 640, 420, 714], [voo + 70, 640, 420, 714], [t2 - 6, ANDARES.cx, ANDARES.cy, ANDARES.w]]}
+      <Janela cam={[[0, 640, 400, 1100], [voo + 50, 640, 400, 1100], [t2 - 6, ANDARES.cx, ANDARES.cy, ANDARES.w]]}
         extra={(s) => ANDARES.y.map(([l, y], i) => {
           // os andares aparecem de baixo para cima, acompanhando a fala ("do A … até o D")
           const sp = spring({ frame: f - t2 - (3 - i) * 6, fps: FPS, config: { damping: 14 } });
@@ -379,8 +379,8 @@ const Prateleira: React.FC = () => {
               boxShadow: "0 6px 16px rgba(0,0,0,.5)" }}>{l}</div>
           );
         })}>
-        <SeqPc pasta="zoom-prateleira" n={N.zoom} de={voo} />
-        {f >= voo + N.zoom && <TelaPc src="prateleira.jpg" />}
+        <SeqPc pasta="zoom-prateleira" n={N.zoom} de={voo - 6} />
+        {f >= voo - 6 + N.zoom && <TelaPc src="prateleira.jpg" />}
       </Janela>
       <Aviso />
     </Fundo>
@@ -397,8 +397,8 @@ const Caixa: React.FC = () => {
   return (
     <Fundo>
       <Titulo n={4} kicker="Um clique na caixa" titulo="Endereço, nome, código e foto" />
-      <Janela cam={[[0, LISTA.x, LISTA.y + 60, 600], [voo + 30, 640, 420, 714], [voo + 50, P.cx, P.cy, P.w], [tFoto - 10, P.cx, P.cy, P.w], [tFoto + 4, 640, 400, 714],
-          [tEtq - 14, 640, 400, 714], [tEtq - 2, P.cx, P.cy, P.w], [tEtq + 10, P.cx, P.cy, P.w], [tEtq + 22, 640, 400, 714]]}
+      <Janela cam={[[0, LISTA.x, LISTA.y, 640], [voo + 6, LISTA.x, LISTA.y, 640], [voo + 34, P.cx, P.cy, P.w], [tFoto - 10, P.cx, P.cy, P.w], [tFoto + 4, 640, 400, 1150],
+          [tEtq - 14, 640, 400, 1150], [tEtq - 2, P.cx, P.cy, P.w], [tEtq + 8, P.cx, P.cy, P.w], [tEtq + 20, 640, 400, 1280]]}
         extra={(s) => <Ponteiro s={s} rota={[[0, LISTA.x + 120, LISTA.y + 50], [clique - 4, LISTA.x, LISTA.y], [voo + 40, LISTA.x, LISTA.y], [tFoto - 12, P.foto[0], P.foto[1]],
           [tEtq - 16, P.foto[0], P.foto[1]], [tEtq - 6, P.link[0], P.link[1]], [tEtq + 6, P.foto[0], P.foto[1]]]} cliques={[clique, tFoto - 8, tEtq - 4, tEtq + 8]} />}>
         {f < voo ? <TelaPc src="busca-lista.jpg" /> : <SeqPc pasta="caixa" n={N.caixa} de={voo} />}
@@ -423,8 +423,8 @@ const Cores: React.FC = () => {
   return (
     <Fundo>
       <Titulo n={5} kicker="Conferência" titulo="Status de cada caixa pela cor" />
-      <Janela cam={[[0, 640, 420, 714]]}>
-        <SeqPc pasta="orbita" n={N.orbita} de={6} vel={0.6} />
+      <Janela cam={[[0, 380, 300, 560], [200, 900, 300, 560]]}>
+        <TelaPc src="cores.jpg" />
       </Janela>
       <div style={{ position: "absolute", left: 60, right: 60, top: 1560, display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
         {cores.map((c) => {
