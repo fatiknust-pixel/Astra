@@ -216,7 +216,8 @@ const Geral: React.FC = () => {
     <Fundo>
       <Titulo n={1} kicker="Visão geral" titulo="O almoxarifado inteiro em um mapa 3D" />
       <Celular>
-        {f < voo ? <Tela src="geral.jpg" /> : <Seq pasta="voo-corredor1" n={50} de={voo} vel={0.8} />}
+        {f < voo ? <Tela src="geral.jpg" /> : <Seq pasta="voo-corredor1" n={86} de={voo} />
+        {f >= voo + 86 && <Tela src="corredor1.jpg" />}}
         <Toque em={voo - 10} x={0.33} y={0.088} />
       </Celular>
       {/* destaque do corredor 1 na visão geral, antes do voo */}
@@ -261,8 +262,8 @@ const Prateleira: React.FC = () => {
     <Fundo>
       <Titulo n={3} kicker="Prateleira 01 01" titulo="Quatro andares, do A ao D" />
       <Celular>
-        <Seq pasta="zoom-prateleira" n={50} de={voo} vel={0.8} />
-        {f >= voo + 62 && <Tela src="prateleira-cores.jpg" opacity={interpolate(f, [voo + 62, voo + 72], [0, 1], clamp)} />}
+        <Seq pasta="zoom-prateleira" n={85} de={voo} />
+        {f >= voo + 85 && <Tela src="prateleira-final.jpg" />}
         <Toque em={voo - 8} x={0.87} y={0.068} />
       </Celular>
       {andares.map(([l, y], i) => {
@@ -286,14 +287,14 @@ const Caixa: React.FC = () => {
   const voo = 10;
   const tFoto = quandoDiz("caixa", "foto");
   const tEtq = inicioFrase("caixa", 1);
-  const z = interpolate(f, [voo + 50, voo + 66], [1, 1.32], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const z = interpolate(f, [voo + 40, voo + 56], [1, 1.32], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const ampliaFoto = f >= tFoto - 4 && f < tEtq - 6;
   return (
     <Fundo>
       <Titulo n={4} kicker="Um toque na caixa" titulo="Endereço, nome, código e foto" />
       <Celular zoom={ampliaFoto || f >= tEtq + 8 ? 1 : z} origem="50% 100%">
-        <Seq pasta="caixa" n={50} de={voo} vel={0.9} />
-        {f >= voo + 56 && <Tela src="caixa.jpg" />}
+        <Seq pasta="caixa" n={44} de={voo} />
+        {f >= voo + 44 && <Tela src="caixa.jpg" />}
         {ampliaFoto && <Tela src="foto-peca.jpg" opacity={interpolate(f, [tFoto - 4, tFoto + 4], [0, 1], clamp)} />}
         {f >= tEtq - 6 && f < tEtq + 8 && <Tela src="etiqueta.jpg" />}
         {f >= tEtq + 8 && <Tela src="foto-etiqueta.jpg" opacity={interpolate(f, [tEtq + 8, tEtq + 16], [0, 1], clamp)} />}
@@ -317,7 +318,8 @@ const Cores: React.FC = () => {
     <Fundo>
       <Titulo n={5} kicker="Conferência" titulo="Status de cada caixa pela cor" />
       <Celular topo={400} escala={0.92}>
-        <Seq pasta="orbita" n={75} de={6} vel={0.7} />
+        <Seq pasta="orbita" n={75} de={6} vel={0.6} />
+        {f >= 136 && <Tela src="prateleira-cores.jpg" opacity={interpolate(f, [136, 150], [0, 1], clamp)} />}
       </Celular>
       <div style={{ position: "absolute", left: 60, right: 60, top: 1572, display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
         {cores.map((c) => {
