@@ -58,11 +58,9 @@ jobs:
         run: |
           npm ci
           pip install edge-tts==7.3.1
-          # o espelho do apt às vezes não responde: tempo limite por tentativa em vez de travar o job
-          command -v ffprobe || for i in 1 2 3; do
-            timeout 300 sh -c 'sudo apt-get update -qq -o Acquire::http::Timeout=20; sudo apt-get install -y -qq -o Acquire::http::Timeout=20 -o Acquire::Retries=3 ffmpeg > /dev/null' && break
-          done
-          command -v ffprobe
+
+      # ffmpeg/ffprobe baixados do GitHub (o apt-get do runner travava sem resposta)
+      - uses: AnimMouse/setup-ffmpeg@v1
 
       - name: Vozes pt-BR disponíveis
         run: edge-tts --list-voices | grep -i "pt-BR" || true
