@@ -42,10 +42,10 @@
     {
       "id": "caixa",
       "frases": [
-        "Um toque na caixa mostra o endereço, o nome, o código e a foto da peça.",
+        "Um clique na caixa mostra o endereço, o nome, o código e a foto da peça.",
         "E também a foto da etiqueta, para conferir no local."
       ],
-      "texto": "Um toque na caixa mostra o endereço, o nome, o código e a foto da peça. E também a foto da etiqueta, para conferir no local."
+      "texto": "Um clique na caixa mostra o endereço, o nome, o código e a foto da peça. E também a foto da etiqueta, para conferir no local."
     },
     {
       "id": "cores",
@@ -58,9 +58,9 @@
     {
       "id": "plataformas",
       "frases": [
-        "Funciona no celular e no computador, direto no navegador."
+        "No computador a tela é maior, e também existe a versão para celular."
       ],
-      "texto": "Funciona no celular e no computador, direto no navegador."
+      "texto": "No computador a tela é maior, e também existe a versão para celular."
     },
     {
       "id": "creditos",
