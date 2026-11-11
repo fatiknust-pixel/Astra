@@ -1,0 +1,73 @@
+{
+  "titulo": "Inventário 3D",
+  "voz": {
+    "edge": "pt-BR-AntonioNeural",
+    "velocidade": "+12%",
+    "kokoro": "pm_alex",
+    "kokoroVelocidade": 1.0
+  },
+  "cenas": [
+    {
+      "id": "problema",
+      "frases": [
+        "Achar uma peça no almoxarifado ainda depende de planilha, de memória e de muita procura.",
+        "Cada minuto procurando é um minuto de linha parada."
+      ],
+      "texto": "Achar uma peça no almoxarifado ainda depende de planilha, de memória e de muita procura. Cada minuto procurando é um minuto de linha parada."
+    },
+    {
+      "id": "geral",
+      "frases": [
+        "O Inventário 3D transforma o almoxarifado em um mapa interativo.",
+        "Da visão geral, a câmera vai direto ao corredor um."
+      ],
+      "texto": "O Inventário 3D transforma o almoxarifado em um mapa interativo. Da visão geral, a câmera vai direto ao corredor um."
+    },
+    {
+      "id": "busca",
+      "frases": [
+        "Para achar uma peça, é só digitar o código.",
+        "O resultado aparece na hora, já com o endereço."
+      ],
+      "texto": "Para achar uma peça, é só digitar o código. O resultado aparece na hora, já com o endereço."
+    },
+    {
+      "id": "prateleira",
+      "frases": [
+        "Na prateleira zero um, zero um, você vê os quatro andares,",
+        "do A, embaixo, até o D, no alto."
+      ],
+      "texto": "Na prateleira zero um, zero um, você vê os quatro andares, do A, embaixo, até o D, no alto."
+    },
+    {
+      "id": "caixa",
+      "frases": [
+        "Um toque na caixa mostra o endereço, o nome, o código e a foto da peça.",
+        "E também a foto da etiqueta, para conferir no local."
+      ],
+      "texto": "Um toque na caixa mostra o endereço, o nome, o código e a foto da peça. E também a foto da etiqueta, para conferir no local."
+    },
+    {
+      "id": "cores",
+      "frases": [
+        "As cores mostram a conferência:",
+        "verde está certo, amarelo é dúvida, vermelho é erro e marrom ainda não foi conferido."
+      ],
+      "texto": "As cores mostram a conferência: verde está certo, amarelo é dúvida, vermelho é erro e marrom ainda não foi conferido."
+    },
+    {
+      "id": "plataformas",
+      "frases": [
+        "Funciona no celular e no computador, direto no navegador."
+      ],
+      "texto": "Funciona no celular e no computador, direto no navegador."
+    },
+    {
+      "id": "creditos",
+      "frases": [
+        "Inventário 3D. Criado por Fábio Sarri e Eviton Capistrano."
+      ],
+      "texto": "Inventário 3D. Criado por Fábio Sarri e Eviton Capistrano."
+    }
+  ]
+}
