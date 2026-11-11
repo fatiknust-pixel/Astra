@@ -160,8 +160,8 @@ const Legenda: React.FC<{ cena: string }> = ({ cena }) => {
   // a fala tem palavras na mesma ordem do texto; o destaque usa o índice da palavra falada
   const falada = ws.filter((w) => w.i <= t).length - 1;
   return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: 1668, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
-      <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 40, lineHeight: 1.28, color: "#fff", background: "rgba(10,14,20,.86)", padding: "14px 28px",
+    <div style={{ position: "absolute", left: 70, right: 70, top: 1650, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
+      <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 36, lineHeight: 1.26, color: "#fff", background: "rgba(10,14,20,.86)", padding: "14px 28px",
         borderRadius: 18, textAlign: "center", opacity: s, transform: `translateY(${(1 - s) * 12}px)` }}>
         {pal.map((p, i) => (
           <span key={i} style={{ color: pal.length === ws.length && i === falada ? COR.ambar : "#fff" }}>{p}{i < pal.length - 1 ? " " : ""}</span>
@@ -198,7 +198,7 @@ const Problema: React.FC = () => {
           </div>
         ))}
       </div>
-      <div style={{ position: "absolute", right: 120, top: 1240, fontSize: 150, color: COR.ambar, transform: `rotate(${Math.sin(f / 6) * 12}deg)`, ...surge(f, 16) }}>
+      <div style={{ position: "absolute", right: 120, top: 1240, fontSize: 150, color: COR.ambar, opacity: surge(f, 16).opacity, transform: `${surge(f, 16).transform} rotate(${Math.sin(f / 6) * 12}deg)` }}>
         <FaMagnifyingGlass />
       </div>
       <div style={{ position: "absolute", left: 110, top: 1300, display: "flex", alignItems: "center", gap: 22, opacity: relogio, transform: `scale(${0.7 + 0.3 * relogio})`, transformOrigin: "left center" }}>
@@ -216,8 +216,8 @@ const Geral: React.FC = () => {
     <Fundo>
       <Titulo n={1} kicker="Visão geral" titulo="O almoxarifado inteiro em um mapa 3D" />
       <Celular>
-        {f < voo ? <Tela src="geral.jpg" /> : <Seq pasta="voo-corredor1" n={86} de={voo} />
-        {f >= voo + 86 && <Tela src="corredor1.jpg" />}}
+        {f < voo ? <Tela src="geral.jpg" /> : <Seq pasta="voo-corredor1" n={86} de={voo} />}
+        {f >= voo + 86 && <Tela src="corredor1.jpg" />}
         <Toque em={voo - 10} x={0.33} y={0.088} />
       </Celular>
       {/* destaque do corredor 1 na visão geral, antes do voo */}
@@ -236,7 +236,7 @@ const Busca: React.FC = () => {
   const f = useCurrentFrame();
   const ini = inicioFrase("busca", 0) + 18;
   const fim = inicioFrase("busca", 1) - 4;
-  const z = interpolate(f, [ini - 12, ini + 6], [1, 1.45], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const z = interpolate(f, [ini - 12, ini + 6], [1, 1.18], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const passo = (fim - ini) / 11;
   return (
     <Fundo>
@@ -287,7 +287,7 @@ const Caixa: React.FC = () => {
   const voo = 10;
   const tFoto = quandoDiz("caixa", "foto");
   const tEtq = inicioFrase("caixa", 1);
-  const z = interpolate(f, [voo + 40, voo + 56], [1, 1.32], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const z = interpolate(f, [voo + 40, voo + 56], [1, 1.12], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const ampliaFoto = f >= tFoto - 4 && f < tEtq - 6;
   return (
     <Fundo>
