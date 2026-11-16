@@ -12,6 +12,7 @@ export const Root: React.FC = () => (
       <Composition key={id} id={id} component={Video} defaultProps={{ video: id }} durationInFrames={v.duracao} fps={FPS} width={LARGURA} height={ALTURA} />
     ))}
     <Composition id="Inventario3D" component={Inv.Inventario3D} durationInFrames={Inv.DURACAO_TOTAL} fps={Inv.FPS} width={Inv.LARG} height={Inv.ALT} />
+    <Composition id="Inventario3D-16x9" component={Inv.Inventario3DH} durationInFrames={Inv.DURACAO_TOTAL} fps={Inv.FPS} width={Inv.LARG_H} height={Inv.ALT_H} />
     <Composition id="Projeto5S" component={Projeto5S} durationInFrames={DURACAO_TOTAL} fps={FPS_5S} width={LARG} height={ALT} />
   </>
 );

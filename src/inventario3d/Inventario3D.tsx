@@ -1,4 +1,4 @@
-// Vídeo de portfólio do Inventário 3D (9:16). Roteiro em conteudo/inventario3d/roteiro.json,
+// Vídeo de portfólio do Inventário 3D (9:16 e 16:9: o formato vem do contexto Fmt). Roteiro em conteudo/inventario3d/roteiro.json,
 // narração em src/gerado/inventario3d/narracao.json (gerada pelo GitHub Actions),
 // telas capturadas do app em public/inventario3d/cap/ (sequências = 1 quadro do app por quadro do vídeo).
 import React from "react";
@@ -15,6 +15,12 @@ export const LARG = 1080;
 export const ALT = 1920;
 const ATRASO = 8;
 const RESPIRO = 10;
+export const LARG_H = 1920;
+export const ALT_H = 1080;
+
+// Formato: false = vertical 9:16, true = horizontal 16:9. Cada peça reorganiza o layout conforme o formato.
+const Fmt = React.createContext(false);
+const useH = () => React.useContext(Fmt);
 
 const COR = {
   fundo: "#0B1016",
@@ -96,12 +102,13 @@ const Fundo: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 // Título da cena: número + tema em âmbar, frase curta em branco
 const Titulo: React.FC<{ n: number; kicker: string; titulo: string }> = ({ n, kicker, titulo }) => {
   const f = useCurrentFrame();
+  const h = useH();
   return (
-    <div style={{ position: "absolute", left: 80, right: 80, top: 120 }}>
-      <div style={{ ...surge(f, 4), fontFamily: FONTE, fontWeight: 800, fontSize: 30, letterSpacing: 6, color: COR.ambar }}>
+    <div style={{ position: "absolute", left: h ? 100 : 80, right: 80, top: h ? 44 : 120 }}>
+      <div style={{ ...surge(f, 4), fontFamily: FONTE, fontWeight: 800, fontSize: h ? 24 : 30, letterSpacing: 6, color: COR.ambar }}>
         {String(n).padStart(2, "0")} · {kicker.toUpperCase()}
       </div>
-      <div style={{ ...surge(f, 8), fontFamily: FONTE, fontWeight: 900, fontSize: 66, lineHeight: 1.1, color: "#fff", marginTop: 14 }}>{titulo}</div>
+      <div style={{ ...surge(f, 8), fontFamily: FONTE, fontWeight: 900, fontSize: h ? 50 : 66, lineHeight: 1.1, color: "#fff", marginTop: h ? 8 : 14 }}>{titulo}</div>
     </div>
   );
 };
@@ -109,11 +116,11 @@ const Titulo: React.FC<{ n: number; kicker: string; titulo: string }> = ({ n, ki
 // Celular com a tela do app. zoom/origem aproximam uma parte da tela.
 const TELA_L = 560;
 const TELA_A = Math.round((TELA_L * 844) / 390);
-const Celular: React.FC<{ children: React.ReactNode; zoom?: number; origem?: string; topo?: number; entra?: number; x?: number; escala?: number }> = ({ children, zoom = 1, origem = "50% 50%", topo = 370, entra = 0, x = 0, escala = 1 }) => {
+const Celular: React.FC<{ children: React.ReactNode; zoom?: number; origem?: string; topo?: number; entra?: number; x?: number; escala?: number; esq?: number }> = ({ children, zoom = 1, origem = "50% 50%", topo = 370, entra = 0, x = 0, escala = 1, esq }) => {
   const f = useCurrentFrame();
   const s = spring({ frame: f - entra, fps: FPS, config: { damping: 18 } });
   return (
-    <div style={{ position: "absolute", left: (LARG - TELA_L) / 2 - 16 + x, top: topo, padding: 16, borderRadius: 70, background: "#05080C",
+    <div style={{ position: "absolute", left: esq ?? (LARG - TELA_L) / 2 - 16 + x, top: topo, padding: 16, borderRadius: 70, background: "#05080C",
       boxShadow: "0 0 0 3px #2A3644, 0 40px 90px rgba(0,0,0,.6)", opacity: s, transform: `translateY(${(1 - s) * 80}px) scale(${escala})`, transformOrigin: "50% 0%" }}>
       <div style={{ width: TELA_L, height: TELA_A, borderRadius: 54, overflow: "hidden", position: "relative", background: "#10151c" }}>
         <div style={{ position: "absolute", inset: 0, transform: `scale(${zoom})`, transformOrigin: origem }}>{children}</div>
@@ -129,9 +136,10 @@ const Tela: React.FC<{ src: string; opacity?: number }> = ({ src, opacity = 1 })
 // Aviso fixo: só o corredor 1 é real
 const Aviso: React.FC = () => {
   const f = useCurrentFrame();
+  const h = useH();
   return (
-    <div style={{ position: "absolute", left: 0, right: 0, bottom: 52, display: "flex", justifyContent: "center", opacity: interpolate(f, [10, 25], [0, 1], clamp) }}>
-      <div style={{ fontFamily: FONTE, fontWeight: 600, fontSize: 24, color: COR.cinza, background: "rgba(10,14,20,.75)", border: "1px solid #263241", borderRadius: 30, padding: "8px 22px" }}>
+    <div style={{ position: "absolute", left: 0, right: h ? 60 : 0, ...(h ? { top: 56 } : { bottom: 52 }), display: "flex", justifyContent: h ? "flex-end" : "center", opacity: interpolate(f, [10, 25], [0, 1], clamp) }}>
+      <div style={{ fontFamily: FONTE, fontWeight: 600, fontSize: h ? 19 : 24, maxWidth: h ? 560 : undefined, textAlign: "center", color: COR.cinza, background: "rgba(10,14,20,.75)", border: "1px solid #263241", borderRadius: 30, padding: "8px 22px" }}>
         Corredor 1 com dados reais · demais corredores simulados, só para demonstração
       </div>
     </div>
@@ -150,9 +158,10 @@ const Legenda: React.FC<{ cena: string }> = ({ cena }) => {
   const pal = fr[atual].texto.split(" ");
   // a fala tem palavras na mesma ordem do texto; o destaque usa o índice da palavra falada
   const falada = ws.filter((w) => w.i <= t).length - 1;
+  const h = useH();
   return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: 1650, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
-      <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: 36, lineHeight: 1.26, color: "#fff", background: "rgba(10,14,20,.86)", padding: "14px 28px",
+    <div style={{ position: "absolute", left: h ? 200 : 70, right: h ? 200 : 70, top: h ? 935 : 1650, display: "flex", justifyContent: "center", pointerEvents: "none" }}>
+      <div style={{ fontFamily: FONTE, fontWeight: 800, fontSize: h ? 34 : 36, lineHeight: 1.26, color: "#fff", background: "rgba(10,14,20,.86)", padding: "14px 28px",
         borderRadius: 18, textAlign: "center", opacity: s, transform: `translateY(${(1 - s) * 12}px)` }}>
         {pal.map((p, i) => (
           <span key={i} style={{ color: pal.length === ws.length && i === falada ? COR.ambar : "#fff" }}>{p}{i < pal.length - 1 ? " " : ""}</span>
@@ -169,13 +178,14 @@ const Problema: React.FC = () => {
   const linhas = ["A9606603541", "A9586660135", "N910105008013", "A0029943545", "A9616664015", "A9606604141", "A9678201221", "A9606600935", "A2019900292", "A9626660301"];
   const busca = Math.floor(f / 5) % linhas.length; // o "cursor" pulando de linha em linha
   const relogio = spring({ frame: f - t2, fps: FPS, config: { damping: 12 } });
+  const h = useH();
   return (
     <Fundo>
-      <div style={{ position: "absolute", left: 80, right: 80, top: 150 }}>
+      <div style={{ position: "absolute", left: h ? 120 : 80, right: 80, top: h ? 230 : 150 }}>
         <div style={{ ...surge(f, 4), fontFamily: FONTE, fontWeight: 800, fontSize: 30, letterSpacing: 6, color: COR.ambar }}>INVENTÁRIO 3D</div>
-        <div style={{ ...surge(f, 8), fontFamily: FONTE, fontWeight: 900, fontSize: 84, lineHeight: 1.05, color: "#fff", marginTop: 16 }}>Onde está<br />essa peça?</div>
+        <div style={{ ...surge(f, 8), fontFamily: FONTE, fontWeight: 900, fontSize: h ? 96 : 84, lineHeight: 1.05, color: "#fff", marginTop: 16 }}>Onde está<br />essa peça?</div>
       </div>
-      <div style={{ position: "absolute", left: 100, right: 100, top: 560, background: "#F4F6F8", borderRadius: 24, overflow: "hidden", boxShadow: "0 30px 80px rgba(0,0,0,.5)", ...surge(f, 12, 80),
+      <div style={{ position: "absolute", left: h ? 1000 : 100, right: h ? 140 : 100, top: h ? 120 : 560, background: "#F4F6F8", borderRadius: 24, overflow: "hidden", boxShadow: "0 30px 80px rgba(0,0,0,.5)", ...surge(f, 12, 80),
         transform: `${surge(f, 12, 80).transform} rotate(-2deg)` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#1D6F42", color: "#fff", padding: "18px 26px", fontFamily: FONTE, fontWeight: 800, fontSize: 28 }}>
           <FaTableList /> almoxarifado_v7_FINAL.xlsx
@@ -189,10 +199,10 @@ const Problema: React.FC = () => {
           </div>
         ))}
       </div>
-      <div style={{ position: "absolute", right: 120, top: 1240, fontSize: 150, color: COR.ambar, opacity: surge(f, 16).opacity, transform: `${surge(f, 16).transform} rotate(${Math.sin(f / 6) * 12}deg)` }}>
+      <div style={{ position: "absolute", right: h ? 90 : 120, top: h ? 700 : 1240, fontSize: 150, color: COR.ambar, opacity: surge(f, 16).opacity, transform: `${surge(f, 16).transform} rotate(${Math.sin(f / 6) * 12}deg)` }}>
         <FaMagnifyingGlass />
       </div>
-      <div style={{ position: "absolute", left: 110, top: 1300, display: "flex", alignItems: "center", gap: 22, opacity: relogio, transform: `scale(${0.7 + 0.3 * relogio})`, transformOrigin: "left center" }}>
+      <div style={{ position: "absolute", left: h ? 130 : 110, top: h ? 610 : 1300, display: "flex", alignItems: "center", gap: 22, opacity: relogio, transform: `scale(${0.7 + 0.3 * relogio})`, transformOrigin: "left center" }}>
         <div style={{ fontSize: 96, color: COR.erro }}><FaClock /></div>
         <div style={{ fontFamily: FONTE, fontWeight: 900, fontSize: 52, color: "#fff", lineHeight: 1.1 }}>Linha<br />parada</div>
       </div>
@@ -201,45 +211,48 @@ const Problema: React.FC = () => {
 };
 
 // ---------- palco: a tela do computador em destaque, com câmera ----------
-// As telas foram capturadas em 1280×800 (px CSS). A câmera mostra um recorte (centro cx, cy e largura w, em px CSS)
-// e a moldura muda de altura (a, em px do vídeo): baixa para a tela inteira, alta quando aproxima um detalhe.
-// Pontos-chave: [quadro, cx, cy, w, a]. Com a omitida, a moldura usa a maior altura que cabe sem sobrar tela.
+// As telas foram capturadas em 1280×800 (px CSS). A câmera mostra um recorte com centro (cx, cy) e "largura" w em px CSS
+// (w = 1280 é a tela inteira; menor = mais zoom). Pontos-chave: [quadro, cx, cy, w].
+// 9:16: a moldura tem largura fixa e cresce em altura ao aproximar. 16:9: altura fixa e cresce em largura.
 const SCR_L = 1280;
 const SCR_A = 800;
-const PAL_L = 1000;
-const PAL_X = (LARG - PAL_L) / 2;
-const PAL_CY = 985; // centro vertical da moldura
-const PAL_MAX = 1060;
-type Cam = [number, number, number, number, number?];
-const altura = (w: number, a?: number) => Math.min(a ?? PAL_MAX, (SCR_A * PAL_L) / w, PAL_MAX);
-const camera = (f: number, cam: Cam[]) => {
-  const ponto = (c: Cam) => [c[1], c[2], c[3], altura(c[3], c[4])];
-  let [cx, cy, w, a] = ponto(cam[0]);
+type Cam = [number, number, number, number];
+const camera = (f: number, cam: Cam[], h: boolean) => {
+  let [, cx, cy, w] = cam[0];
   for (let i = 1; i < cam.length; i++) {
-    const [fa] = cam[i - 1];
-    const [fb] = cam[i];
-    const A = ponto(cam[i - 1]);
-    const B = ponto(cam[i]);
-    if (f >= fb) { [cx, cy, w, a] = B; continue; }
+    const [fa, xa, ya, wa] = cam[i - 1];
+    const [fb, xb, yb, wb] = cam[i];
+    if (f >= fb) { [cx, cy, w] = [xb, yb, wb]; continue; }
     if (f > fa) {
       const t = Easing.inOut(Easing.cubic)((f - fa) / (fb - fa));
-      [cx, cy, w, a] = A.map((v, k) => v + (B[k] - v) * t);
+      [cx, cy, w] = [xa + (xb - xa) * t, ya + (yb - ya) * t, wa + (wb - wa) * t];
     }
     break;
   }
-  const s = PAL_L / w;
-  const h = a / s;
-  const x0 = Math.max(0, Math.min(SCR_L - w, cx - w / 2));
-  const y0 = Math.max(0, Math.min(SCR_A - h, cy - h / 2));
-  return { s, x0, y0, a };
+  let s: number, vw: number, vh: number;
+  if (h) {
+    // altura fixa de 700 px; o zoom vem da altura visível (mesma proporção da tela) e a largura enche até 1720 px
+    vh = Math.min(SCR_A, (w * SCR_A * 1.35) / SCR_L); // zoom mais leve: a moldura larga já mostra mais detalhe
+    s = 700 / vh;
+    vw = Math.min(SCR_L, 1720 / s);
+  } else {
+    s = 1000 / w;
+    vw = w;
+    vh = Math.min(SCR_A, 1060 / s);
+  }
+  const x0 = Math.max(0, Math.min(SCR_L - vw, cx - vw / 2));
+  const y0 = Math.max(0, Math.min(SCR_A - vh, cy - vh / 2));
+  return { s, x0, y0, L: vw * s, A: vh * s };
 };
 
 const Palco: React.FC<{ cam: Cam[]; children: React.ReactNode; extra?: (s: number) => React.ReactNode }> = ({ cam, children, extra }) => {
   const f = useCurrentFrame();
+  const h = useH();
   const e = spring({ frame: f, fps: FPS, config: { damping: 18 } });
-  const { s, x0, y0, a } = camera(f, cam);
+  const { s, x0, y0, L, A } = camera(f, cam, h);
+  const [cxT, cyT] = h ? [LARG_H / 2, 545] : [LARG / 2, 985];
   return (
-    <div style={{ position: "absolute", left: PAL_X, top: PAL_CY - a / 2, width: PAL_L, height: a, borderRadius: 26, overflow: "hidden", background: "#07090D",
+    <div style={{ position: "absolute", left: cxT - L / 2, top: cyT - A / 2, width: L, height: A, borderRadius: 26, overflow: "hidden", background: "#07090D",
       boxShadow: `0 0 0 2px #2A3644, 0 0 60px rgba(245,158,11,.12), 0 40px 100px rgba(0,0,0,.7)`, opacity: e, transform: `scale(${0.94 + 0.06 * e})` }}>
       <div style={{ position: "absolute", left: 0, top: 0, width: SCR_L, height: SCR_A, transformOrigin: "0 0", transform: `scale(${s}) translate(${-x0}px, ${-y0}px)` }}>
         {children}
@@ -402,7 +415,8 @@ const Caixa: React.FC = () => {
   const clique = 8;
   const voo = clique + 2;
   const painel = voo + 28;
-  const P = PAINEL;
+  const h = useH();
+  const P = { ...PAINEL, w: h ? 700 : PAINEL.w };
   const tEnd = Math.max(painel + 8, quandoDiz("caixa", "endere"));
   const tNome = quandoDiz("caixa", "nome");
   const tCod = quandoDiz("caixa", "códig");
@@ -447,6 +461,7 @@ const Cores: React.FC = () => {
     { cor: COR.normal, nome: "Não conferido", diz: "marrom" },
   ];
   const tVerde = quandoDiz("cores", "verde");
+  const h = useH();
   return (
     <Fundo>
       <Titulo n={5} kicker="Conferência" titulo="Status de cada caixa pela cor" />
@@ -454,7 +469,7 @@ const Cores: React.FC = () => {
         extra={(s) => <Foco s={s} areas={[{ x: 10, y: 742, w: 300, h: 30, de: 14, ate: tVerde - 6 }]} />}>
         <TelaPc src="cores.jpg" />
       </Palco>
-      <div style={{ position: "absolute", left: 60, right: 60, top: 1540, display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+      <div style={{ position: "absolute", left: 60, right: 60, top: h ? 822 : 1540, display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
         {cores.map((c) => {
           const em = quandoDiz("cores", c.diz);
           const s = spring({ frame: f - em + 2, fps: FPS, config: { damping: 13 } });
@@ -474,7 +489,7 @@ const Cores: React.FC = () => {
   );
 };
 
-const Plataformas: React.FC = () => {
+const PlataformasV: React.FC = () => {
   const f = useCurrentFrame();
   const pc = spring({ frame: f - 4, fps: FPS, config: { damping: 18 } });
   const cel = quandoDiz("plataformas", "celular");
@@ -503,6 +518,37 @@ const Plataformas: React.FC = () => {
     </Fundo>
   );
 };
+
+const PlataformasH: React.FC = () => {
+  const f = useCurrentFrame();
+  const pc = spring({ frame: f - 4, fps: FPS, config: { damping: 18 } });
+  const cel = quandoDiz("plataformas", "celular");
+  return (
+    <Fundo>
+      <Titulo n={6} kicker="Computador e celular" titulo="Tela grande no PC, versão para celular" />
+      <div style={{ position: "absolute", left: 120, width: 960, top: 210, opacity: pc, transform: `translateY(${(1 - pc) * 60}px)` }}>
+        <div style={{ background: "#05080C", borderRadius: "24px 24px 0 0", padding: 16, boxShadow: "0 0 0 3px #2A3644" }}>
+          <Img src={cap("pc/caixa.jpg")} style={{ width: "100%", display: "block", borderRadius: 8 }} />
+        </div>
+        <div style={{ height: 30, margin: "0 -36px", background: "linear-gradient(#3A4656, #1C2430)", borderRadius: "0 0 28px 28px" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 22, fontFamily: FONTE, fontWeight: 800, fontSize: 34, color: COR.texto }}>
+          <FaComputer style={{ color: COR.azul }} /> Computador
+        </div>
+      </div>
+      <Celular esq={1090} topo={190} escala={0.56} entra={cel - 6}>
+        <Tela src="caixa.jpg" />
+      </Celular>
+      <div style={{ position: "absolute", left: 1600, top: 430, width: 260, ...surge(f, cel) }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, fontFamily: FONTE, fontWeight: 800, fontSize: 34, color: COR.texto }}>
+          <FaMobileScreen style={{ color: COR.azul }} /> Celular
+        </div>
+        <div style={{ marginTop: 14, fontFamily: FONTE, fontWeight: 600, fontSize: 26, color: COR.cinza, lineHeight: 1.35 }}>Direto no navegador, sem instalar nada.</div>
+      </div>
+    </Fundo>
+  );
+};
+
+const Plataformas: React.FC = () => (useH() ? <PlataformasH /> : <PlataformasV />);
 
 const Creditos: React.FC = () => {
   const f = useCurrentFrame();
@@ -538,7 +584,7 @@ const Transicao: React.FC = () => {
   );
 };
 
-export const Inventario3D: React.FC = () => (
+const Video: React.FC = () => (
   <AbsoluteFill style={{ background: COR.fundo }}>
     <Audio src={sfx("trilha-leve")} loop volume={(f) => (f < 45 || f > DURACAO_TOTAL - 90 ? 0.2 : 0.08)} />
     {CENAS.map((c, i) => {
@@ -559,3 +605,6 @@ export const Inventario3D: React.FC = () => (
     ))}
   </AbsoluteFill>
 );
+
+export const Inventario3D: React.FC = () => <Fmt.Provider value={false}><Video /></Fmt.Provider>;
+export const Inventario3DH: React.FC = () => <Fmt.Provider value={true}><Video /></Fmt.Provider>;
