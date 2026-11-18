@@ -5,6 +5,7 @@ import { VIDEOS } from "./videos";
 import { Video } from "./Video";
 import { ALT, DURACAO_TOTAL, FPS as FPS_5S, LARG, Projeto5S } from "./cinco-s/Projeto5S";
 import * as Inv from "./inventario3d/Inventario3D";
+import * as Bia from "./bianca/SiteBianca";
 
 export const Root: React.FC = () => (
   <>
@@ -13,6 +14,7 @@ export const Root: React.FC = () => (
     ))}
     <Composition id="Inventario3D" component={Inv.Inventario3D} durationInFrames={Inv.DURACAO_TOTAL} fps={Inv.FPS} width={Inv.LARG} height={Inv.ALT} />
     <Composition id="Inventario3D-16x9" component={Inv.Inventario3DH} durationInFrames={Inv.DURACAO_TOTAL} fps={Inv.FPS} width={Inv.LARG_H} height={Inv.ALT_H} />
+    <Composition id="SiteBianca" component={Bia.SiteBianca} durationInFrames={Bia.DURACAO} fps={Bia.FPS} width={Bia.LARG} height={Bia.ALT} />
     <Composition id="Projeto5S" component={Projeto5S} durationInFrames={DURACAO_TOTAL} fps={FPS_5S} width={LARG} height={ALT} />
   </>
 );
